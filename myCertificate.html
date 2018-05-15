@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的证照</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link type="text/css" rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/jqpagination.css" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public.js"></script>
+		<script src="js/jquery.jqpagination.min.js"></script>
+		<style>
+			body {
+				background-color: #fff;
+			}
+			
+			.mui-input-group .mui-input-row {
+				height: 50px;
+				padding-top: 5px;
+				background-color: #f2f2f2;
+			}
+			
+			#btn {
+				display: block;
+				width: 30%;
+				background: parent;
+				color: #000;
+				margin: 50px auto;
+				border: 1px solid #ccc;
+			}
+			
+			.mui-input-group:before {
+				height: 0;
+			}
+			
+			.mui-input-group:after {
+				background-color: #fff;
+			}
+			
+			.pagination {
+				margin: 10px 0;
+				width: 300px !important;
+			}
+			
+			.pagination a {
+				display: inline-block;
+				width: 15%;
+				height: 30px;
+				line-height: 30px;
+				color: #007AFF;
+			}
+			
+			.mui-input-group .mui-input-row {
+				height: 50px;
+				padding-top: 5px;
+			}
+			
+			#btn {
+				display: block;
+				width: 80%;
+				color: #fff;
+				margin: 50px auto;
+				border: 1px solid #ff6600;
+				background-color: #ff6600;
+				padding: 10px;
+				border-radius: 3px;
+				font-size: 16px;
+			}
+			
+			.mui-input-row label {
+				width: 28% !important;
+			}
+			
+			.mui-input-row span {
+				width: 72% !important;
+				font-size: 0.9rem;
+				text-overflow: ellipsis;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的证照</h1>
+		</header>
+
+		<div class="mui-content" style="margin-top:40px">
+
+			<!--<div class="banner"><img src="images/banner.jpg"></div>-->
+			<div id="appointment_list" class="mui-input-group" style="margin-top: -40px;">
+
+			</div>
+
+		</div>
+
+		<script>
+				if(GetQueryString("isback")!=1){
+				$("#back").hide();
+			}
+			
+			
+			var idCard;
+			if(isLogin()) {
+
+				if(!isAuth()) {
+					if(isPerson()) {
+						location.href = 'auth_person.html';
+					} else if(isEnterprise()) {
+						location.href = 'auth_enterprise.html';
+					}
+				}
+			} else {
+				location.href = 'login.html';
+			}
+
+			if(isPerson()) {
+				idCard = getUser().idCard;
+			} else {
+				idCard = getUser().creditCode;
+			}
+			//			alert(idCard)
+			$.ajax({
+				type: "post",
+				url: API_HOST + "/zzy.json",
+				data: {
+					"keyword": idCard
+              // "keyword":"642103197103072910"
+				},
+				//          headers: {
+				//					'session': cookie.get("session")
+				//				},
+				success: function(response) {
+
+					console.log(response)
+					var str = "";
+					var data = response.data;
+					if(response.data == null) {
+						$("#appointment_list").html("<h2 style='text-align: center;margin-top:50px'>没有数据</h2>")
+					} else {
+						for(var i = 0; i < data.length; i++) {
+							str += '<div class="appointment_item" style="margin-bottom:10px;">';
+							str += '<div class="mui-input-row">';
+							if(isPerson()) {
+								str += '<label>个人名称</label>';
+							} else {
+								str += '<label>企业名称</label>';
+							}
+
+							str += '<span class="trans_name" style="line-height: 40px;">' + data[i].applicant + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							if(isPerson()) {
+								str += '<label>身份证号:</label>';
+							} else {
+								str += '<label>统一信用代码:</label>';
+							}
+							str += '<span class="group" style="line-height: 40px;">' + data[i].idCard + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>证照名称:</label>';
+							str += '<span class="Name" style="line-height: 40px;">' + data[i].name + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>发证日期:</label>';
+							str += '<span class="date" style="line-height: 40px;">' + data[i].createDate + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row" style="line-height:40px">';
+							str += '<label>操作:</label>';
+							str += '<a href="myCertificate_detail.html?id=' + data[i].id + '" class="hold" style="display:inline-block;width:20%;background-color:red;text-align:center;border-radius:5px;height:30px;line-height:30px;color:#fff">查看</a>';
+							str += '</div>';
+							str += '</div>';
+							$("#appointment_list").append(str);
+
+						}
+					}
+				}
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>公司介绍</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/anim.css" rel="stylesheet" />
+		<link href="css/zjcs.css" rel="stylesheet" />
+		<style>
+			.mui-collapse-content img {
+				max-width: 100%;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script src="js/public.js"></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+			mui(document.body).on('tap', '.mui-btn', function(e) {
+				mui(this).button('loading');
+				setTimeout(function() {
+					mui(this).button('reset');
+				}.bind(this), 2000);
+			});
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<!--<h1 id="company" class="mui-title">宁夏江河生态环境工程有限公司</h1>-->
+		</header>
+		<div class="mui-content">
+			<h1 id="company" class="mui-title">宁夏江河生态环境工程有限公司</h1>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-collapse mui-active">
+					<a class="mui-navigate-right" href="#">公司简介</a>
+					<div class="mui-collapse-content">
+						<!--<p class="MsoNormal"><span></span></p>-->
+						<p id="companyInfo" class="MsoNormal"><span></span></p>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">服务信息</a>
+					<div class="mui-collapse-content">
+						<table class="custom full-w mt10">
+							<tbody>
+								<tr>
+									<th>法定代表人：</th>
+									<td id="boss"></td>
+								</tr>
+								<tr>
+									<th>联系电话：</th>
+									<td id="phone"></td>
+								</tr>
+								<tr>
+									<th>中介服务机构性质：</th>
+									<td id="companyType"></td>
+								</tr>
+								<tr>
+									<th>中介服务事项名称：</th>
+									<td id="companyTrans"></td>
+								</tr>
+								<tr>
+									<th>涉及的审批事项项目名称：</th>
+									<td id="companyTransItem"></td>
+								</tr>
+								<tr>
+									<th>审批单位：</th>
+									<td id="approvalUnit"></td>
+								</tr>
+								<tr>
+									<th>中介服务设定依据：</th>
+									<td id="statutoryBasis"></td>
+								</tr>
+								<tr>
+									<th>中介服务机构住所地址：</th>
+									<td id="companyAddress"></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+		<script>
+			var approvalUnit = $("#approvalUnit");
+			var boss = $("#boss");
+			var company = $("#company");
+			var companyAddress = $("#companyAddress");
+			var companyInfo = $("#companyInfo");
+			var companyTrans = $("#companyTrans");
+			var companyType = $("#companyType");
+			var phone = $("#phone");
+			var statutoryBasis = $("#statutoryBasis");
+
+
+
+
+			$.get(API_HOST + "/medi/find.json", {
+				id: GetQueryString("id")
+			}, function(response) {
+				console.log(response);
+				if(response.success) {
+					var data = response.data;
+					approvalUnit.text(data.approvalUnit);
+					boss.text(data.boss);
+					company.text(data.company);
+					companyAddress.text(data.companyAddress);
+					companyTrans.text(data.companyTrans);
+					var companyInfo1 = data.companyInfo;
+					companyInfo1 = companyInfo1.replace(/img src=\"/g, "img src=\"http://ycsmdt.gov.cn/");
+					companyInfo.html(companyInfo1);
+					companyType.text(data.companyType);
+					phone.text(data.phone);
+					statutoryBasis.text(data.statutoryBasis);
+				}
+			})
+		</script>
+
+	</body>
+
+</html>

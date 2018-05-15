@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>搜索</title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="css/icons-extra.css" rel="stylesheet"/>
+    <link href="css/search.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+
+    <style>
+        #hot_article {
+            font-size: 14px;
+            line-height: 1.5;
+
+        }
+
+        #hot_article li {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        #hot_article li a {
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #fff;">
+<!--<header class="mui-bar mui-bar-nav zxsb-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">
+    <div class="mui-input-row mui-search">
+        <input type="search" class="mui-input-clear" placeholder="I'm search for...">
+        <input class="bg" type="button" value="搜索" />
+    </div>
+</h1>
+</header>-->
+<div class="mui-content" style="margin-bottom: 40px;">
+    <div class="mui-content-padded">
+        <div class="mui-input-row mui-search">
+            <input type="search" class="mui-input-clear" placeholder="我要搜索..." id="search">
+            <input class="bg" type="button" value="搜索" onclick="searchB();"/>
+        </div>
+        <div class="search_ttl" style="border-bottom: none;"><span class="mui-icon-extra mui-icon-extra-new"></span>热门搜索
+        </div>
+        <ul class="search-ul mui-clearfix">
+            <li><a href="searchDetail.html?keyword=医疗器械">医疗器械</a></li>
+            <li><a href="searchDetail.html?keyword=药品">药品</a></li>
+            <li><a href="searchDetail.html?keyword=畜禽">畜禽</a></li>
+            <li><a href="searchDetail.html?keyword=卫生">卫生</a></li>
+            <li><a href="searchDetail.html?keyword=养老">养老</a></li>
+
+        </ul>
+        <div class="search_ttl" style="border-bottom: none;margin-top:50px"><span
+                class="mui-icon-extra mui-icon-extra-new"></span>热门文章
+        </div>
+        <ul id="hot_article">
+
+        </ul>
+    </div>
+</div>
+
+
+<script>
+    mui('footer').on('tap', 'a', function () {
+        window.location.href = this.href;
+    });
+
+    //搜索
+    function searchB() {
+        var search = $("#search").val();
+        if ($.trim(search) == "") {
+            mui.alert("请输入搜索内容！");
+            return;
+        }
+        //cookie.set("keyword",search);
+        location.href = "searchDetail.html?keyword=" + search;
+    }
+
+
+    $.getJSON(API_HOST + "/content.json", {
+        cid: 10000,
+        rows: 5,
+        gid: 0,
+        page: 1
+    }, function (response) {
+        if (response.success) {
+
+            var res = response.data.list;
+            console.log(res)
+            for (var i = 0; i < res.length; i++) {
+
+                $("#hot_article").append("<li> <span class='mui-icon-extra mui-icon-extra-new' style='color:orange; '></span> <a href='zwgk_detail.html?id=" + res[i].id + "'>" + res[i].title + "</a> </li>")
+            }
+
+        }
+    })
+</script>
+
+</body>
+
+</html>

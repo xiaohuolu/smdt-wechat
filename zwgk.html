@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>政务公开</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/icons-extra.css"/>
+    <link rel="stylesheet" type="text/css" href="css/app.css"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/public.js"></script>
+</head>
+
+<body>
+<style>
+    .mui-control-content {
+        background-color: #fff;
+        min-height: 258px;
+    }
+
+    .mui-table h4,
+    .mui-table h5,
+    .mui-table .mui-h5,
+    .mui-table .mui-h6,
+    .mui-table p {
+        margin-top: 0;
+    }
+
+    .mui-table h4 {
+        line-height: 21px;
+        font-weight: 500;
+    }
+
+    .mui-table .oa-icon {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    .mui-table .oa-icon-star-filled {
+        color: #f14e41;
+    }
+
+    .mui-slider .mui-slider-group .mui-slider-item,
+    .mui-table {
+        font-size: 16px;
+    }
+
+    .mui-table-view:after {
+        height: 0;
+    }
+
+    .mui-segmented-control-inverted .mui-control-item {
+        line-height: 1.5;
+    }
+
+    .mui-slider-indicator .mui-icon {
+        font-size: 24px;
+    }
+
+    .mui-slider .mui-segmented-control.mui-segmented-control-inverted ~ .mui-slider-group .mui-slider-item {
+        border-bottom: none;
+    }
+
+    .mui-table-view-cell:after {
+        background-color: #fff;
+    }
+</style>
+
+<!--<header class="mui-bar mui-bar-nav">
+    <a class="mui-icon mui-action-back mui-icon-left-nav mui-pull-left" href="#offCanvasSide"></a>
+    <h1 class="bg mui-title">政务公开</h1>
+</header>-->
+
+<div class="mui-content">
+
+    <div class="mui-segmented-control">
+        <a class="mui-control-item mui-active" href="#item4">大厅动态</a>
+        <a class="mui-control-item" href="#item5">党建风采</a>
+        <a class="mui-control-item" href="#item6">政务要闻</a>
+    </div>
+    <div>
+        <!--大厅动态开始-->
+        <div id="item4" class="mui-control-content mui-active">
+            <ul id="zwgk_dtdt" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                <li class="mui-table-view-cell">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                            <a href="zwgk_list.html" data-title="大厅动态" class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <!--大厅动态结束-->
+        <!--党建风采开始-->
+        <div id="item5" class="mui-control-content">
+            <ul id="zwgk_djfc" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                <li class="mui-table-view-cell">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                            <a href="zwgk_list.html"  data-title="党建风采" class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <!--党建风采结束-->
+        <!--政务要闻开始-->
+        <div id="item6" class="mui-control-content">
+            <ul id="zwgk_zwyw" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                <li class="mui-table-view-cell">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                            <a href="zwgk_list.html"  data-title="政务要闻" class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <!--政务要闻结束-->
+    </div>
+
+
+    <!--政策解读、法规制度开始-->
+    <div class="mui-slider">
+        <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+            <a class="mui-control-item mui-active" href="#item1mobile">
+                <div><i style="border: none;" class="mui-icon mui-icon-extra mui-icon-extra-xiaoshuo"></i></div>
+                政策解读</a>
+            <a class="mui-control-item" href="#item2mobile">
+                <div><i style="border: none;font-size: 20px;"
+                        class="mui-icon mui-icon-extra mui-icon-extra-dictionary"></i></div>
+                法规制度</a>
+            <a class="mui-control-item" href="#item3mobile">
+                <div><i style="border: none;" class="mui-icon mui-icon-extra mui-icon-extra-custom"></i></div>
+                公告公示</a>
+            <a class="mui-control-item" href="#item4mobile">
+                <div><i style="border: none;" class="mui-icon mui-icon-extra mui-icon-extra-notice"></i></div>
+                通知公告</a>
+        </div>
+        <div class="mui-slider-progress-bar mui-col-xs-3"></div>
+        <div class="mui-slider-group">
+            <!--政策解读开始-->
+            <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                <ul id="zwgk_zcjd" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                    <li class="mui-table-view-cell">
+                        <div class="mui-table">
+                            <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                                <a href="zwgk_list.html"  data-title="政策解读" class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                            </div>
+                            <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--政策解读结束-->
+            <!--法规制度开始-->
+            <div id="item2mobile" class="mui-slider-item mui-control-content">
+                <ul id="zwgk_fgzd" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                    <li class="mui-table-view-cell">
+                        <div class="mui-table">
+                            <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                                <a href="zwgk_list.html"  data-title="法规制度" class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                            </div>
+                            <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--法规制度结束-->
+            <!--公告公示开始-->
+            <div id="item3mobile" class="mui-slider-item mui-control-content">
+                <ul id="zwgk_gggs" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                    <li class="mui-table-view-cell">
+                        <div class="mui-table">
+                            <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                                <a href="zwgk_list.html"  data-title="公告公示" class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                            </div>
+                            <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--公告公示结束-->
+            <!--通知公告开始-->
+            <div id="item4mobile" class="mui-slider-item mui-control-content">
+                <ul id="zwgk_tzgg" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                    <li class="mui-table-view-cell">
+                        <div class="mui-table">
+                            <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                                <a href="zwgk_list.html"  data-title="通知公告"  class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                            </div>
+                            <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <!--通知公告结束-->
+        </div>
+    </div>
+    <!--政策解读、法规制度结束-->
+    <!--部门公开、权力清单、责任清单开始-->
+    <div class="mui-segmented-control">
+        <a class="mui-control-item mui-active" href="#item1">部门公开</a>
+        <a class="mui-control-item" href="#item2">权力和责任清单</a>
+        <!--<a class="mui-control-item" href="#item3">责任清单</a>-->
+    </div>
+    <div>
+        <!--部门公开开始-->
+        <div id="item1" class="mui-control-content mui-active">
+            <ul id="zwgk_bmgk" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                <li class="mui-table-view-cell">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                            <a href="zwgk_list.html"  data-title="部门公开"  class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <!--部门公开结束-->
+        <!--权力清单开始-->
+        <div id="item2" class="mui-control-content">
+            <ul id="zwgk_qlqd" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                <li class="mui-table-view-cell">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                            <a href="zwgk_list.html"  data-title="权力和责任清单"  class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <!--权力清单结束-->
+        <!--责任清单开始-->
+        <!--<div id="item3" class="mui-control-content">
+            <ul id="zwgk_zrqd" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                <li class="mui-table-view-cell">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-5 mui-ellipsis" style="text-align:center;">
+                            <a href="zwgk_list.html" class="more" style="margin-left:50%;color:#4d6bcd;">查看更多>></a>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>-->
+        <!--责任清单结束-->
+    </div>
+    <!--部门公开、权力清单、责任清单结束-->
+
+</div>
+
+<script type="text/javascript">
+
+    function getList(cid, row, id) {
+        $.getJSON(API_HOST + "/content.json", {
+            cid: cid,
+            rows: row,
+            gid: 0,
+            page: 1
+        }, function (json) {
+            console.log(json)
+
+            if (json.success) {
+
+                var rows = json.data.list;
+                var wrap = $("#" + id);
+
+                var title=wrap.find(".more").attr("data-title");
+                wrap.find(".more").attr("href", "zwgk_list.html?cid=" + cid + "&title="+title+"");
+
+                if (rows.length < 5 &&rows.length>1) {
+                    wrap.find(".more").css("display", "none");
+                }
+                if (rows.length == 0) {
+                    wrap.append("<h2 style='text-align:center'>没有数据</h2>")
+                }
+
+
+
+                for (var i = 0; i < rows.length; i++) {
+                    var row = rows[i];
+                    var space = row.create_time.indexOf(" ");
+                    var create_time = row.create_time.substr(0, space);
+//var create_time=row.create_time.substring(0,10);
+                    wrap.prepend(' <li class="mui-table-view-cell"><div class="mui-table"><div class="mui-table-cell mui-col-xs-5 mui-ellipsis"><a href="zwgk_detail.html?id=' + row.id + '">' + row.title + '</a></div><div class="mui-table-cell mui-col-xs-2 mui-text-right"><span class="mui-h5">' + create_time + '</span></div></div></li>')
+                }
+            } else {
+                alert("请求失败，请刷新页面!")
+            }
+        });
+    };
+
+
+    getList(10000, 5, "zwgk_dtdt");
+    getList(10001, 5, "zwgk_djfc");
+    getList(10003, 5, "zwgk_zwyw");
+    getList(10002, 5, "zwgk_zcjd");
+    getList(10006, 5, "zwgk_fgzd");
+    getList(10007, 5, "zwgk_bmgk");
+    //			getList(10008, 5, "zwgk_qlqd")
+    //			getList(10009, 5, "zwgk_zrqd")
+    getList(10004, 5, "zwgk_gggs");
+    getList(10005, 5, "zwgk_tzgg");
+
+
+
+    $.get(API_HOST+"/files/powerAndDuty.json",{rows:5,page:1},function (res) {
+        if(res.success){
+            console.log(res)
+            var data=res.data.list;
+            for(var i=0;i<data.length;i++){
+                var space = data[i].create_time.indexOf(" ");
+                var create_time = data[i].create_time.substr(0, space);
+                $("#zwgk_qlqd").prepend(' <li class="mui-table-view-cell"><div class="mui-table"><div class="mui-table-cell mui-col-xs-5 mui-ellipsis"><a href="download.html?uuid='+data[i].uuid+'&title='+data[i].name+'">' + data[i].name + '</a></div><div class="mui-table-cell mui-col-xs-2 mui-text-right"><span class="mui-h5">' + create_time + '</span></div></div></li>')
+            }
+        }
+    })
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>办事指南</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+
+    <script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/public.js"></script>
+
+    <style>
+
+        .textarea {
+            height: 125px;
+            background-color: #fff;
+        }
+
+        .textarea label {
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+            line-height: 1.1;
+            float: left;
+            width: 35%;
+            padding: 11px 15px;
+        }
+
+        .textarea textarea {
+            float: right;
+            width: 65%;
+            margin-bottom: 0;
+            padding-left: 0;
+            border: 0;
+            border-radius: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        #item_name {
+            width: 100%;
+            margin-top: 10px;
+            background: #fff;
+            line-height: 1.5;
+
+        }
+
+        #item_name li {
+            border-bottom: 1px solid #eee;
+            padding: 10px 15px;
+        }
+
+        #search_icon {
+            position: relative;
+        }
+
+        .search_input {
+            position: absolute;
+            left: 90%;
+            top: 2px;
+            transition: .5s;
+            opacity: 0;
+        }
+
+        /*header  搜索*/
+
+        .mui-bar{
+            height: 44px;
+            padding-right: 10px;
+            padding-left: 10px;
+            border-bottom: 0;
+            background-color: #ff521e;
+            position:static !important;
+        }
+        .mui-content{
+            padding-top:0 !important;
+        }
+        .mui-bar-nav{
+            position:static !important;
+        }
+    </style>
+</head>
+
+<body>
+
+<script src="js/mui.min.js"></script>
+<script type="text/javascript">
+    mui.init()
+</script>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">办事指南</h1>
+    <i class="mui-icon mui-icon-search" style="float:right" id="search_icon"></i>
+    <input type="text" style="width:1px" placeholder="输入搜索内容" class="search_input"/>
+</header>
+<div class="mui-content">
+    <div class="banner"><img src="images/banner.jpg"></div>
+    <div>
+
+        <form class="mui-input-group">
+
+            <div class="mui-input-row">
+                <label>事项单位</label>
+                <select id="yydw" name="gid" class="gid">
+                </select>
+                <span style="position: absolute;left:80%;line-height: 40px;color:#999"
+                      class="mui-icon mui-icon mui-icon-arrowdown"></span>
+            </div>
+
+            <div class="mui-input-row" id="yybm">
+                <label>事项部门</label>
+                <select id="classify" name="classify" class="classify">
+                </select>
+                <span style="position: absolute;left:80%;line-height: 40px;color:#999"
+                      class="mui-icon mui-icon mui-icon-arrowdown"></span>
+            </div>
+
+        </form>
+        <!--<div style="margin-top: 10px;">
+            <a id="btn" href=""><button style="background:#fff;margin-left:5%; width: 90% ;" type="button" class="mui-btn mui-btn-danger mui-btn-block mui-btn-outlined">提交咨询</button></a>
+
+        </div>-->
+        <ul id="item_name">
+
+        </ul>
+    </div>
+    <script>
+
+        var item_name = $("#item_name");
+        //搜索
+
+        $(".search_input").bind("input", function () {
+            if ($(".search_input").val() == "") {
+                yybm()
+
+            }
+        });
+        $("#search_icon").click(function () {
+            $(".search_input").css({
+                "opacity": "1",
+                "left": "15%",
+                "width":"70%"
+            });
+
+            var keyword = $(".search_input").val();
+            if ($.trim($(".search_input").val()) != "") {
+                $.getJSON(API_HOST + "/search.json", {
+                    "type": 1,
+                    "keyword": keyword,
+                    "rows": 10000
+                }, function (response) {
+                    console.log(response)
+                    if (response.success) {
+                        var data = response.data.list;
+                        item_name.empty();
+
+
+
+                        if (data.length == 0) {
+                            item_name.append("<li> <h2 style='margin-top:30%;text-align: center;'>没有数据</h2></li>");
+                        } else {
+                            for (var i = 0; i < data.length; i++) {
+                                if(data[i].remote==1){
+                                    $("#item_name").append("<li><a href='transInfo.html?id=" + data[i].id + "&gid=" + data[i].handleSubject + "'>" + data[i].itemName + "</a></li>")
+
+                                }else{
+                                    $("#item_name").append("<li><a href='transDetail.html?id=" + data[i].id + "&gid=" + data[i].handleSubject + "'>" + data[i].itemName + "</a></li>")
+
+                                }
+
+                            }
+
+                        }
+
+                    } else {
+                        alert("没有查询结果")
+                    }
+
+                })
+            }
+        });
+        // if (!isLogin()) {
+        //     location.href = "login.html";
+        // }
+        var yydw = $("#yydw");
+        var title = $("#title");
+        var text = $("#text");
+        var btn = $("#btn");
+        $.ajax({
+            url: API_HOST + '/government.json',
+            method: 'get',
+            data: {openTrans: 1},
+            success: function (response) {
+//						console.log(response);
+                var data = response.data;
+                for (var i = 0; i < data.length; i++) {
+//							if(data[i].openAppointment==1){
+                    yydw.append('<option value="' + data[i].id + '" data-tag="' + data[i].tag + '">' + data[i].name + '</option>')
+//							}
+                }
+                yybm();
+            }
+        })
+        $("#yydw").change(function () {
+            yybm();
+        })
+        $("#yybm").change(function () {
+            var yybm_tag = $("#classify").find("option:selected").attr("data-tag");
+            var yybm_gid = $("#classify").find("option:selected").attr("data-gid");
+            searchItem(yybm_tag, yybm_gid);
+        })
+
+        function yybm() {
+            var yydw_tag = $("#yydw option:selected").attr("data-tag");
+            if (yydw_tag != 0) {
+                $.get(API_HOST + "/trans/tag.json", {
+                    gid: $("#yydw").val()
+                }, function (response) {
+//                         console.log(response)
+                    $("#yybm").show();
+                    $("#classify").empty();
+                    //							console.log(response);
+                    if (response.success) {
+                        var data = response.data;
+                        for (var i = 0; i < data.length; i++) {
+                            $("#classify").append('<option class="mui-office" data-tag="' + data[i].id + '" data-gid=' + data[i].gid + '>' + data[i].name + '</option>');
+                        }
+                        var yybm_tag = $("#classify").find("option:selected").attr("data-tag");
+                        var yybm_gid = $("#classify").find("option:selected").attr("data-gid");
+
+                        searchItem(yybm_tag, yybm_gid);
+                    }
+                })
+            } else {
+                $("#yybm").hide();
+                var yybm_gid = $("#yydw").find("option:selected").val();
+
+                searchItem("", yybm_gid)
+            }
+        }
+
+        function searchItem(tag, yybm_gid) {
+            $.get(API_HOST + "/trans/lists.json", {
+                gid: $("#yydw").val(),
+                tag: tag,
+                rows: 10000,
+            }, function (response) {
+//													console.log(response)
+                var data = response.data.list;
+                $("#item_name").empty();
+                for (var i = 0; i < data.length; i++) {
+//								  data[i].id :01a1ccda8f1640e5887c8cdd081b24dc
+//                                 yybm_gid:5000
+                    if(data[i].remote==1){
+                        $("#item_name").append("<li><a href='transInfo.html?id=" + data[i].id + "&gid=" + yybm_gid + "'>" + data[i].itemName + "</a></li>")
+                    }else{
+                        $("#item_name").append("<li><a href='transDetail.html?id=" + data[i].id + "&gid=" + yybm_gid + "'>" + data[i].itemName + "</a></li>")
+                    }
+
+                }
+                if ($("#item_name").children().length == 0) {
+                    $("#item_name").append("<h2 style='margin:10% 0;text-align: center;background:rgb(242,242,242)'>没有事项</h2>")
+                }
+            })
+        }
+    </script>
+
+</body>
+
+</html>

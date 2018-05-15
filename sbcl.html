@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>申报材料</title>
+    <script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/zxsb.css"/>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title" id="itemName"></h1>
+
+    <style type="text/css">
+        .index-tc {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 500px;
+            display: none;
+            z-index: 9999;
+            margin: -250px 0 0 -40%;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(0, 0, 0, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .popup_ttl {
+            padding: 20px;
+            border-radius: 5px 5px 0 0;
+            line-height: 12px;
+            font-size: 18px;
+            color: #fff;
+            text-align: left;
+            background-color: #e60012;
+        }
+
+        .popup_txt {
+            background-color: #fff;
+            text-align: left;
+            padding: 25px;
+            font-size: 16px;
+            height: 448px;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+        }
+
+        .index-close {
+            position: absolute;
+            right: 5px;
+            top: -5px;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 35px;
+        }
+
+        .index-close a {
+            color: #fff !important;
+        }
+
+        .mask-index {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            opacity: .7;
+            z-index: 9998;
+            display: none;
+        }
+
+        .bszn_tab td {
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+
+        .mui-show-loading {
+            position: fixed;
+            padding: 5px;
+            width: 120px;
+            min-height: 120px;
+            top: 45%;
+            left: 50%;
+            margin-left: -60px;
+            background: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            border-radius: 5px;
+            color: #FFFFFF;
+            visibility: hidden;
+            margin: 0;
+            z-index: 2000;
+
+            -webkit-transition-duration: .2s;
+            transition-duration: .2s;
+            opacity: 0;
+            -webkit-transform: scale(0.9) translate(-50%, -50%);
+            transform: scale(0.9) translate(-50%, -50%);
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+        .mui-show-loading.loading-visible {
+            opacity: 1;
+            visibility: visible;
+            -webkit-transform: scale(1) translate(-50%, -50%);
+            transform: scale(1) translate(-50%, -50%);
+        }
+        .mui-show-loading .mui-spinner{
+            margin-top: 24px;
+            width: 36px;
+            height: 36px;
+        }
+        .mui-show-loading .text {
+            line-height: 1.6;
+            font-family: -apple-system-font,"Helvetica Neue",sans-serif;
+            font-size: 14px;
+            margin: 10px 0 0;
+            color: #fff;
+        }
+
+        .mui-show-loading-mask {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
+        .mui-show-loading-mask-hidden{
+            display: none !important;
+        }
+    </style>
+</header>
+<div class="mui-content">
+    <form action="" method="post" id="accept">
+        <!--隐藏域-->
+        <!--<input type="text" name="id" id="" value="12"  style="display: none;"/>-->
+        <input type="text" name="trans.id" id="transId" value="" style="display: none;"/>
+        <input type="text" name="applyPerson.applicationName" id="applicationName" value="" style="display: none;"/>
+        <input type="text" name="applicationDocumentType" id="applicationDocumentType" value="" style="display: none;"/>
+        <input type="text" name="applyPerson.applicationDocumentNumber" id="applicationDocumentNumber" value=""
+               style="display: none;"/>
+        <input type="text" name="applyPerson.applicationPhone" id="applicationPhone" value="" style="display: none;"/>
+        <input type="text" name="applyPerson.applicationPostCode" id="applicationPostCode" value=""
+               style="display: none;"/>
+        <input type="text" name="applyPerson.applicationAddress" id="applicationAddress" value=""
+               style="display: none;"/>
+        <input type="text" name="applySource" value="1" style="display: none;"/>
+        <!--<div class="banner"><img src="images/banner.jpg"></div>-->
+        <div class="mui-content-padded clearfix">
+            <table class="bszn_tab custom">
+                <thead>
+                <tr>
+                    <th>材料名称</th>
+                    <th>材料上传</th>
+                </tr>
+                </thead>
+                <tbody id="content">
+                </tbody>
+            </table>
+            <ul style="margin:auto" class="mui-clearfix yema">
+                <li style="width:6rem;text-align:center;" class="next">
+                    <a href="jbxx.html" id="previous">上一步</a>
+                </li>
+                <li style="width:6rem;text-align:center;" class="next">
+                    <a id="btn" href="javaScript:void(0);" onclick="tijiao();">提交</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+<form method="post" enctype="multipart/form-data" id="uploadForm" style="display:none;">
+    <input type="text" name="idCard" id="idCard"/>
+    <input type="text" name="userType" id="userType"/>
+    <input type="text" name="materialId" id="materialId"/>
+    <input type="file" name="file"/>
+</form>
+
+<!-- 弹窗 -->
+<div class="index-tc" id="popule">
+    <div class="index-close">
+        <a href="javascript:void(0)"
+           onclick="document.getElementById('popule').style.display='none';document.getElementById('fade').style.display='none'">×</a>
+    </div>
+    <div class="popup_ttl">已上传材料列表</div>
+    <div class="popup_txt">
+        <table class="bszn_tab custom">
+            <thead>
+            <tr>
+                <th width="60%" style="text-align: center;">附件名称</th>
+                <th width="40%" style="text-align: center;">操作</th>
+            </tr>
+            </thead>
+            <tbody id="fujian">
+            <tr>
+                <td>dfsfsdfs</td>
+                <td>dfsfsdfs</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mask-index" id="fade"></div>
+<!-- 弹窗 -->
+
+<script type="text/javascript">
+    //扩展mui.showLoading
+    (function($, window) {
+        //显示加载框
+        $.showLoading = function(message,type) {
+            if ($.os.plus && type !== 'div') {
+                $.plusReady(function() {
+                    plus.nativeUI.showWaiting(message);
+                });
+            } else {
+                var html = '';
+                html += '<i class="mui-spinner mui-spinner-white"></i>';
+                html += '<p class="text">' + (message || "数据加载中") + '</p>';
+
+                //遮罩层
+                var mask=document.getElementsByClassName("mui-show-loading-mask");
+                if(mask.length==0){
+                    mask = document.createElement('div');
+                    mask.classList.add("mui-show-loading-mask");
+                    document.body.appendChild(mask);
+                    mask.addEventListener("touchmove", function(e){e.stopPropagation();e.preventDefault();});
+                }else{
+                    mask[0].classList.remove("mui-show-loading-mask-hidden");
+                }
+                //加载框
+                var toast=document.getElementsByClassName("mui-show-loading");
+                if(toast.length==0){
+                    toast = document.createElement('div');
+                    toast.classList.add("mui-show-loading");
+                    toast.classList.add('loading-visible');
+                    document.body.appendChild(toast);
+                    toast.innerHTML = html;
+                    toast.addEventListener("touchmove", function(e){e.stopPropagation();e.preventDefault();});
+                }else{
+                    toast[0].innerHTML = html;
+                    toast[0].classList.add("loading-visible");
+                }
+            }
+        };
+
+        //隐藏加载框
+        $.hideLoading = function(callback) {
+            if ($.os.plus) {
+                $.plusReady(function() {
+                    plus.nativeUI.closeWaiting();
+                });
+            }
+            var mask=document.getElementsByClassName("mui-show-loading-mask");
+            var toast=document.getElementsByClassName("mui-show-loading");
+            if(mask.length>0){
+                mask[0].classList.add("mui-show-loading-mask-hidden");
+            }
+            if(toast.length>0){
+                toast[0].classList.remove("loading-visible");
+                callback && callback();
+            }
+        }
+    })(mui, window);
+
+    var user = getUser();
+    var idCard = "";
+    if (!isLogin()) {
+        location.href = "login.html";
+    } else {
+        if (!isAuth()) {
+            if (isPerson()) {
+                location.href = "auth_person.html";
+            } else {
+                location.href = "auth_enterprise.html";
+            }
+        } else {
+            if (isPerson()) {
+                idCard = user.idCard;
+            } else {
+                idCard = user.creditCode;
+            }
+        }
+    }
+    var id = GetQueryString("id");
+    $("#transId").val(id);
+    var gid = GetQueryString("gid");
+
+    $("#idCard").val(idCard);
+    var userType = 2;
+    if (isPerson()) {
+        userType = 1;
+    }
+    $("#userType").val(userType);
+    $("#applicationDocumentType").val(userType);
+    $("#applicationName").val(user.username);
+    $("#applicationDocumentNumber").val(idCard);
+    // $("#applicationDocumentNumber").val("640103199311190036");
+    // $("#applicationDocumentNumber").val("640302199210082729");
+    // $("#applicationDocumentNumber").val("640103199311190038");
+    $("#applicationPhone").val(user.phone);
+    $("#applicationPostCode").val(user.post_code);
+    $("#applicationAddress").val(user.post_address);
+
+    var materialIds = "";
+    $.ajaxSetup({
+        async: false
+    });
+    $("#previous").attr("href","jbxx.html?id=" + id + "&gid=" + gid);
+    $.get(API_HOST + "/trans/find.json", {
+        id: id,
+        gid: gid
+    }, function (response) {
+        console.log(response);
+        if (response.success) {
+            var data = response.data;
+            materialIds = data.materialIds;
+            $("#itemName").text(data.transName);
+
+        }
+    });
+    var user = getUser();
+    var hasUpload = "";
+
+    $.post(API_HOST + "/trans/lists_user_material_item.json", {
+        idCard: idCard,
+        userType: userType,
+        ids: materialIds
+    },
+        function (response) {
+
+        // console.log(response);
+        if (response.success) {
+            hasUpload = response.data;
+        }
+    });
+
+    $.get(API_HOST + "/trans/material_lists_by_Ids.json", {
+        ids: materialIds
+    }, function (response) {
+        if (response.success) {
+            var data = response.data;
+            console.log(data);
+            var len = data.length;
+
+            for (var i = 0; i < len; i++) {
+                var str = "";
+                var materialGetId = ""
+
+                var table = "";
+                if(data[i].table){
+                    table =  '<a href="'+API_HOST+'/trans/table.html?id='+data[i].table+'&m='+data[i].id+'&uniqueCode='+idCard+'&userType='+userType+'"   role="button" class="btn btn-primary btn-xs" style="display: inline-block;margin:5px; ">在线填表</a>';
+                }
+                if (hasUpload[i]) {
+                    materialGetId = hasUpload[i].id;
+                    str = '<a href="javascript:void (0);" role="button"  class="btn btn-primary btn-xs" style="display: inline-block;background-color: #e60012;" onclick = "show_material_list(\'' + materialGetId + '\')">查看</a>';
+                }
+                $("#content").append('<tr><td>' + data[i].materialName + '<input style="display: none;" name="materialList[' + i + '][material][id]" value="' + data[i].id + '"/><input style="display: none;" name="materialList[' + i + '][material][name]" value="' + data[i].materialName + '"/>' +
+                    '<input  style="display: none;" name="materialList[' + i + '][materialGetId]" value="' + materialGetId + '" /></td><td align="center"><div class="btn-group upload_material_btn">' +
+                    table+
+                    '<a href="javascript:void (0);"  onclick="upload_material(\'' + data[i].id + '\',this)" role="button" class="btn btn-primary btn-xs" style="display: inline-block;margin:5px;">上传</a>' + str + '</div></td></tr>'
+                );
+
+            }
+        }
+    });
+
+    //已上传列表
+    function show_material_list(mid) {
+        $("#fujian").html('');
+        document.getElementById('popule').style.display = 'block';
+        document.getElementById('fade').style.display = 'block';
+        $.post(API_HOST + "/trans/lists_user_materials.json", {id: mid}, function (response) {
+            console.log(response);
+            if (response.success) {
+                var data = response.data;
+                var str="";
+                for (var i = 0; i < data.length; i++) {
+                    if(data[i].fileAddress){
+                        str="<a href='download.html?type=userMaterialDown&source=1&id="+data[i].id+"&title="+data[i].fileName+"'>下载</a>"
+                    }
+                    $("#fujian").append('<tr id="' + data[i].id + '"><td align="center">' + data[i].fileName + '</td><td align="center">'+str+'&nbsp;&nbsp;<a href="javaScript:void(0);" onclick="del(\'' + data[i].id + '\')">删除</a></td></tr>')
+//							'+SERVER_HOST+'/download.php?type=userMaterialDown&id='+data[i].id+'
+                }
+            }
+        });
+    }
+
+    //删除已上传材料
+    function del(id) {
+        $.post(API_HOST + "/trans/delete_user_material.json", {id: id}, function (response) {
+            // console.log(response);
+            if (response.success) {
+                mui.alert("删除成功！");
+                $("#" + id).remove();
+                window.location.reload();
+            } else {
+                mui.alert("删除失败！");
+            }
+        });
+    }
+
+    var t = "";
+
+    function upload_material(material_id, obj) {
+        $("#materialId").val(material_id);
+        t = obj;
+        $("#uploadForm input[name=file]").click();
+    }
+
+    $("#uploadForm input[name=file]").change(function () {
+        var material_id = $("#idCard").val();
+        // console.log($("#userType").val());
+
+        var formData = new FormData($("#uploadForm")[0]);
+
+        $.ajax({
+            url: API_HOST + "/trans/upload.json",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                // console.log(response);
+
+                //$("#uploadForm input[name=reset]").click();
+                mui.alert(response.msg);
+                if($(t).parent().children("a").length < 2) {
+                    $(t).parent().append('<a href="javascript:void (0);" role="button"  class="btn btn-primary btn-xs" style="display: inline-block;background-color: #e60012;" onclick = "show_material_list(\'' + response.data + '\')">查看</a>')
+                }
+            },
+            error: function (data) {
+                console.error(data.msg)
+            }
+        });
+    });
+
+    //申请提交
+    function tijiao() {
+        var formData = new FormData($("#accept")[0]);
+        $("#btn").attr("disabled","disabled");
+        mui.showLoading("正在加载..","div");
+
+        $.ajax({
+            url: API_HOST + "/trans/accept.json",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                mui.hideLoading();
+                console.log(response);
+
+                mui.alert(response.msg);
+                if (response.success) {
+
+                    location.href = "myItem.html";
+                } else {
+                }
+            },
+            error: function (data) {
+                console.error(data.msg);
+                mui.hideLoading();
+
+            }
+        });
+    }
+</script>
+</body>
+
+</html>

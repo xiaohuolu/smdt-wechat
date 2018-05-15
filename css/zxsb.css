@@ -1,0 +1,143 @@
+body {
+	background-color: #fff;
+}
+.zxsb-nav {
+ 	background-color: #4d6bcd;
+ }
+ .zxsb-nav .mui-title {
+ 	color: #fff;
+ }
+ .zxsb-nav a.mui-action-back.mui-icon.mui-icon-left-nav.mui-pull-left {
+ 	color: #fff;
+ }
+ .text-box {
+ 	border-radius: 5px;
+ 	padding: 10px;
+ 	border: 1px solid #ccc;
+ }
+ .text-ty {
+ 	text-align: center;
+ }
+ .text-ty input {
+ 	vertical-align: middle;
+ }
+ .yema {
+ 	float: right;
+ }
+ .yema li {
+ 	float: left;
+ 	padding: 15px 0 15px 15px;
+ }
+ .yema li a {
+ 	display: block;
+ 	padding: 5px 10px;
+ 	border-radius: 5px;
+ 	line-height: 30px;
+ }
+ .yema .previous a {
+ 	background-color: #ccc;
+ 	color: #fff;
+ }
+ .yema .next a {
+ 	background-color: #ff6600;
+ 	color: #fff;
+ }
+ .mui-input-group {
+ 	background: none;
+ }
+ .mui-input-group:before {
+ 	background: none;
+ }
+ .mui-input-group .mui-input-row:after {
+ 	left: 0;
+ }
+ .p_text {
+ 	padding: 10px 0;
+ 	color: #a9a9a9;
+ 	float: right;
+ 	width: 60%;
+ 	margin-bottom: 0;
+ }
+ .mui-input-row label {
+ 	padding-left: 0;
+ 	padding-right: 0;
+ 	width: 40%;
+ }
+ .mui-input-row label~input {
+ 	width: 60%;
+ 	border: 1px solid #ccc;
+ 	border-radius: 5px;
+ 	background-color: #fff;
+ }
+ .mui-input-group .mui-input-row {
+ 	height: auto;
+ 	padding: 10px 0;
+ }
+ table.custom {
+    border: 0px solid #ddd;
+    border-collapse: separate;
+    border-spacing: 0px;
+    font-size: 13px;
+    color: #555;
+    width: 100%;
+}
+
+/*table.custom > tbody > tr:nth-child(odd) {
+    background: #F5F5F5;
+}*/
+
+table.custom > thead > tr > td,
+table.custom > thead > tr > th,
+table.custom > tbody > tr > td,
+table.custom > tbody > tr > th {
+    line-height: 20px;
+    padding: 8px 5px;
+    font-size: 16px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+table.custom > thead:first-child > tr:first-child {
+    white-space: nowrap;
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top, #ffffff, #f5f5f5);
+    background-image: -ms-linear-gradient(top, #ffffff, #f5f5f5);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f5f5f5));
+    background-image: -webkit-linear-gradient(top, #ffffff, #f5f5f5);
+    background-image: -o-linear-gradient(top, #ffffff, #f5f5f5);
+    background-image: linear-gradient(top, #ffffff, #f5f5f5);
+    background-repeat: repeat-x;
+}
+
+table.custom > thead:first-child > tr:first-child > th,
+table.custom > thead:first-child > tr:first-child > td {
+    border-top: 1px solid #ddd;
+}
+
+table.custom > thead > tr > th:first-child,
+table.custom > thead > tr > td:first-child,
+table.custom > tbody > tr > th:first-child,
+table.custom > tbody > tr > td:first-child {
+    border-left: 1px solid #ddd;
+}
+
+table.custom > thead:first-child > tr:first-child > th:first-child,
+table.custom > thead:first-child > tr:first-child > td:first-child {
+    border-top-left-radius: 4px;
+}
+
+table.custom > thead:first-child > tr:first-child > th:last-child,
+table.custom > thead:first-child > tr:first-child > td:last-child {
+    border-top-right-radius: 4px;
+}
+.btn-primary {
+	padding: 5px 8px;
+	border-radius: 4px;
+	background-color: #FF6600;
+	color: #fff !important;
+}
+.btn-white {
+	padding: 5px 8px;
+	border-radius: 4px;
+	background-color: #fff;
+	color: #333;
+}

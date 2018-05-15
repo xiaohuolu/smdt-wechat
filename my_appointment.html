@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>在线预约</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/public.js"></script>
+    <style>
+        .mui-input-group .mui-input-row {
+            height: 50px;
+            padding-top: 5px;
+        }
+
+        #btn {
+            display: block;
+            width: 80%;
+            color: #fff;
+            margin: 50px auto;
+            border: 1px solid #ff6600;
+            background-color: #ff6600;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+        .mui-show-loading {
+            position: fixed;
+            padding: 5px;
+            width: 120px;
+            min-height: 120px;
+            top: 45%;
+            left: 50%;
+            margin-left: -60px;
+            background: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            border-radius: 5px;
+            color: #FFFFFF;
+            visibility: hidden;
+            margin: 0;
+            z-index: 2000;
+
+            -webkit-transition-duration: .2s;
+            transition-duration: .2s;
+            opacity: 0;
+            -webkit-transform: scale(0.9) translate(-50%, -50%);
+            transform: scale(0.9) translate(-50%, -50%);
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+        .mui-show-loading.loading-visible {
+            opacity: 1;
+            visibility: visible;
+            -webkit-transform: scale(1) translate(-50%, -50%);
+            transform: scale(1) translate(-50%, -50%);
+        }
+        .mui-show-loading .mui-spinner{
+            margin-top: 24px;
+            width: 36px;
+            height: 36px;
+        }
+        .mui-show-loading .text {
+            line-height: 1.6;
+            font-family: -apple-system-font,"Helvetica Neue",sans-serif;
+            font-size: 14px;
+            margin: 10px 0 0;
+            color: #fff;
+        }
+
+        .mui-show-loading-mask {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+        }
+        .mui-show-loading-mask-hidden{
+            display: none !important;
+        }
+        /*#day,#time{
+            background:url(images/timg.jpg) 30% center no-repeat;
+            background-size: 3% 20%;
+        }*/
+    </style>
+    <script type="text/javascript">
+
+        window.onload = function () {
+            mui.plusReady(function () {
+                var self = plus.webview.currentWebview();
+                document.getElementById("realNameTitle").innerHTML = self.title;
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+    mui.init()
+</script>
+<header class="mui-bar mui-bar-nav">
+    <a id="back" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">在线预约</h1>
+</header>
+<div class="mui-content" style="display:none;background-color: #FFFFFF;">
+    <div class="banner"><img src="images/banner.jpg"></div>
+    <!--<p class="warning"><strong style="color: #FF0000;">注：</strong>每个事项每人每天只可预约一次，每人至多可预约5个事项，每个时段发放5个预约</p>-->
+
+    <form class="mui-input-group">
+        <div class="mui-input-row">
+            <label class="name">预约人姓名:</label>
+            <input id="userName" type="text" class="mui-input-clear mui-input" value="">
+        </div>
+        <div class="mui-input-row">
+            <label>手机号码:</label>
+            <input id="phone" type="text" class="mui-input-clear mui-input" value="">
+            <span style="position: absolute;left:90%;top:25%" class="mui-icon mui-icon-compose"></span>
+        </div>
+
+        <div class="mui-input-row">
+            <label class="idCard">身份证号码:</label>
+            <input id="idCard" type="text" class="mui-input-clear mui-input" value="">
+            <span style="position: absolute;left:90%;top:25%" class="mui-icon mui-icon-compose"></span>
+        </div>
+        <div class="mui-input-row">
+            <label>预约事项名称:</label>
+            <input id="itemName" type="text" class="mui-input-clear mui-input" value="">
+        </div>
+        <div class="mui-input-row" style="display: none;">
+            <label>预约事项ID:</label>
+            <input id="itemId" type="text" class="mui-input-clear mui-input" value="">
+        </div>
+        <div class="mui-input-row">
+            <label>预约部门名称:</label>
+            <input id="officeName" type="text" class="mui-input-clear mui-input" value="">
+        </div>
+        <div class="mui-input-row" style="display: none;">
+            <label>预约部门ID:</label>
+            <input id="officeId" type="text" class="mui-input-clear mui-input" value="">
+        </div>
+        <div class="mui-input-row">
+            <label>预约日期:</label>
+            <select id="day" name="day">
+
+            </select>
+            <span style="position: absolute;left:90%;top:25%" class="mui-icon mui-icon mui-icon-arrowdown"></span>
+
+        </div>
+        <div class="mui-input-row">
+            <label>预约时间:</label>
+            <select id="time" name="time">
+
+            </select>
+            <span style="position: absolute;left:90%;top:25%" class="mui-icon mui-icon mui-icon-arrowdown"></span>
+
+        </div>
+        <!--<div style="height: 40px;line-height: 40px;margin-top: 20px;color: red;text-align: center;display: none;" id="tips">你已通过实名认证</div>-->
+        <input type="button" id="btn" value="提交预约">
+        <div style="height: 20px;"></div>
+
+    </form>
+
+</div>
+
+<script>
+    //扩展mui.showLoading
+    (function($, window) {
+        //显示加载框
+        $.showLoading = function(message,type) {
+            if ($.os.plus && type !== 'div') {
+                $.plusReady(function() {
+                    plus.nativeUI.showWaiting(message);
+                });
+            } else {
+                var html = '';
+                html += '<i class="mui-spinner mui-spinner-white"></i>';
+                html += '<p class="text">' + (message || "数据加载中") + '</p>';
+
+                //遮罩层
+                var mask=document.getElementsByClassName("mui-show-loading-mask");
+                if(mask.length==0){
+                    mask = document.createElement('div');
+                    mask.classList.add("mui-show-loading-mask");
+                    document.body.appendChild(mask);
+                    mask.addEventListener("touchmove", function(e){e.stopPropagation();e.preventDefault();});
+                }else{
+                    mask[0].classList.remove("mui-show-loading-mask-hidden");
+                }
+                //加载框
+                var toast=document.getElementsByClassName("mui-show-loading");
+                if(toast.length==0){
+                    toast = document.createElement('div');
+                    toast.classList.add("mui-show-loading");
+                    toast.classList.add('loading-visible');
+                    document.body.appendChild(toast);
+                    toast.innerHTML = html;
+                    toast.addEventListener("touchmove", function(e){e.stopPropagation();e.preventDefault();});
+                }else{
+                    toast[0].innerHTML = html;
+                    toast[0].classList.add("loading-visible");
+                }
+            }
+        };
+
+        //隐藏加载框
+        $.hideLoading = function(callback) {
+            if ($.os.plus) {
+                $.plusReady(function() {
+                    plus.nativeUI.closeWaiting();
+                });
+            }
+            var mask=document.getElementsByClassName("mui-show-loading-mask");
+            var toast=document.getElementsByClassName("mui-show-loading");
+            if(mask.length>0){
+                mask[0].classList.add("mui-show-loading-mask-hidden");
+            }
+            if(toast.length>0){
+                toast[0].classList.remove("loading-visible");
+                callback && callback();
+            }
+        }
+    })(mui, window);
+
+    $("#back").click(function () {
+//          	history.go(-2);
+        location.href = document.referrer;
+    })
+    var regphone = /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+    var isIDCard = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
+
+    //			alert(document.referrer.length);
+    var gid = GetQueryString("gid");
+    var idCard = "";
+    if (isLogin()) {
+        if (!isAuth()) {
+            if (isPerson()) {
+                location.href = 'auth_person.html';
+            } else if (isEnterprise()) {
+                location.href = 'auth_enterprise.html';
+            }
+        } else {
+            $(".mui-content").css("display", "block");
+            if (isPerson()) {
+                idCard = getUser().idCard;
+            } else {
+                // idCard = getUser().legalIdCard;
+                idCard = getUser().creditCode;
+                $(".idCard").text("组织机构代码:");
+                $(".name").text("企业名称:")
+            }
+        }
+    } else {
+        location.href = 'login.html';
+    }
+    var user = getUser();
+    $.get(API_HOST + "/trans/find.json", {
+        gid: gid,
+        id: GetQueryString("id")
+    }, function (response) {
+
+        if (response.success) {
+            console.log(response.data)
+            console.log(user.phone);
+            var data = response.data;
+//					getUser().username
+            $("#userName").val(getUser().username).attr("disabled", true);
+            if (isEnterprise()) {
+                $("#phone").val(getUser().phone);
+                $("#idCard").val(idCard);
+
+                $("#phone").focus(function () {
+                    $("#phone").parent().find("span").css("display", "none");
+                }).blur(function () {
+                    $("#phone").parent().find("span").css("display", "block");
+                })
+
+                $("#idCard").focus(function () {
+                    $("#idCard").parent().find("span").css("display", "none");
+                }).blur(function () {
+                    $("#idCard").parent().find("span").css("display", "block");
+                })
+
+
+            } else {
+                $("#phone").parent().find("span").css("display", "none");
+                $("#idCard").parent().find("span").css("display", "none");
+                $("#phone").val(getUser().phone).attr("disabled", true);
+                $("#idCard").val(idCard).attr("disabled", true);
+            }
+
+            if (gid == 5000) {
+                $("#itemName").val(data.transName).attr("disabled", true);
+                $("#officeName").val(data.office.name).attr("disabled", true);
+
+            } else {
+                $("#itemName").val(data.itemName).attr("disabled", true);
+                $("#officeName").val(data.handleDepartmentId).attr("disabled", true);
+
+            }
+
+            $("#itemId").val(data.id).attr("readonly", true);
+            console.log(data)
+            $("#officeId").val(data.officeId).attr("readonly", true);
+        }
+    });
+
+    //			var username = $("#userName"); //预约人姓名
+    //			var phone = $("#phone"); //手机号
+    //			var idcard = $("#idCard"); //证件号码
+    //			var item = $("#item"); //事项名称
+    //			var department = $("#department") //预约部门
+    var day = $("#day"); //预约日期
+    var time = $("#time");
+    var btn = $("#btn"); //验证按钮
+
+    $.get(API_HOST + "/appointment/interval.json", {gid: gid}, function (response) {
+        console.log(response);
+        if (response.success) {
+
+            var workDays = response.data.workDays;
+            for (var i = 0; i < workDays.length; i++) {
+                day.append('<option>' + workDays[i].date + '</option>');
+            }
+            time.append('<optgroup label="上午">');
+
+            var workTimes = response.data.workTimes;
+            for (var i = 0; i < workTimes.am.length; i++) {
+                time.append('<option>' + workTimes.am[i].time + '</option>');
+            }
+
+            time.append('</optgroup>');
+
+            time.append('<optgroup label="下午">');
+            var workTimes = response.data.workTimes;
+            for (var i = 0; i < workTimes.pm.length; i++) {
+                time.append('<option>' + workTimes.pm[i].time + '</option>');
+            }
+
+            time.append('</optgroup>');
+        }
+    });
+
+    btn.click(function () {
+
+        if ($("#itemName").val() == "") {
+            mui.toast('事项不能为空');
+            return;
+        }
+        if ($("#officeName").val() == "") {
+            mui.toast("部门不能为空");
+            return;
+        }
+        btn.attr("disabled","disabled");
+        mui.showLoading("正在加载..","div");
+        $.ajax({
+            url: API_HOST + '/appointment/accept.json',
+            method: 'post',
+            data: {
+//						user.username,
+                userType: cookie.get("userType"),
+                userName: user.username,
+                idCard: idCard,
+                telephone: user.phone,
+                transId: $("#itemId").val(),
+                transName: $("#itemName").val(),
+                officeId: $("#officeId").val(),
+                officeName: $("#officeName").val(),
+                appointmentDate: day.val(),
+                appointmentTime: time.val(),
+                source: 3
+            },
+            success: function (response, textStatus, jqXHR) {
+                console.log(response);
+                mui.alert(response.msg);
+                if (response.success) {
+
+                    mui.hideLoading();
+
+                    location.href = "my_appointment_list.html";
+                } else {
+                    checkErrorCode(response.code);
+                }
+            }
+        });
+    })
+</script>
+
+</body>
+
+</html>

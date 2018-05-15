@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>企业认证</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link type="text/css" rel="stylesheet" href="css/mui.min.css"/>
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/public.js"></script>
+    <style>
+        .mui-input-group:before,
+        .mui-input-group:after {
+            height: 0;
+        }
+
+        #btn {
+            display: block;
+            width: 80%;
+            color: #fff;
+            margin: 50px auto;
+            border: 1px solid #ff6600;
+            background-color: #ff6600;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            mui.plusReady(function () {
+                var self = plus.webview.currentWebview();
+                document.getElementById("realNameTitle").innerHTML = self.title;
+
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+    mui.init()
+</script>
+
+<header class="mui-bar mui-bar-nav">
+    <a id="back" class=" mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title" id="realNameTitle">企业认证</h1>
+</header>
+<div class="mui-content">
+
+    <div id="loading"
+         style="display:none;font-size:20px;color:#999;position:absolute;z-index:9999;width:100%;height:100vh;text-align: center;background:rgba(0,0,0,0.2)">
+        <img style="width:10vw;margin:auto;margin-top:50%;display:block" src="images/timg.gif" alt=""/>加载中，请稍后...
+    </div>
+    <div class="banner"><img src="images/banner.jpg"/></div>
+    <div>
+        <form class="mui-input-group">
+            <div class="mui-input-row">
+                <label>公司名称:</label>
+                <input id="username" type="text" disabled="disabled" class="mui-input-clear mui-input">
+            </div>
+            <div class="mui-input-row">
+                <label>统一社会信用代码:</label>
+                <input id="shcode" type="text" disabled="disabled" class="mui-input-clear mui-input" value="">
+            </div>
+            <div class="mui-input-row">
+                <label>公司注册地址:</label>
+                <input id="address" type="text" class="mui-input-clear mui-input">
+            </div>
+            <div class="mui-input-row">
+                <label>法人姓名:</label>
+                <input id="legauser" type="text" class="mui-input-clear mui-input">
+            </div>
+            <div class="mui-input-row">
+                <label>法人身份证号:</label>
+                <input id="idcard" type="text" class="mui-input-clear mui-input">
+            </div>
+            <div class="mui-input-row">
+                <label>法人手机号码:</label>
+                <input id="phone" type="text" class="mui-input-clear mui-input">
+            </div>
+            <div class="mui-input-row">
+                <label>账号绑定手机:</label>
+                <input id="bind" type="text" disabled="disabled" class="mui-input-clear mui-input">
+            </div>
+            <div style="height: 40px;line-height: 40px;margin-top: 20px;color: red;text-align: center;display: none;"
+                 id="tips">你已通过实名认证
+            </div>
+            <input type="button" id="btn" value="验证">
+            <div style="height: 20px;"></div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    if (GetQueryString("isback") != 1) {
+        $("#back").hide();
+    }
+    $("#back").click(function () {
+        history.go(-2);
+//location.href=document.referrer;
+    });
+    if (!isLogin()) {
+        location.href = "login.html";
+
+    }
+    var username = $("#username"); //公司名称
+    var shcode = $("#shcode"); //社会信用代码
+    var address = $("#address"); //公司注册地址
+    var legauser = $("#legauser"); //法人姓名
+    var idcard = $("#idcard"); //法人身份证
+    var phone = $("#phone"); //法人手机号
+    var bund = $("#bind"); //绑定手机号
+    var btn = $("#btn"); //验证按钮
+
+    var user = getUser();
+
+    username.val(user.username);
+    shcode.val(user.creditCode);
+    //			bund.val(user.post_phone);
+    bund.val(user.phone);
+    if (isPerson()) {
+        location.href = 'auth_person.html';
+    }
+    if (isAuth()) {
+        username.attr('disabled', true);
+        shcode.attr('disabled', true);
+        bund.attr('disabled', true);
+        btn.remove();
+        $("#tips").css('display', 'block');
+    }
+    btn.click(function (e) {
+        if (username.val().length < 2 || username.val().length > 20) {
+
+            mui.toast("请重新填写公司名称");
+            return false;
+        }
+        $("#loading").css("display", "block");
+
+        $.ajax({
+            url: API_HOST + "/auth/enterprise.json",
+            type: "post",
+            data: {
+                "address": address.val(),
+                "legalUser": legauser.val(),
+                "legalIdCard": idcard.val(),
+                "legalPhone": phone.val()
+            },
+            headers: {
+                'session': cookie.get("session")
+            },
+
+            success: function (response) {
+                $("#loading").css("display", "none");
+
+                console.log(response);
+                console.log(user)
+                if (response.success) {
+                    user.username = username.val();
+                    user.creditCode = shcode.val();
+                    user.post_phone = bund.val();
+                    user.auth = 1;
+
+                    setUser(user);
+
+                    username.attr('disabled', true);
+                    shcode.attr('disabled', true);
+                    bund.attr('disabled', true);
+                    btn.remove();
+                    $("#tips").css('display', 'block');
+
+                    if (document.referrer) {
+
+                        location.href = document.referrer;
+                    } else {
+                        location.reload();
+                    }
+
+                } else {
+                    checkErrorCode(response.code);
+                }
+                alert(response.msg);
+            }
+        })
+    })
+</script>
+
+</body>
+
+</html>

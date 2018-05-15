@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>新闻详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <!--<link href="css/style.css" rel="stylesheet"/>-->
+    <link href="css/zwgk.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <style>
+        #article_detail{
+            padding:0 10px;
+        }
+        #article_detail *{
+            font-size:16px;
+        }
+        #article_detail img{
+            max-width:100%;
+        }
+        a{
+            text-decoration: none;
+            color:#000;
+        }
+        #attachment{
+            padding:0 10px;
+            margin-top:30px;
+            display: none;
+        }
+     .fjxz{
+         width:100%;
+         margin-top:15px;
+         border:1px solid #ccc;
+     }
+     table tr th{
+         color:#0a81e9;
+         font-size:14px;
+     }
+        #fjxz_content{
+            text-align: center;
+            font-size:14px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #fff;">
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">新闻详情</h1>
+</header>
+<div id="article_detail" class="mui-content">
+    <!--<div class="banner"><img src="images/banner.jpg"></div>-->
+
+</div>
+
+ <div id="attachment">
+     <button style="border-radius: 0" type="button" class="mui-btn mui-btn-danger">附件下载</button>
+      <table class="fjxz" border="1">
+
+          <tr>
+              <th width="10%">序号</th>
+              <th width="70%">附件名称</th>
+              <th width="10%">附件大小</th>
+              <th width="10%">附件下载</th>
+          </tr>
+    <tbody id="fjxz_content">
+
+    </tbody>
+
+      </table>
+ </div>
+
+
+
+
+<script>
+    $.get(API_HOST + "/content/find.json", {
+        id: GetQueryString("id")
+    }, function (response) {
+        // console.log(API_HOST)
+        console.log(response)
+        if (response.success) {
+            var data = response.data;
+             if(data.files){
+             $("#attachment").show();
+             for(var i=0;i<data.files.length;i++){
+                 var file=data.files[i];
+                 var file_size=(file.size/1024/1024).toFixed(1)+"MB";
+               $("#fjxz_content").append("<tr><td>"+(i+1)+"</td><td style='text-align: left'>"+file.name+"</td><td>"+file_size+"</td><td><a href='download.html?uuid="+file.uuid+"&title="+file.name+"'>下载</a></td></tr>")
+             }
+             }
+            $.get(API_HOST + "/government/find.json", {
+                id: data.gid
+            }, function (response1) {
+                if (response1.success) {
+                    data1 = response1.data;
+                    $("#article_detail").append('<h2 class="h2_zwgk">' + data.title + '</h2><p class="info_sources">信息来源：' + data1.name + '</p><p class="info_date">发布时间：' + data.create_time + '</p><div class="info_txt"><p>' + data.content + '</p>')
+
+                }
+
+                $(".info_txt img").each(function (i) {
+                    $(this).attr("src", SERVER_HOST + $(this).attr("src"));
+
+                });
+            })
+
+        }
+    })
+</script>
+
+</body>
+
+</html>

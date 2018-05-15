@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>登录</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/public.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			if(isLogin()){
+				mui.back();
+			}
+		</script>
+		<style>
+			.wsp2 {
+				word-spacing: 1.5rem;
+			}
+			
+			.wsp3 {
+				word-spacing: 0.2rem;
+			}
+			
+			.area {
+				margin: 20px auto 0;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 0;
+			}
+			
+			.mui-input-group label {
+				width: 27%;
+				font-size: 16px;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 73%;
+				font-size: 16px;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			#identifyingCode,
+			#identifyingCode1 {
+				position: absolute;
+				width: 30%;
+				height: 100%;
+				right: 2px;
+				line-height: inherit;
+				font-size: 16px;
+			}
+			
+			.mui-control-content {
+				background-color: white;
+				min-height: 88.4vh;
+			}
+			
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+				font-size: 16px;
+			}
+			
+			.mui-input-group:before {
+				height: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="bg mui-bar mui-bar-nav">
+			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="bg mui-icon mui-icon-left-nav"></span>
+			</button>
+			<!--<h1 class=" bg mui-title">登录账号</h1>-->
+		</div>
+		<div class="mui-content">
+
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+						个人登录
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						企业登录
+					</a>
+
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<label class="wsp2">账 号</label>
+										<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入身份证号">
+									</div>
+									<div class="mui-input-row">
+										<label class="wsp2">密 码</label>
+										<input id="password" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+
+									</div>
+
+								</form>
+
+
+
+								<div class="mui-content-padded">
+									<button id='login' class="bg reg mui-btn mui-btn-block mui-btn-primary">登录</button>
+								</div>
+								<div class="link-area">
+									<a href="reg.html" id='reg'>注册账号</a> <span class="spliter">|</span>
+									<a href="forget_password.html" id='forgetPassword'>忘记密码</a>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<label class="wsp2">账 号</label>
+										<input id='account1' type="text" class="mui-input-clear mui-input" placeholder="请输入社会信用代码">
+									</div>
+									<div class="mui-input-row">
+										<label class="wsp2">密 码</label>
+										<input id='password1' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+									</div>
+								</form>
+
+								<div class="mui-content-padded">
+									<button id='login1' class="bg reg1 mui-btn mui-btn-block mui-btn-primary">登录</button>
+								</div>
+
+								<div class="link-area">
+
+									<a href="reg.html" id='reg'>注册账号</a> <span class="spliter">|</span>
+									<a href="forget_password.html" id='forgetPassword'>忘记密码</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script src="js/mui.enterfocus.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			(function($, doc) {
+				$.init({
+					statusBarBackground: '#f7f7f7'
+				});
+				$.plusReady(function() {
+					plus.screen.lockOrientation("portrait-primary");
+					var settings = app.getSettings();
+					var state = app.getState();
+					var mainPage = $.preload({
+						"id": 'main',
+						"url": 'main.html'
+					});
+					var main_loaded_flag = false;
+					mainPage.addEventListener("loaded", function() {
+						main_loaded_flag = true;
+					});
+					var toMain = function() {
+						//使用定时器的原因：
+						//可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
+						var id = setInterval(function() {
+							if(main_loaded_flag) {
+								clearInterval(id);
+								$.fire(mainPage, 'show', null);
+								mainPage.show("pop-in");
+							}
+						}, 20);
+					};
+
+					//检查 "登录状态/锁屏状态" 开始
+					if(settings.autoLogin && state.token && settings.gestures) {
+						$.openWindow({
+							url: 'unlock.html',
+							id: 'unlock',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					} else if(settings.autoLogin && state.token) {
+						toMain();
+					}
+					// close splash
+					setTimeout(function() {
+						//关闭 splash
+						plus.navigator.closeSplashscreen();
+					}, 600);
+					//检查 "登录状态/锁屏状态" 结束
+					var loginButton = doc.getElementById('login');
+					var accountBox = doc.getElementById('account');
+					var passwordBox = doc.getElementById('password');
+					var autoLoginButton = doc.getElementById("autoLogin");
+					var regButton = doc.getElementById('reg');
+					var forgetButton = doc.getElementById('forgetPassword');
+					var login_enterprise = doc.getElementById('login1');
+
+					loginButton.addEventListener('tap', function(event) {
+						var loginInfo = {
+							account: accountBox.value,
+							password: passwordBox.value
+						};
+						app.login(loginInfo, function(err) {
+							if(err) {
+								plus.nativeUI.toast(err);
+								return;
+							}
+							toMain();
+						});
+					});
+					$.enterfocus('#login-form input', function() {
+						$.trigger(loginButton, 'tap');
+					});
+					autoLoginButton.classList[settings.autoLogin ? 'add' : 'remove']('mui-active')
+					autoLoginButton.addEventListener('toggle', function(event) {
+						setTimeout(function() {
+							var isActive = event.detail.isActive;
+							settings.autoLogin = isActive;
+							app.setSettings(settings);
+						}, 50);
+					}, false);
+					regButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							url: 'reg.html',
+							id: 'reg',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}, false);
+					forgetButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							url: 'forget_password.html',
+							id: 'forget_password',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}, false);
+					//
+					window.addEventListener('resize', function() {
+						oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';
+					}, false);
+					//
+					var backButtonPress = 0;
+					$.back = function(event) {
+						backButtonPress++;
+						if(backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
+				});
+			}(mui, document));
+		</script>
+		<script>
+			var reg = /^[A-Za-z0-9]{6,16}$/;
+			var loginButton = document.getElementById("login");
+			loginButton.addEventListener("tap", function() {
+				var accountBox = document.getElementById("account").value;
+				var passwordBox = document.getElementById("password").value;
+
+				isIDCard = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;  
+				if(accountBox.length == 18) {
+					if(!isIDCard.test(accountBox)) {
+						mui.toast('身份证号错误');
+					}
+				} else {
+					mui.toast("请输入正确长度的账号");
+					return;
+				}
+				if(!reg.test(passwordBox)) {
+					mui.toast('密码必须由 6-16位字母、数字组成');
+					return;
+				}
+				$.post(API_HOST + "/in/person.json", {
+					idCard: accountBox,
+					password: passwordBox,
+				}, function(response, textStatus, jqXHR) {
+					console.log(response)
+					if(response.success) {
+
+						cookie.set("session", response.data.session);
+						cookie.set("user", JSON.stringify(response.data));
+						localStorage.setItem("pwd", passwordBox);
+						cookie.set("userType", "1");
+						mui.toast(response.data.username + "欢迎访问");
+						//						location.href = "index.html";
+						if(document.referrer) {
+
+							location.href = document.referrer;
+						} else {
+							location.href = "personal.html";
+						}
+
+					} else {
+						mui.toast(response.msg);
+					}
+
+				});
+			})
+
+			var loginEnterprise = document.getElementById("login1");
+			loginEnterprise.addEventListener("tap", function() {
+				var accountEnterprise = document.getElementById("account1").value;
+				var passEnterprise = document.getElementById("password1").value;
+
+				if(accountEnterprise.length != 18) {
+					mui.toast("统一社会信用代码错误");
+					return;
+				}
+
+				if(!reg.test(passEnterprise)) {
+					mui.toast('密码必须由 6-16位字母、数字组成');
+					return;
+				}
+
+				$.post(API_HOST + "/in/enterprise.json", {
+					creditCode: accountEnterprise,
+					password: passEnterprise
+				}, function(json, textStatus, jqXHR) {
+					mui.toast(json.msg);
+					if(json.success) {
+						cookie.set("session", json.data.session);
+						cookie.set("user", JSON.stringify(json.data));
+						localStorage.setItem("pwd", passEnterprise)
+						cookie.set("userType", "2");
+						//						location.href = "index.html";
+							if(document.referrer) {
+
+							location.href = document.referrer;
+						} else {
+							location.href = "personal.html";
+						}
+					}
+				})
+			})
+		</script>
+	</body>
+
+</html>

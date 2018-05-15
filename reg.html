@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>注册</title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/mui.min.js"></script>
+    <!--<script src="js/app.js"></script>-->
+    <style>
+        .wsp2 {
+            word-spacing: 1.5rem;
+        }
+
+        .wsp3 {
+            word-spacing: 0.2rem;
+        }
+
+        .area {
+            margin: 20px auto;
+        }
+
+        .mui-input-group:before {
+            height: 0;
+        }
+
+        .mui-input-group label {
+            width: 27%;
+            font-size: 17px;
+        }
+
+        .mui-input-row label ~ input,
+        .mui-input-row label ~ select,
+        .mui-input-row label ~ textarea {
+            width: 73%;
+            font-size: 16px;
+        }
+
+        .mui-checkbox input[type=checkbox],
+        .mui-radio input[type=radio] {
+            top: 6px;
+        }
+
+        .mui-content-padded {
+            margin-top: 25px;
+        }
+
+        .mui-btn {
+            padding: 10px;
+        }
+
+        #identifyingCode_person,
+        #identifyingCode_enterprise {
+            position: absolute;
+            width: 30%;
+            height: 100%;
+            right: 2px;
+            line-height: inherit;
+        }
+
+        .mui-control-content {
+            background-color: white;
+            min-height: 88.4vh;
+        }
+
+        .mui-control-content .mui-loading {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+<header class="bg mui-bar mui-bar-nav">
+    <a class="bg mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <!--<h1 class="bg mui-title">注册</h1>-->
+</header>
+<div class="mui-content">
+
+    <div id="slider" class="mui-slider">
+        <div id="sliderSegmentedControl"
+             class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+            <a class="mui-control-item mui-active" href="#item1mobile">
+                个人注册
+            </a>
+            <a class="mui-control-item" href="#item2mobile">
+                企业注册
+            </a>
+
+        </div>
+        <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+        <div class="mui-slider-group">
+            <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                <div id="scroll1" class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <form class="mui-input-group">
+                            <div class="mui-input-row">
+                                <label class="wsp2">姓 名</label>
+                                <input id='username_person' type="text" class="mui-input-clear mui-input"
+                                       placeholder="请输入姓名">
+                            </div>
+                            <div class="mui-input-row">
+                                <label class="wsp2">账 号</label>
+                                <input id='account_person' type="text" class="mui-input-clear mui-input"
+                                       placeholder="请输入身份证号">
+                            </div>
+                            <div class="mui-input-row">
+                                <label class="wsp2">密 码</label>
+                                <input id='password_person' type="password" class="mui-input-clear mui-input"
+                                       placeholder="请输入密码">
+                            </div>
+                            <div class="mui-input-row">
+                                <label class="wsp2">密码确认</label>
+                                <input id='password_confirm_person' type="password" class="mui-input-clear mui-input"
+                                       placeholder="请确认密码">
+                            </div>
+                            <div class="mui-input-row">
+                                <label class="wsp2">邮 箱</label>
+                                <input id='email_person' type="email" class="mui-input-clear mui-input"
+                                       placeholder="请输入邮箱">
+                            </div>
+
+                            <div class="mui-input-row">
+                                <label>手机号码</label>
+                                <input id="phone_person" type="number" class="mui-input" placeholder="请输入手机号码">
+                                <button id="identifyingCode_person" type="button" class="bg mui-btn mui-btn-primary"/>
+                                获取验证码</button>
+
+                            </div>
+
+                            <div class="mui-input-row">
+                                <label class="wsp3">验 证 码</label>
+                                <input id="smscode_person" type="number" class="mui-input-clear mui-input"
+                                       placeholder="请输入验证码">
+                            </div>
+
+                        </form>
+
+                        <div class="mui-content-padded">
+                            <button id='reg_person' class="reg mui-btn mui-btn-block mui-btn-primary">注册</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div id="item2mobile" class="mui-slider-item mui-control-content">
+                <div id="scroll2" class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <form class="mui-input-group">
+                            <div class="mui-input-row">
+                                <label class="wsp2">姓 名</label>
+                                <input id='username_enterprise' type="text" class="mui-input-clear mui-input"
+                                       placeholder="请输入姓名">
+                            </div>
+                            <div class="mui-input-row">
+                                <label class="wsp2">账 号</label>
+                                <input id='account_enterprise' type="text" class="mui-input-clear mui-input"
+                                       placeholder="请输入社会信用代码">
+                            </div>
+                            <div class="mui-input-row">
+                                <label class="wsp2">密 码</label>
+                                <input id='password_enterprise' type="password" class="mui-input-clear mui-input"
+                                       placeholder="请输入密码">
+                            </div>
+                            <div class="mui-input-row">
+                                <label>密码确认</label>
+                                <input id='password_confirm_enterprise' type="password"
+                                       class="mui-input-clear mui-input" placeholder="请确认密码">
+                            </div>
+                            <div class="mui-input-row">
+                                <label class="wsp2">邮 箱</label>
+                                <input id='email_enterprise' type="email" class="mui-input-clear mui-input"
+                                       placeholder="请输入邮箱">
+                            </div>
+                            <div class="mui-input-row">
+                                <label>手机号码</label>
+                                <input id="phone_enterprise" type="number" class="mui-input" placeholder="请输入手机号码">
+                                <button id="identifyingCode_enterprise" type="button"
+                                        class="bg mui-btn mui-btn-primary"/>
+                                获取验证码</button>
+
+                            </div>
+
+                            <div class="mui-input-row">
+                                <label class="wsp3">验 证 码</label>
+                                <input id="smscode_enterprise" type="number" class="mui-input-clear mui-input"
+                                       placeholder="请输入验证码">
+                            </div>
+                        </form>
+
+                        <div class="mui-content-padded">
+                            <button id='reg_enterprise' class="bg reg1 mui-btn mui-btn-block mui-btn-primary">注册
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    //var user=getUser();
+
+    var isIDCard = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;   //身份证验证
+    var reg = /^[A-Za-z0-9]{6,16}$/;//密码验证
+    var email = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;  //邮箱验证
+    // var regphone = /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;  //手机号验证
+    var regphone = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;  //手机号验证
+    var countdown = document.getElementById("identifyingCode_person");
+    var wait = 60;
+
+    //倒计时
+    function setTime(domj) {
+        if (wait == 0) {
+            domj.removeAttribute("disabled");
+            domj.innerHTML = "获取验证码";
+            wait = 60;
+        } else {
+            domj.disabled = "true";
+            domj.innerHTML = wait + "秒后重试";
+            wait--;
+            window.setTimeout(function () {
+                setTime(domj);
+            }, 1000);
+        }
+    }
+
+    //setTime(countdown)
+
+    //短信发送
+    function sendSMS(phone, userType) {
+        $.post(API_HOST + "/sms/register.json", {"phone": phone, "userType": userType}, function (response) {
+            console.log(response);
+            mui.alert(response.msg);
+            if (response.success) {
+                setTime(countdown);
+
+            }
+        })
+    }
+
+
+    //个人注册
+    $("#identifyingCode_person").click(function () {
+        if (!regphone.test($("#phone_person").val())) {
+            mui.toast("手机号码错误")
+            return;
+        }
+//		setTime(countdown);
+        sendSMS($("#phone_person").val(), 1);
+    })
+
+    function registerPerson(params) {
+        $.post(API_HOST + '/register/person.json', params, function (response) {
+            mui.toast(response.msg);
+            console.log(response);
+            if (response.success) {
+                location.href = "login.html";
+            }
+        });
+    }
+
+    $("#reg_person").click(function () {
+        if ($.trim($("#username_person").val()).length < 2 || $.trim($("#username_person").val()).length > 30) {
+            mui.toast('姓名长度在2-30之间');
+            return;
+        }
+        if (!isIDCard.test($.trim($("#account_person").val()))) {
+            mui.toast('身份证号错误');
+            return;
+        }
+        if (!reg.test($.trim($("#password_person").val()))) {
+            mui.toast('密码必须由 6-16位字母、数字组成');
+            return;
+        }
+        if ($("#password_confirm_person").val() != $("#password_person").val()) {
+            mui.toast("两次输入的密码不一致");
+            return;
+        }
+        if ($.trim($("#email_person").val()) != "") {
+            if (!email.test($("#email_person").val())) {
+                mui.toast("邮箱地址不合法");
+                return;
+            }
+        }
+        if (!regphone.test($("#phone_person").val())) {
+            mui.toast("手机号码错误")
+            return;
+        }
+        registerPerson({
+            username: $("#username_person").val(),
+            idCard: $("#account_person").val(),
+            password: $("#password_person").val(),
+            password2: $("#password_confirm_person").val(),
+            phone: $("#phone_person").val(),
+            smsCode: $("#smscode_person").val()
+        })
+    })
+
+
+    //企业注册
+    $("#identifyingCode_enterprise").click(function () {
+        if (!regphone.test($("#phone_enterprise").val())) {
+            mui.toast("手机号码错误")
+            return;
+        }
+        sendSMS($("#phone_enterprise").val(), 2);
+    })
+
+    function registerEnterprise(enterprise) {
+        $.post(API_HOST + "/register/enterprise.json", enterprise, function (response) {
+            mui.toast(response.msg);
+            if (response.success) {
+                location.href = "login.html";
+            }
+        })
+    }
+
+    $("#reg_enterprise").click(function () {
+        if ($.trim($("#username_enterprise").val()).length < 2 || $.trim($("#username_person").val()).length > 30) {
+            mui.toast('姓名长度在2-30之间');
+            return;
+        }
+        if ($.trim($("#account_enterprise").val()).length != 18) {
+            mui.toast("请输入正确的账号");
+            return;
+        }
+        if (!reg.test($("#password_enterprise").val())) {
+            mui.toast("密码必须由 6-16位字母、数字组成");
+            return;
+        }
+        if ($("#password_confirm_enterprise").val() != $("#password_enterprise").val()) {
+            mui.toast("两次输入的密码不一致");
+            return;
+        }
+        if ($.trim($("#email_enterprise").val()) != "") {
+            if (!email.test($("#email_enterprise").val())) {
+                mui.toast("邮箱地址不合法");
+                return;
+            }
+        }
+
+        if (!regphone.test($("#phone_enterprise").val())) {
+            mui.toast("手机号码错误")
+            return;
+        }
+        registerEnterprise({
+            username: $("#username_enterprise").val(),
+            creditCode: $("#account_enterprise").val(),
+            password: $("#password_enterprise").val(),
+            password2: $("#password_confirm_enterprise").val(),
+            phone: $("#phone_enterprise").val(),
+            smsCode: $("#smscode_enterprise").val()
+        })
+    })
+
+</script>
+</body>
+
+</html>

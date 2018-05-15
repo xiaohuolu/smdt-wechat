@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>办理指南</title>
+    <script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/bgdj.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/public.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+    <style>
+        .gray {
+            background-color: gray !important;
+        }
+
+        body {
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <!--<h1 class="mui-title">办理指南</h1>-->
+</header>
+
+<div class="mui-content">
+    <!--<div class="banner"><img src="images/banner.jpg"></div>-->
+    <div>
+        <p class="trans_title itemName"></p>
+        <div class="page_box">
+            <ul class="btn_tools mui-clearfix">
+                <li>
+                    <a style="display:none;cursor: pointer;" id="zxyy">在线预约</a>
+                </li>
+                <li>
+                    <a id="wssb" href="javascript:viod(0)" style="cursor: pointer;">网上申报</a>
+                </li>
+                <!--<li><a href="#">加入收藏</a></li>-->
+            </ul>
+        </div>
+        <div>
+            <div class="mui-segmented-control">
+                <a class="mui-control-item mui-active" href="#item1">
+                    <span>基本信息</span>
+                </a>
+                <a class="mui-control-item" href="#item2">
+                    <span>申请条件</span>
+                </a>
+
+                <a class="mui-control-item" href="#item3">
+                    <span>办理流程</span>
+                </a>
+                <a class="mui-control-item" href="#item4">
+                    <span>所需材料</span>
+                </a>
+                <a class="mui-control-item" href="#item5">
+                    <span>法律依据</span>
+                </a>
+            </div>
+            <div class="mui-content-padded">
+                <div id="item1" class="mui-control-content mui-active">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bszn_tab custom">
+                        <col width="15%">
+                        <col width="35%">
+                        <col width="15%">
+                        <col width="35%">
+                        <tbody>
+                        <tr>
+                            <td class="td1" style="border-top: 1px solid #ddd;">事项名称</td>
+                            <td class="itemName" style="border-top: 1px solid #ddd;"></td>
+                            <td class="td1" style="border-top: 1px solid #ddd;">事项编码</td>
+                            <td id="itemCode" style="border-top: 1px solid #ddd;"></td>
+
+                        </tr>
+                        <tr>
+                            <td class="td1">办理主体</td>
+                            <td id="handleDepartmentId"></td>
+                            <!--<td class="td1">事项性质</td>
+                            <td>行政许可</td>-->
+                            <td class="td1">事项性质</td>
+                            <td id="transNature"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="td1">咨询电话</td>
+                            <td id="advisoryPhone" colspan="3"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="td1">监督电话</td>
+                            <td id="supervisePhone" colspan="3"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="td1">是否收费</td>
+                            <td id="isFee"></td>
+
+                            <td class="td1">收费标准</td>
+                            <td id="feeNorm"></td>
+
+                        </tr>
+
+                        <tr>
+                            <td class="td1">收费依据</td>
+                            <td id="feeBasis"></td>
+                            <td class="td1">办理结果</td>
+                            <td id="handleResult"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="td1">法定期限</td>
+                            <td id="legalLimit"></td>
+
+                            <td class="td1">承诺期限</td>
+                            <td id="promiseLimit"></td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div id="item2" class="mui-control-content">
+                    <h4 class="h4_apply">申请条件</h4>
+                    <p id="applyCondition"></p>
+                    <h4 class="h4_apply">前置条件</h4>
+                    <p id="frontCondition"></p>
+                </div>
+                <div id="item3" class="mui-control-content">
+                    <div>
+                        <strong id="workflow"></strong>
+                    </div>
+                </div>
+                <div id="item4" class="mui-control-content">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bszn_tab1 custom">
+                        <thead>
+                        <tr>
+                            <th width="8%">序号</th>
+                            <th width="56%">材料名称</th>
+                            <th width="36%">材料下载</th>
+                        </tr>
+                        </thead>
+                        <tbody id="material_list">
+
+                        </tbody>
+
+                        <tfoot>
+
+                        <!--<tr>
+                            <td colspan="4" style="color:#ff5400;">该栏没有材料需上传</td>
+                        </tr>-->
+                        </tfoot>
+
+                    </table>
+
+                </div>
+                <div id="item5" class="mui-control-content">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bszn_tab1 custom">
+                        <thead>
+                        <tr>
+                            <th width="12%">序号</th>
+                            <th width="60%">材料名称</th>
+                            <th width="28%">样表下载</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="basis_list">
+
+                        </tbody>
+
+                    </table>
+                </div>
+                <!--<div id="item6mobile" class="mui-slider-item mui-control-content">
+                    <div class="mui-scroll-wrapper">
+                        <div class="mui-scroll">
+                            <p style="font-size: 16px;">暂无评价</p>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script>
+    mui.init();
+    (function ($) {
+        //阻尼系数
+        var deceleration = 0.0005;
+        $('.mui-scroll-wrapper').scroll({
+            bounce: false,
+            indicators: true, //是否显示滚动条
+            deceleration: deceleration
+        });
+        $.ready(function () {
+            //循环初始化所有下拉刷新，上拉加载。
+            $.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function (index, pullRefreshEl) {
+                $(pullRefreshEl).pullToRefresh({
+                    down: {
+                        callback: function () {
+                            var self = this;
+                            setTimeout(function () {
+                                //var ul = self.element.querySelector('.mui-table-view');
+                                //										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
+                                self.endPullDownToRefresh();
+                            }, 500);
+                        }
+                    },
+                    up: {
+                        callback: function () {
+                            var self = this;
+                            setTimeout(function () {
+                                //var ul = self.element.querySelector('.mui-table-view');
+                                //ul.appendChild(createFragment(ul, index, 5));
+                                self.endPullUpToRefresh();
+                            }, 500);
+                        }
+                    }
+                });
+            });
+            var createFragment = function (ul, index, count, reverse) {
+                var length = ul.querySelectorAll('li').length;
+                var fragment = document.createDocumentFragment();
+                var li;
+                for (var i = 0; i < count; i++) {
+                    li = document.createElement('li');
+                    li.className = 'mui-table-view-cell';
+                    li.innerHTML = '第' + (index + 1) + '个选项卡子项-' + (length + (reverse ? (count - i) : (i + 1)));
+                    fragment.appendChild(li);
+                }
+                return fragment;
+            };
+        });
+    })(mui);
+    var itemName = $(".itemName");
+    var itemCode = $("#itemCode");
+    var transNature = $("#transNature");
+    var handleDepartmentId = $("#handleDepartmentId");
+    var advisoryPhone = $("#advisoryPhone");
+    var supervisePhone = $("#supervisePhone");
+    var isFee = $("#isFee");
+    var feeNorm = $("#feeNorm");
+    var feeBasis = $("#feeBasis");
+    var handleResult = $("#handleResult");
+    var legalLimit = $("#legalLimit");
+    var promiseLimit = $("#promiseLimit");
+    var applyCondition = $("#applyCondition");
+    var frontCondition = $("#frontCondition");
+    var workflow = $("#workflow");
+    var zxyy = $("#zxyy");
+    var wssb = $("#wssb");
+    // var openAppointment=GetQueryString("openAppointment");
+    // var isWebAppointment=GetQueryString("isWebAppointment");
+    var id = GetQueryString("id");
+    var gid = GetQueryString("gid");
+
+    $.get(API_HOST + "/government/find.json", {id: gid}, function (response) {
+        console.log(response)
+        if (response.success) {
+
+            var government = response.data;
+
+            $.get(API_HOST + "/trans/find.json", {
+                id: id,
+                gid: gid
+            }, function (response) {
+                console.log(response);
+                if (response.success) {
+
+                    var trans = response.data;
+                    var itemguide = response.data.itemguide;
+                    var office = response.data.office;
+                    itemName.text(trans.itemName);
+                    itemCode.text(trans.itemCode);
+                    if (trans.transNature == 1) {
+                        transNature.text("行政许可");
+                    } else {
+                        transNature.text("行政审批");
+                    }
+                    handleDepartmentId.text(trans.handleDepartmentId);
+                    advisoryPhone.text(trans.advisoryPhone);
+                    supervisePhone.text(trans.supervisePhone);
+                    if (trans.isFee == 0) {
+                        isFee.text("不收费");
+                    } else {
+                        isFee.text("收费");
+                    }
+                    feeNorm.text(trans.feeNorm);
+                    feeBasis.text(trans.feeBasis);
+                    handleResult.text(trans.handleResult);
+                    legalLimit.text(trans.legalLimit);
+                    promiseLimit.text(trans.promiseLimit);
+                    applyCondition.text(trans.applyCondition);
+                    frontCondition.text(trans.frontCondition);
+                    workflow.text(trans.workflow);
+
+                    if (government.openAppointment == 0 || trans.isWebAppointment == 0) {
+                        zxyy.css("background-color", "gray");
+                        zxyy.removeAttr('href'); //去掉a标签中的href属性
+                        zxyy.removeAttr('onclick'); //去掉a标签中的onclick事件
+                    } else {
+
+                        zxyy.attr("href", "my_appointment.html?id=" + id + "&gid" + gid);
+                    }
+
+
+                    if (government.transAccept == 1) {
+                        //审批系统申报
+                        if (trans.isWebAccept == 1) {
+                            wssb.attr("href", "sbxz.html?id=" + trans.id + '&gid=' + gid + '&itemName=' + trans.itemName + "");
+                        } else {
+                            //     该部门开启了事项申报，本事项不可在线申报
+                            wssb.css("background-color", "gray");
+                            wssb.removeAttr('href');
+                        }
+                    } else if (government.transAccept == 2) {
+                        // 统一申报地址
+                        wssb.attr("href", government.transAcceptAddress);
+                        wssb.attr("target", "_blank");
+                    } else if (government.transAccept == 3) {
+                        //事项单独申报地址
+                        wssb.attr("href", trans.acceptAddress);
+                        wssb.attr("target", "_blank");
+                    } else {
+                        //     该部门未开启事项申报
+                        wssb.css("background-color", "gray");
+                        wssb.removeAttr('href');
+                    }
+
+
+                }
+            });
+
+            $.get(API_HOST + "/trans/material_lists_by_transId.json", {
+                id: id
+            }, function (response) {
+                console.log(response);
+                $material_list = $("#material_list");
+                if (response.success) {
+                    zxyy.css("display", "block");
+
+                    for (var i = 0; i < response.data.length; i++) {
+                        var material = response.data[i];
+                        if (material.materialEmptyName !== "") {
+                            var str = '<tr><td align="center">' + (i + 1) + '</td><td>' + material.materialName + '</td>';
+                            if (material.file) {
+                                str += '<td align="center"><a href="download.html?uuid=' + material.file + '&title=' + material.materialName + '">下载</a></td>';
+                            } else {
+                                str += '<td>无</td>';
+                            }
+                            str += '</tr>';
+                            $material_list.append(str);
+
+                        } else {
+                            $material_list.append('<tr><td align="center">' + (i + 1) + '</td><td>' + material.materialName + '</td></tr>');
+                            //<td align="center">无</td>
+                        }
+                    }
+
+                } else {
+                    $material_list.append('<tr><td colspan="3" align="center">没有材料</td></tr>');
+                }
+            });
+
+            $.get(API_HOST + "/trans/basis_lists_by_transId.json", {
+                id: id
+            }, function (response) {
+                console.log(response);
+                $material_list = $("#basis_list");
+                if (response.success) {
+                    for (var i = 0; i < response.data.length; i++) {
+                        var material = response.data[i];
+                        if (material.materialEmptyName !== "") {
+                            var str = '<tr><td align="center">' + (i + 1) + '</td><td>' + material.materialName + '</td>';
+                            if (material.file) {
+                                str += '<td align="center"><a href="download.html?uuid=' + material.file + '&title=' + material.materialName + '">下载</a></td>';
+                            } else {
+                                str += '<td>无</td>';
+                            }
+                            str += '</tr>';
+                            $material_list.append(str);
+
+                        } else {
+                            $material_list.append('<tr><td align="center">' + (i + 1) + '</td><td>' + material.materialName + '</td></tr>');
+                            //<td align="center">无</td>
+                        }
+
+                    }
+                } else {
+                    $material_list.append('<tr><td colspan="3" align="center">没有材料</td></tr>');
+                }
+            });
+        }
+    });
+
+</script>
+</body>
+
+</html>

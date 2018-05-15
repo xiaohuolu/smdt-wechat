@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>证照详情</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public.js"></script>
+		<style>
+			.mui-input-group .mui-input-row {
+				height: 50px;
+				padding-top: 5px;
+			}
+			
+			#btn {
+				display: block;
+				width: 80%;
+				color: #fff;
+				margin: 50px auto;
+				border: 1px solid #ff6600;
+				background-color: #ff6600;
+				padding: 10px;
+				border-radius: 3px;
+				font-size: 16px;
+			}
+			
+			.mui-input-row label {
+				width: 28% !important;
+			}
+			
+			.mui-input-row input {
+				width: 72% !important;
+				font-size: 0.9rem;
+				text-overflow: ellipsis
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<!--<h1 class="mui-title">基本信息</h1>-->
+		</header>
+		<div class="mui-content" style="background-color: #FFFFFF;">
+			<div class="banner"><img src=""></div>
+		</div>
+		<script>
+			var idCard;
+			if(isLogin()) {
+
+				if(!isAuth()) {
+					if(isPerson()) {
+						location.href = 'auth_person.html';
+					} else if(isEnterprise()) {
+						location.href = 'auth_enterprise.html';
+					}
+				}
+			} else {
+				location.href = 'login.html';
+			}
+
+			if(isPerson()) {
+				idCard = getUser().idCard;
+			} else {
+				idCard = getUser().creditCode;
+			}
+
+			$.ajax({
+				type: "post",
+				url: API_HOST + "/zzy/find.json",
+				data: {
+					id: GetQueryString("id")
+				},
+				success: function(response) {
+					console.log(response)
+					var data = response.data.data;
+					var str = "";
+
+					str += '<div class="mui-input-group">';
+					str += '<div class="mui-input-row">';
+					if(isPerson()) {
+						str += '<label>个人名称</label>';
+					} else {
+						str += '<label>企业名称</label>';
+					}
+					str += '<input  disabled id="userName" type="text" class="mui-input-clear mui-input" value=' + data.applicant + '>';
+					str += '</div>';
+					str += '<div class="mui-input-row">';
+					if(isPerson()) {
+						str += '<label>身份证号:</label>';
+					} else {
+						str += '<label>统一社会信用代码:</label>';
+					}
+					str += '<input disabled id="phone" type="text" class="mui-input-clear mui-input" value=' + data.idCard + '>';
+					str += '</div>';
+					str += '<div class="mui-input-row">';
+					str += '<label>证照名称:</label>';
+					str += '<input disabled id="idCard" type="text" class="mui-input-clear mui-input" value=' + data.name + '>';
+					str += '</div>';
+					str += '<div class="mui-input-row">';
+					str += '<label>办件编号:</label>';
+					str += '<input disabled id="itemName" type="text" class="mui-input-clear mui-input" value=' + data.workNo + '>';
+					str += '</div>';
+					str += '<div class="mui-input-row">';
+					str += '<label>发证日期:</label>';
+					str += '<input disabled id="itemName" type="text" class="mui-input-clear mui-input" value=' + data.createDate + '>';
+					str += '</div>';
+
+					//				<div style="height: 20px;"></div>
+					str += '</div>';
+					$(".mui-content").append(str);
+					$("img").attr("src", SERVER_HOST + "cert.php?path=" + data.watersrc);
+				}
+			});
+		</script>
+	</body>
+
+</html>

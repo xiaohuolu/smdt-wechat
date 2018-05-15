@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="telephone=yes" />
+		<meta name="format-detection" content="email=yes" />
+		<meta name="format-detection" content="adress=yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>便民服务</title>
+		<link rel="stylesheet" href="css/mui.min.css">
+
+		<!--<link type="text/css" rel="stylesheet" href="css/slf.css" />-->
+
+		<!--<link type="text/css" rel="stylesheet" href="css/style.css" />-->
+
+		<!--<link rel="stylesheet" href="css/icons-extra.css">-->
+
+		<!--<link type="text/css" rel="stylesheet" href="css/index.css" />-->
+		<!--<link type="text/css" rel="stylesheet" href="css/mui.min.css" />-->
+		<link rel="stylesheet" href="css/iconfont_bm.css" />
+				
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public.js"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			ul {
+				list-style: none;
+			}
+			
+			a {
+				text-decoration: none;
+				color: #333;
+			}
+			
+			#navbar {
+				padding: 5px 0;
+				position: fixed;
+				background: #fff;
+				width: 100%;
+				top: 0;
+			}
+			
+			.navbar-wrap {
+				width: 100%;
+				display: flex;
+				justify-content: space-around;
+			}
+			
+			.active {
+				color: #26AEF7 !important;
+				padding-bottom: 5px;
+				border-bottom: 2px solid #26AEF7;
+			}
+			
+			.scroll-item {
+				text-align: center;
+				width: 25%;
+				line-height: 30px;
+				margin: 10px 0;
+			}
+			
+			.scroll-item i {
+				font-size: 30px;
+				color: orange;
+			}
+			
+			.bm-wrap {
+				display: flex;
+				justify-content: flex-start;
+				flex-wrap: wrap;
+				margin: auto;
+				margin: 20px 0;
+			}
+			
+			.bm-wrap:last-child {
+				display: flex;
+				justify-content: flex-start;
+				flex-wrap: wrap;
+				margin: auto;
+				margin: 20px 0 150px 0;
+			}
+			
+			p.title {
+				margin-top: 80px;
+				color: #999;
+				padding-left: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--头-->
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">便民服务</h1>
+		</header>
+		<nav id="navbar" style="margin-top: 44px;">
+			<div>
+				<ul class="navbar-wrap">
+					<li class="active">便民生活</li>
+					<li>财富管理</li>
+					<li> 资金往来</li>
+					<li>购物娱乐</li>
+				</ul>
+
+			</div>
+		</nav>
+
+		<section>
+			<div class="scroll-wrapper">
+				<p class="title">便民生活</p>
+				<div id="bmsh" class="bm-wrap">
+
+					<div class="scroll-item">
+						<i style="color: #0062CC;" class="iconfont icon-yiliaoweisheng"></i>
+						<p style="color: #0062CC;">医疗卫生</p>
+					</div>
+					<div class="scroll-item">
+						<i style="color: #124555;" class="iconfont icon-jiankang"></i>
+						<p style="color: #124555;">健康管理</p>
+					</div>
+					<div class="scroll-item">
+						<i style="color: #ff1255;" class="iconfont icon-hongbao"></i>
+						<p style="color: #ff1255;">红包</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #987654;" class="iconfont icon-changge"></i>
+						<p style="color: #987654;">娱乐</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #235689;" class="iconfont icon-lvyouzixun"></i>
+						<p style="color: #235689;">旅游</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #456456;" class="iconfont icon-shoujichongzhi"></i>
+						<p style="color: #456456;">充值中心</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #DD524D;" class="iconfont  icon-qia"></i>
+						<p style="color: #DD524D;">一卡通</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #8A6DE9;" class="iconfont icon-chengshifuwu"></i>
+						<p style="color: #8A6DE9;">城市服务</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #336699;" class="iconfont icon-shenghuojiaofei"></i>
+						<p style="color: #336699;">生活缴费</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #225544;" class="iconfont icon-yundong"></i>
+						<p style="color: #225544;">运动</p>
+					</div>
+
+				</div>
+				<p class="title">财富管理</p>
+				<div id="cfgl" class="bm-wrap">
+
+					<div class="scroll-item">
+						<i style="color: #465777;" class="iconfont icon-gupiao"></i>
+						<p style="color: #465777;">股票</p>
+					</div>
+					<div class="scroll-item">
+						<i style="color: #7ECEF4;" class="iconfont icon-huilvhuansuan"></i>
+						<p style="color: #7ECEF4;">汇率换算</p>
+					</div>
+					<div class="scroll-item">
+						<i style="color: #454656;" class="iconfont icon-wodebaoxian"></i>
+						<p style="color: #454656;">我的保险</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #3AA4FF;" class="iconfont icon-licaibao"></i>
+						<p style="color: #3AA4FF;">理财宝</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #6ACF59;" class="iconfont icon-caipiao"></i>
+						<p style="color: #6ACF59;">彩票</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #445577;" class="iconfont icon-fapiao"></i>
+						<p style="color: #445577;">发票</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #123014;" class="iconfont icon-lvyou"></i>
+						<p style="color: #123014;">旅游</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #132132;" class="iconfont icon-difangtechan"></i>
+						<p style="color: #132132;">地方特产</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #456123;" class="iconfont icon-zixunguanlizixunfuwuguanli"></i>
+						<p style="color: #456123;">咨询管理</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #778844;" class="iconfont icon-wanyouxi"></i>
+						<p style="color: #778844;">电子游戏</p>
+					</div>
+
+				</div>
+				<p class="title">资金往来</p>
+				<div id="zjwl" class="bm-wrap">
+					<div class="scroll-item">
+						<i style="color: #4D6BCD;" class="iconfont icon-ditu"></i>
+						<p style="color: #4D6BCD;">地图定位</p>
+					</div>
+					<div class="scroll-item">
+						<i style="color: #6D6D72;" class="iconfont icon-yundongguiji"></i>
+						<p style="color: #6D6D72;">轨迹导航</p>
+					</div>
+					<div class="scroll-item">
+						<i style="color: #EA7D7D;" class="iconfont icon-qiche"></i>
+						<p style="color: #EA7D7D;">出行</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #FF6600;" class="iconfont icon-jixianyundong"></i>
+						<p style="color: #FF6600;">极限运动</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #6D6D72;" class="iconfont icon-kuaidi1"></i>
+						<p style="color: #6D6D72;">快递查询</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #7ECEF4;" class="iconfont icon-jipiao"></i>
+						<p style="color: #7ECEF4;">机票查询</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #FF6600;" class="iconfont icon-zixingche"></i>
+						<p style="color: #FF6600;">共享单车</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #122444;" class="iconfont icon-huoche"></i>
+						<p style="color: #122444;">火车</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #4D6BCD;" class="iconfont icon-jienenghuanbao"></i>
+						<p style="color: #4D6BCD;">节能环保</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #001144;" class="iconfont icon-jienenggaizaoduibi"></i>
+						<p style="color: #001144;">节能改造</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #3AA4FF;" class="iconfont icon-chifan2600"></i>
+						<p style="color: #3AA4FF;">eat </p>
+					</div>
+				</div>
+				<p class="title">购物娱乐</p>
+				<div id="gwyl" class="bm-wrap">
+					<div class="scroll-item">
+						<i style="color: #564654;" class="iconfont icon-xiazai49"></i>
+						<p style="color: #564654;">我的购物</p>
+					</div>
+					<div class="scroll-item">
+						<i style="color: #114499;" class="iconfont icon-zenyaowan"></i>
+						<p style="color: #114499;">我的收藏</p>
+					</div>
+					<div class="scroll-item">
+						<i style="color: #ff9966;" class="iconfont icon-zhengfujiguan"></i>
+						<p style="color: #ff9966;">政府公开</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #447755;" class="iconfont icon-xuexiaogaikuang"></i>
+						<p style="color: #447755;">高校咨询</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #330022;" class="iconfont icon-zixun"></i>
+						<p style="color: #330022;">消息</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #114477;" class="iconfont icon-mianfeizixunfuwu"></i>
+						<p style="color: #114477;">免费咨询</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #446655;" class="iconfont icon-junren"></i>
+						<p style="color: #446655;">厉害了我的国</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #441111;" class="iconfont icon-leijiaoyuyulex"></i>
+						<p style="color: #441111;">学历</p>
+					</div>
+
+					<div class="scroll-item">
+						<i style="color: #FF5053;" class="iconfont icon-xuexiaogaikuang"></i>
+						<p style="color: #FF5053;">学校概况</p>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<script>
+			if(GetQueryString("isback") != 1) {
+				$("#back").hide();
+			}
+
+			var bmshTop = parseInt($("#bmsh").offset().top);
+			var cfglTop = parseInt($("#cfgl").offset().top);
+			var zjwlTop = parseInt($("#zjwl").offset().top);
+			var gwylTop = parseInt($("#gwyl").offset().top);
+
+			$('.navbar-wrap li').on('click', function() {
+				$(this).addClass('active').siblings().removeClass('active');
+				var num = $(".scroll-wrapper>div").eq($(this).index()).offset().top;
+
+				$(window).scrollTop(num - 120);
+			});
+
+			$(window).scroll(function(event) {
+
+				var winTop = parseInt($(this).scrollTop());
+
+				onScroll(bmshTop, 0);
+				onScroll(cfglTop, 1);
+				onScroll(zjwlTop, 2);
+				onScroll(gwylTop, 3);
+				//			 
+
+				function onScroll(id_name, num) {
+					if((id_name - winTop) <= 300) {
+						$('.navbar-wrap').children().removeClass('active');
+						$('.navbar-wrap').children().eq(num).addClass('active');
+
+					};
+				};
+				if(winTop < (bmshTop - 300)) {
+					$('.navbar-wrap').children().removeClass('active');
+				}
+
+			});
+		</script>
+	</body>
+
+</html>

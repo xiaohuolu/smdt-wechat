@@ -1,0 +1,186 @@
+/*微博*/
+.mui-weibo{
+	width: 32%;
+	padding: 0 0 0 1%;
+	text-align: center;
+	height: 150px;
+	float: left;
+}
+.mui-slider-item .mui-weibo img{
+	height: 90px; 
+	width: 90px;
+	display: inline-block;
+}
+.mui-slider-item .mui-weibo span {
+	display: block;
+	font-size: 14px;
+}
+#weibo .mui-slider-item .mui-weibo img {
+	height: 50px; 
+	width: 50px;
+}
+#weibo .mui-weibo {
+	width: 25%;
+	height: 100px;
+}
+.index_inner_jr #weibo .mui-weibo {
+	height: 120px;
+}
+.box_ttl {
+	padding: 15px 10px 25px 15px;
+}
+/*我要咨询、我要投诉、我要建议、我要表扬*/
+.row {
+	padding: 10px;
+	margin-top: 10px;
+	background-color: #fff;
+}
+.h2_ttl span {
+	float: right;
+	color: #fff;
+	padding: 1px 5px;
+	background-color: #FF6600;
+	display: inline-block;
+    border-radius: 4px;
+    line-height: 24px;
+    font-size: 14px;
+}
+.h2_ttl h2 {
+	border-left: 3px solid #FF6600;
+	padding-left: 8px;
+	line-height: 24px;
+}
+table.table-horizontal {
+	width: 100%;
+	margin-top: 15px;
+	border-collapse: collapse;
+    color: #555;
+    font-size: 15px;
+}
+table.table-horizontal th,
+table.table-horizontal td {
+	font-weight: normal;
+	text-align: left;
+	padding: 5px;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+table.table-horizontal th {
+    background: #ECF5FC;
+}
+table.details {
+    border: 0px solid #d2e6ef;
+    border-collapse: separate;
+    border-spacing: 0px;
+    font-size: 13px;
+    color: #555;
+    width: 100%;
+    border-radius: 4px;
+}
+
+table.details > thead > tr > td,
+table.details > thead > tr > th,
+table.details > tbody > tr > td,
+table.details > tbody > tr > th,
+table.details > tfoot > tr > td,
+table.details > tfoot > tr > th {
+    line-height: 30px;
+    padding: 4px 5px;
+    font-size: 15px;
+    font-weight: normal;
+    border-right: 1px solid #d2e6ef;
+    border-bottom: 1px solid #d2e6ef;
+}
+table.details > tbody > tr > td,
+table.details > tbody > tr > th {
+	text-align: center;
+}
+
+table.details > thead > tr > th{
+    white-space: nowrap;
+    background-color: #7ecef4;
+    color: #FFFFFF;
+    text-align: left;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+table.details > thead:first-child > tr:first-child > th,
+table.details > thead:first-child > tr:first-child > td {
+    border-top: 1px solid #d2e6ef;
+}
+
+table.details > tbody > tr > th,
+table.details > tbody > tr > td:first-child {
+    background: #ECF5FC;
+    color: #417292;
+}
+
+table.details > tbody > tr > th:last-child,
+table.details > tbody > tr > td:last-child {
+    padding: 0 10px;
+}
+
+table.details > thead > tr > th:first-child,
+table.details > thead > tr > td:first-child,
+table.details > tbody > tr > th:first-child,
+table.details > tbody > tr > td:first-child,
+table.details > tfoot > tr > th:first-child,
+table.details > tfoot > tr > td:first-child {
+    border-left: 1px solid #d2e6ef;
+}
+
+table.details > thead:first-child > tr:first-child > th:first-child,
+table.details > thead:first-child > tr:first-child > td:first-child {
+    border-top-left-radius: 4px;
+}
+
+table.details > thead:first-child > tr:first-child > th:last-child,
+table.details > thead:first-child > tr:first-child > td:last-child {
+   border-top-right-radius: 4px;
+}
+
+table.details > tbody:last-child > tr:last-child > th:first-child,
+table.details > tbody:last-child > tr:last-child > td:first-child {
+    border-bottom-left-radius: 4px;
+}
+
+table.details > tbody:last-child > tr:last-child > th:last-child,
+table.details > tbody:last-child > tr:last-child > td:last-child {
+    border-bottom-right-radius: 4px;
+}
+.w-td25 {
+	width: 25%;
+	text-align: center;
+}
+.btn-close {
+	text-align: center;
+}
+.btn-close a {
+	padding: 8px 18px; 
+	background: #8fc6dc;
+	color: #ffffff;
+	text-decoration: none;
+	border-radius: 5px;
+}
+.mui-segmented-control .mui-qrcode {
+	line-height: 38px;
+    display: table-cell;
+    overflow: hidden;
+    width: 1%;
+    -webkit-transition: background-color .1s linear;
+    transition: background-color .1s linear;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #007aff;
+    border-color: #007aff;
+    border-left: 1px solid #007aff;
+}
+.mui-segmented-control .mui-qrcode.mui-active {
+	color: #fff;
+    background-color: #007aff;
+}
+.mui-segmented-control .mui-qrcode:first-child {
+	 	border-left-width: 0;
+}

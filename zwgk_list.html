@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>新闻列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/app.css"/>
+    <link rel="stylesheet" href="css/jqpagination.css"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/jquery.jqpagination.min.js"></script>
+
+</head>
+
+<body>
+<style>
+    .mui-control-content {
+        background-color: #fff;
+    }
+
+    .mui-table h4,
+    .mui-table h5,
+    .mui-table .mui-h5,
+    .mui-table .mui-h6,
+    .mui-table p {
+        margin-top: 0;
+    }
+
+    .mui-table h4 {
+        line-height: 21px;
+        font-weight: 500;
+    }
+
+    .mui-table .oa-icon {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    .mui-table .oa-icon-star-filled {
+        color: #f14e41;
+    }
+
+    a {
+        color: #333333;
+    }
+
+    .mui-slider .mui-slider-group .mui-slider-item {
+        font-size: 17px;
+    }
+
+    .mui-h5 {
+        font-size: 16px;
+    }
+
+    .pagination {
+        margin: 10px 0;
+        width: 300px !important;
+    }
+
+    .pagination a {
+        display: inline-block;
+        width: 15%;
+        height: 30px;
+        line-height: 30px;
+        color: #007AFF;
+    }
+</style>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="bg mui-title" id="bm_title"></h1>
+    <!--<div style="text-align: right;line-height:40px">
+        <span style="font-size:14px;margin-right:10px;color: #fff;">切换部门:</span>
+        <select style="padding:0; font-size:12px;width:50%;height:30px" id="government" onchange="govChange(this)" name="">
+        </select>
+    </div>-->
+</header>
+<div class="mui-content">
+    <!--<div class="banner"><img src="images/banner.jpg"></div>-->
+    <!--政策解读、法规制度开始-->
+    <div class="mui-slider">
+        <div class="mui-slider-group">
+            <!--政策解读开始-->
+            <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                <ul id="article_list" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+
+                </ul>
+            </div>
+            <!--政策解读结束-->
+        </div>
+    </div>
+
+    <div class="pagination displayB" style="display:none;position:absolute;left:50%;transform: translateX(-50%);">
+        <a href="#" class="first" data-action="first">&laquo;</a>
+        <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+        <input style="width:40%;line-height:30px;height:30px;color:#555" type="text" readonly="readonly"/>
+        <a href="#" class="next" data-action="next">&rsaquo;</a>
+        <a href="#" class="last" data-action="last">&raquo;</a>
+    </div>
+
+
+</div>
+
+<script>
+    $("#bm_title").text(GetQueryString("title"));
+
+    $.get(API_HOST + "/government/listByCid.json", {
+        cid: GetQueryString("cid")
+    }, function (response) {
+        console.log(response);
+        if (response.success) {
+
+            var data = response.data;
+            for (var i = 0; i < data.length; i++) {
+                $("#government").append('<option class="font" value="' + data[i].id + '">' + data[i].name + '</option>')
+            }
+        }
+    })
+
+
+    getMyAppointment(1);
+
+    function getMyAppointment(pageNo) {
+        $.get(API_HOST + "/content.json", {
+            cid: GetQueryString("cid"),
+            gid: $("#government").val(),
+            rows: 20,
+            page: pageNo
+        }, function (response) {
+            console.log(response)
+            if (response.success) {
+                var size = Math.ceil(response.data.total / 20)
+                $('.pagination').jqPagination({
+                    current_page: pageNo, //设置当前页 默认为1
+                    max_page: size, //设置最大页 默认为1
+                    page_string: '第{current_page}页,共{max_page}页',
+                    paged: function (page) {
+                        getMyAppointment(page);
+                        console.log(tt(page))
+                    }
+                });
+
+
+                $("#article_list").html("");
+                //						$("#article_list").empty();
+                var data = response.data.list;
+
+                if (data.length == 0) {
+                    $("#article_list").append('<h2 style="text-align: center;margin:30px 0">没有数据</h2>')
+
+                } else {
+                    $(".displayB").css("display", "block");
+                }
+
+                for (var i = 0; i < data.length; i++) {
+                    var row = data[i];
+                    var space = row.create_time.indexOf(" ");
+                    var create_time = row.create_time.substr(0, space);
+                    $("#article_list").append('<li class="mui-table-view-cell"><div class="mui-table"><div class="mui-table-cell mui-col-xs-5 mui-ellipsis"><a href="zwgk_detail.html?id=' + row.id + '">' + row.title + '</a></div><div class="mui-table-cell mui-col-xs-2 mui-text-right"><span class="mui-h5">' + create_time + '</span></div></div></li>')
+                }
+            }
+        })
+    }
+
+    function govChange(obj) {
+        getMyAppointment(1);
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>中介超市</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="css/zjcs.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/icons-extra.css"/>
+    <script src="js/public.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <style>
+        .mui-table-view:before {
+            height: 0;
+        }
+
+        .mui-table-view-cell > a:not(.mui-btn) {
+            padding: 0;
+            margin: 0;
+        }
+
+        .ff a {
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+<script src="js/mui.min.js"></script>
+<script type="text/javascript">
+    mui.init()
+</script>
+<!-- 主界面菜单同时移动 -->
+<!-- 侧滑导航根容器 -->
+<!--<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+    <h1 class="mui-title">中介超市</h1>
+</header>-->
+<div class="mui-content">
+
+    <ul id="list" class="mui-table-view">
+
+    </ul>
+
+</div>
+<script type="text/javascript">
+    mui.init();
+    var list = $("#list");
+    var item = $("#item");
+    var images = [];
+    $.get(API_HOST + "/medi.json", function (response) {
+        console.log(response);
+        if (response.success) {
+            ///
+            var data = response.data;
+            for (var i = 0; i < data.length; i++) {
+                images[data[i].id] = data[i].image;
+                var str = "";
+                str += '<li class="mui-table-view-cell mui-collapse">';
+                str += '<a class="mui-navigate-right" href="#">';
+                str += '<img class="mui-media-object mui-pull-left" src="' + SERVER_HOST + data[i].image + '">';
+                str += '<span style="position: absolute; top: 25%;left:52px;">' + data[i].name + '</span>';
+                str += '<span id="length' + data[i].id + '" class="mui-badge mui-badge-primary">0</span>';
+                str += '</a>';
+                str += '<div class="mui-collapse-content">';
+                str += '<ul id="item' + data[i].id + '" class="mui-table-view">';
+
+                str += '</ul>';
+                str += '</div>';
+                str += '</li>';
+                list.append(str);
+
+                $.get(API_HOST + "/medi/lists.json", {
+                    item: data[i].id
+                }, function (response2) {
+
+                    if (response2.success) {
+                        var data2 = response2.data;
+                        for (var k = 0; k < data2.length; k++) {
+
+                            var str2 = "";
+                            str2 += '<li style="margin-left:5px" class="mui-table-view-cell mui-media ff">';
+                            str2 += '<a href="./company.html?id=' + data2[k].id + '">';
+                            str2 += '<img class="mui-media-object mui-pull-left" src="' + SERVER_HOST + images[data2[k].companyTransItem] + '">';
+                            str2 += '<div class="mui-media-body">';
+                            str2 += data2[k].company;
+                            str2 += '<div style="display:none" class=""><span>服务评星：</span> <strong style="color: #f9b612;font-size: 18px">★</strong><strong style="color: #ccc;font-size: 18px">★★★★</strong></div>';
+                            str2 += ' </div>';
+                            str2 += '</a>';
+                            str2 += '</li>';
+                            //									item.append()
+                            $("#length" + data2[k].companyTransItem).text(data2.length)
+                            $("#item" + data2[k].companyTransItem).append(str2);
+                        }
+
+                    }
+                })
+            }
+
+        }
+    })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>基本信息</title>
+    <script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+	<link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/zxsb.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+   
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title" id="itemName"></h1>
+	</header>
+	<div class="mui-content">
+		<!--<div class="banner"><img src="images/banner.jpg"></div>-->
+		<div class="mui-content-padded clearfix">
+			<div class="text-box">
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label>申请人名称：</label>
+						<p class="p_text" id="userName"></p>
+					</div>
+					<div class="mui-input-row">
+						<label>申请人证件号：</label>
+						<p class="p_text" id="idCard"></p>
+					</div>
+					<div class="mui-input-row">
+						<label>联系电话：</label>
+						<input type="text" placeholder="" id="phone">
+					</div>
+					<div class="mui-input-row">
+						<label>邮编：</label>
+						<input type="text" placeholder=""  id="postCode">
+					</div>
+					<div class="mui-input-row">
+						<label>通讯地址：</label>
+						<input type="text" placeholder="" id="postAddress">
+					</div>
+				</form>
+			</div>
+			<ul class="mui-clearfix yema">
+				<li class="next"><a href="" id="previous">上一步</a></li>
+				<li class="next"><a  onclick="sbcl();"  style="cursor: pointer;">下一步</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+        $("#itemName").text(GetQueryString("itemName"));
+
+
+        var user=getUser();
+		var idCard="";
+		if(!isLogin()){
+			location.href="login.html";
+		}else{
+			if(!isAuth()){
+				if(isPerson()){
+					location.href="auth_person.html";
+				}else{
+					location.href="auth_enterprise.html";
+				}
+			}else{
+				if(isPerson()){
+					idCard=user.idCard;
+				}else{
+					idCard=user.creditCode;
+				}
+			}
+		}
+
+      	console.log(user)
+      	$("#userName").text(user.username);
+      	$("#idCard").text(idCard);
+      	$("#phone").val(user.phone);
+      	$("#postCode").val(user.post_code);
+      	$("#postAddress").val(user.post_address);
+		$("#previous").attr("href","sbcn.html?id="+GetQueryString("id")+"&gid="+GetQueryString("gid")); 
+		//$("#next").attr("href","sbcl.html?id="+GetQueryString("id")+"&gid="+GetQueryString("gid"));
+
+      	function sbcl(){
+      		user.post_code=$("#postCode").val();
+      		user.phone = $("#phone").val();
+      		user.post_address = $("#postAddress").val();
+      		setUser(user);
+      		location.href="sbcl.html?id="+GetQueryString("id")+"&gid="+GetQueryString("gid");
+      	}
+	</script>
+</body>
+</html>

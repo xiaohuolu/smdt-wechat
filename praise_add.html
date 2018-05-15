@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我要表扬</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/public.js"></script>
+		<style>
+			.mui-show-loading {
+				position: fixed;
+				padding: 5px;
+				width: 120px;
+				min-height: 120px;
+				top: 45%;
+				left: 50%;
+				margin-left: -60px;
+				background: rgba(0, 0, 0, 0.6);
+				text-align: center;
+				border-radius: 5px;
+				color: #FFFFFF;
+				visibility: hidden;
+				margin: 0;
+				z-index: 2000;
+
+				-webkit-transition-duration: .2s;
+				transition-duration: .2s;
+				opacity: 0;
+				-webkit-transform: scale(0.9) translate(-50%, -50%);
+				transform: scale(0.9) translate(-50%, -50%);
+				-webkit-transform-origin: 0 0;
+				transform-origin: 0 0;
+			}
+			.mui-show-loading.loading-visible {
+				opacity: 1;
+				visibility: visible;
+				-webkit-transform: scale(1) translate(-50%, -50%);
+				transform: scale(1) translate(-50%, -50%);
+			}
+			.mui-show-loading .mui-spinner{
+				margin-top: 24px;
+				width: 36px;
+				height: 36px;
+			}
+			.mui-show-loading .text {
+				line-height: 1.6;
+				font-family: -apple-system-font,"Helvetica Neue",sans-serif;
+				font-size: 14px;
+				margin: 10px 0 0;
+				color: #fff;
+			}
+
+			.mui-show-loading-mask {
+				position: fixed;
+				z-index: 1000;
+				top: 0;
+				right: 0;
+				left: 0;
+				bottom: 0;
+			}
+			.mui-show-loading-mask-hidden{
+				display: none !important;
+			}
+
+			.textarea {
+				height: 125px;
+				background-color: #fff;
+			}
+			
+			.textarea label {
+				font-family: 'Helvetica Neue', Helvetica, sans-serif;
+				line-height: 1.1;
+				float: left;
+				width: 35%;
+				padding: 11px 15px;
+			}
+			
+			.textarea textarea {
+				float: right;
+				width: 65%;
+				margin-bottom: 0;
+				padding-left: 0;
+				border: 0;
+				border-radius: 0;
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我要表扬</h1>
+		</header>
+		<div class="mui-content">
+			<div class="banner"><img src="images/banner.jpg"></div>
+			<div>
+				<label class="warning">请注意文明用语，否则你可能被封号</label>
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label>表扬标题</label>
+						<input id="title" type="text" class="mui-input-clear mui-input" placeholder="请输入建议标题">
+					</div>
+
+					<div class="mui-input-row">
+						<label>表扬机构</label>
+						<select id="gid" name="gid" class="gid">
+						</select>
+						<span style="position: absolute;left:80%;line-height: 40px;color:#999" class="mui-icon mui-icon mui-icon-arrowdown"></span>
+					</div>
+
+					<div class="textarea">
+						<label>表扬内容</label>
+						<textarea id="text" style="min-height: 40px;" id="textarea" rows="5" placeholder="请输入建议内容"></textarea>
+					</div>
+				</form>
+				<div style="margin-top: 10px;">
+					 <button id="btn" style="background:#fff;margin-left:5%; width: 90% ;" type="button"     class="mui-btn mui-btn-danger mui-btn-block mui-btn-outlined">提交表扬</button>
+
+				</div>
+			</div>
+		</div>
+		<script>
+            //扩展mui.showLoading
+            (function($, window) {
+                //显示加载框
+                $.showLoading = function(message,type) {
+                    if ($.os.plus && type !== 'div') {
+                        $.plusReady(function() {
+                            plus.nativeUI.showWaiting(message);
+                        });
+                    } else {
+                        var html = '';
+                        html += '<i class="mui-spinner mui-spinner-white"></i>';
+                        html += '<p class="text">' + (message || "数据加载中") + '</p>';
+
+                        //遮罩层
+                        var mask=document.getElementsByClassName("mui-show-loading-mask");
+                        if(mask.length==0){
+                            mask = document.createElement('div');
+                            mask.classList.add("mui-show-loading-mask");
+                            document.body.appendChild(mask);
+                            mask.addEventListener("touchmove", function(e){e.stopPropagation();e.preventDefault();});
+                        }else{
+                            mask[0].classList.remove("mui-show-loading-mask-hidden");
+                        }
+                        //加载框
+                        var toast=document.getElementsByClassName("mui-show-loading");
+                        if(toast.length==0){
+                            toast = document.createElement('div');
+                            toast.classList.add("mui-show-loading");
+                            toast.classList.add('loading-visible');
+                            document.body.appendChild(toast);
+                            toast.innerHTML = html;
+                            toast.addEventListener("touchmove", function(e){e.stopPropagation();e.preventDefault();});
+                        }else{
+                            toast[0].innerHTML = html;
+                            toast[0].classList.add("loading-visible");
+                        }
+                    }
+                };
+
+                //隐藏加载框
+                $.hideLoading = function(callback) {
+                    if ($.os.plus) {
+                        $.plusReady(function() {
+                            plus.nativeUI.closeWaiting();
+                        });
+                    }
+                    var mask=document.getElementsByClassName("mui-show-loading-mask");
+                    var toast=document.getElementsByClassName("mui-show-loading");
+                    if(mask.length>0){
+                        mask[0].classList.add("mui-show-loading-mask-hidden");
+                    }
+                    if(toast.length>0){
+                        toast[0].classList.remove("loading-visible");
+                        callback && callback();
+                    }
+                }
+            })(mui, window);
+
+
+            if(!isLogin()){
+                location.href="login.html";
+            }
+            var gid = $("#gid");
+            var title = $("#title");
+            var text = $("#text");
+            var btn = $("#btn");
+
+            $.ajax({
+                url: API_HOST + '/government/listInHall.json',
+                method: 'get',
+                success: function(response) {
+                    console.log(response);
+                    var data = response.data;
+                    for(var i = 0; i < data.length; i++) {
+                        gid.append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
+                    }
+                }
+            })
+
+            btn.click(function() {
+                if(title.val().length >= 3 && text.val().length >= 10) {
+                    // btn.attr('href', 'praise_list.html?gid=' + gid.val() + '');
+                    btn.attr("disabled","disabled");
+                        mui.showLoading("正在加载..","div");
+                } else {
+                    mui.alert("标题最少三个字，内容不低于十个字");
+                    return false;
+                }
+
+                $.ajax({
+                    url: API_HOST + '/praise/add.json?title='+title.val()+'&content='+text.val()+'&gid='+gid.val(),
+                    method: 'post',
+                    data: {},
+                    headers: {
+                        'session': cookie.get('session')
+                    },
+                    success: function(response) {
+                        console.log(response);
+
+                        location.href = 'praise_list.html';
+                        mui.hideLoading();
+
+                    }
+                });
+
+                return false;
+            })
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>申报承诺</title>
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/zxsb.css" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="itemName"></h1>
+		</header>
+		<div class="mui-content">
+			<!--<div class="banner"><img src="images/banner.jpg"></div>-->
+			<div class="mui-content-padded clearfix">
+				<div class="text-box">
+					<p>请认真阅读以下信息</p>
+					<p>欢迎您使用银川网上市民大厅门户网站（以下简称"本网站"），为使您能够顺利使用办理行政审批事项，请您仔细阅读以下内容。如您在阅读后仍有疑问，请您拨打咨询电话：0951 - 5555999</p>
+					<p>1、本网站所提供的网上申报功能是指通过国际互联网（Internet）使用本网站，向银川市民大厅进行行政审批事项的申报、补正和查看办理反馈信息。</p>
+					<p>2、通过本网站进行网上办理的事项，是目前适合网上办理的事项，不是进驻行政审批服务局的全部事项，只有事项指南中所列事项才能使用该功能进行办理。</p>
+					<p>3、本网站"网上办事"功能为用户网上申报办理的主要入口，用户在本网站注册后可查看申办事项的办事指南信息，在实名认证之后方可在网上进行事项申报。</p>
+					<p>4、如果您想使用网上办理功能办理事项，请您熟读办理流程，依办理流程进行操作。</p>
+					<p>5、请您如实进行用户登记和事项申报信息填写，以免耽误您的登记和事项申报。</p>
+					<p>6、在进行事项申报前，请您准备好全部材料。事项申报后，请您及时查看办理反馈信息，进行互动。</p>
+					<p>7、需要上传的材料，请先下载空表、样表。</p>
+					<p>8、在使用本网站网上办理功能时，请您自觉遵守国家有关互联网管理的法律、法规，不得通过该功能提交与办理事项无关的任何信息。如有违反，我们将不予办理，所提交的内容违反法律法规的，将移交有关部门追究责任。</p>
+					<p class="text-ty" id="isAgree">同意<input type="checkbox" id="ty"></p>
+				</div>
+				<ul class="mui-clearfix yema">
+					<li class="next">
+						<a href="" id="previous" >上一步</a>
+					</li>
+					<li class="next">
+						<a href="" id="next">下一步</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+            $("#itemName").text(GetQueryString("itemName"));
+
+
+            if(!isLogin()){
+				location.href="login.html";
+			}else{
+				if(!isAuth()){
+					if(isPerson()){
+						location.href="auth_person.html";
+					}else{
+						location.href="auth_enterprise.html";
+					}
+				}
+			}
+			
+			$("#previous").attr("href","sbxz.html?id="+GetQueryString("id")+"&gid="+GetQueryString("gid")); 
+			$("#next").attr("href","jbxx.html?id="+GetQueryString("id")+"&gid="+GetQueryString("gid")+"&itemName="+GetQueryString("itemName"));
+			
+			mui("#isAgree").on("change", "input", function() {
+				if(document.getElementById("ty").checked) {
+					document.getElementById("isAgree").style.cssText = "color: ;"
+				} else {
+					document.getElementById("isAgree").style.cssText = "color: red;"
+				}
+			});
+
+			mui(".mui-clearfix").on("tap", "a", function() {
+				var href = this.getAttribute("href");
+				var id = this.getAttribute("id");
+				if(id == "previous") {
+					mui.openWindow({
+						url: href,
+						id: id
+					});
+				} else {
+					if(document.getElementById("ty").checked) {
+						mui.openWindow({
+							url: href,
+							id: href
+						});
+					} else {
+						document.getElementById("isAgree").style.cssText = "color: red;"
+						return;
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

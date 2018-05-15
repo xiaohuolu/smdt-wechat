@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的投诉</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public.js"></script>
+		<style>
+			.mui-input-group .mui-input-row {
+				height: 50px;
+				padding-top: 5px;
+			}
+			
+			#btn {
+				display: block;
+				width: 30%;
+				background: parent;
+				color: #000;
+				margin: 50px auto;
+				border: 1px solid #ccc;
+			}
+		</style>
+		<script type="text/javascript">
+			
+			
+			window.onload = function() {
+				mui.plusReady(function() {
+					var self = plus.webview.currentWebview();
+					document.getElementById("realNameTitle").innerHTML = self.title;
+
+				});
+			}
+		</script>
+	</head>
+
+	<body>
+
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的投诉</h1>
+			<a class="displayB four_btn" id="myConsult" href="complaint_add.html">我要投诉</a>
+
+		</header>
+		<div class="mui-content">
+			<!--<div class="banner"><img src="images/banner.jpg"></div>-->
+			<div id="appointment_list">
+
+				<div class="displayN" style="display:none;">
+					<h2 style="text-align: center;margin-top:50px">没有数据</h2>
+				</div>
+
+			</div>
+
+			<div style="height: 50px;"></div>
+
+		</div>
+		<script>
+				if(GetQueryString("isback")!=1){
+				$("#back").hide();
+			}
+			
+			if(isLogin()) {
+				if(!isAuth()) {
+					if(isPerson()) {
+						location.href = 'auth_person.html';
+					} else if(isEnterprise()) {
+						location.href = 'auth_enterprise.html';
+					}
+				}
+			} else {
+				location.href = 'login.html';
+			}
+			var myConsult = $("#myConsult");
+			var no = $("#no");
+			var title = $("#title");
+			var gid = $("#gid");
+			var create_time = $("#create_time");
+			var update_time = $(".update_time");
+			var statu = $("#statu");
+			var user = getUser();
+			complaint();
+
+			function complaint() {
+				$.ajax({
+					url: API_HOST + "/complaint.json",
+					method: "get",
+					headers: {
+						'session': cookie.get("session")
+					},
+					success: function(response) {
+						//					$("#displayN").css("display", "none");
+
+						if(response.msg == "账号未登录") {
+							var userType = cookie.get("userType");
+							var pwd = localStorage.getItem("pwd");
+							if(userType == 1) {
+								$.post(API_HOST + "/in/person.json", {
+									idCard: user.idCard,
+									password: pwd,
+								}, function(response1, textStatus, jqXHR) {
+									if(response1.success) {
+										cookie.set("session", response1.data.session);
+									}
+								});
+							} else {
+								$.post(API_HOST + "/in/enterprise.json", {
+									creditCode: user.creditCode,
+									password: pwd
+								}, function(json, textStatus, jqXHR) {
+									if(json.success) {
+										cookie.set("session", json.data.session);
+									}
+								})
+							}
+							complaint();
+						} else {
+							console.log(response);
+							var data = response.data;
+							if(data.length == 0) {
+								$(".displayN").css("display", "block");
+							} else {
+
+								for(var i = 0; i < data.length; i++) {
+									var appointment_list = $("#appointment_list");
+									var str = "";
+									str += '<div class="appointment_item" style="padding: 10px 0;background-color:#fff;margin-bottom:15px;">';
+									str += '<div class="mui-input-row">';
+									str += '<label>流水号:</label>';
+									str += '<span id="no" class="trans_name" style="line-height: 40px;">' + data[i].no + '</span>';
+									str += '</div>';
+									str += '<div class="mui-input-row">';
+									str += '<label>信件标题:</label>';
+									str += '<span id="title" class="group" style="line-height: 40px;">' + data[i].title + '</span>';
+									str += '</div>';
+									str += '<div class="mui-input-row">';
+									str += '<label>写信日期:</label>';
+									str += '<span id="create_time" class="time" style="line-height: 40px;">' + data[i].create_time + '</span>';
+									str += '</div>';
+								if(data[i].status == 1) {
+										str += '<div class="mui-input-row">';
+										str += '<label>回复日期:</label>';
+										str += '<span class="update_time status" style="line-height: 40px;">' + data[i].update_time + '</span>';
+										str += '</div>';
+									}
+									str += '<div class="statu mui-input-row">';
+									str += '<label>状态:</label>';
+									if(data[i].status == 0) {
+										str += '<span class="notReply">未回复</span>';
+									}else{
+										str += '<span class="Reply">已回复</span>';
+									}
+									str += '</div>';
+									str += '<div class="mui-input-row">';
+									str += '<label>操作:</label>';
+									str += '<a style="display:inline-block;width:20%;background-color:red;text-align:center;border-radius:5px;height:30px;line-height:30px;color:#fff" href="complaint_details.html?no=' + data[i].no + '">查看</a>';
+									str += '</div>';
+									str += '</div>';
+									appointment_list.prepend(str);
+								}
+							}
+						}
+					}
+				})
+			}
+		</script>
+
+	</body>
+
+</html>

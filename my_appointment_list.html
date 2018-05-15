@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的预约</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/jqpagination.css"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/public.js"></script>
+    <script src="js/jquery.jqpagination.min.js"></script>
+
+    <style>
+        body {
+            background-color: #fff;
+        }
+
+        .mui-input-group .mui-input-row {
+            height: 50px;
+            padding-top: 5px;
+            background-color: #f2f2f2;
+        }
+
+        #btn {
+            display: block;
+            width: 30%;
+            background: parent;
+            color: #000;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+        }
+
+        .mui-input-group:before {
+            height: 0;
+        }
+
+        .mui-input-group:after {
+            background-color: #fff;
+        }
+
+        .pagination {
+            margin: 10px 0;
+            width: 300px !important;
+        }
+
+        .pagination a {
+            display: inline-block;
+            width: 15%;
+            height: 30px;
+            line-height: 30px;
+            color: #007AFF;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<script type="text/javascript">
+    mui.init()
+</script>
+<header class="mui-bar mui-bar-nav">
+    <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我的预约</h1>
+    <a class="displayB four_btn" id="myConsult" href="for_appointment.html">我要预约</a>
+</header>
+
+<div class="mui-content">
+
+    <!--<div class="banner"><img src="images/banner.jpg"></div>-->
+    <div id="appointment_list" class="mui-input-group">
+        <div class="appointment_item">
+            <div class="mui-input-row">
+                <label>事项名称</label>
+                <span class="trans_name" style="line-height: 40px;"></span>
+            </div>
+            <div class="mui-input-row">
+                <label>处室:</label>
+                <span class="group" style="line-height: 40px;"></span>
+            </div>
+            <div class="mui-input-row">
+                <label>预约日期:</label>
+                <span class="date" style="line-height: 40px;"></span>
+            </div>
+            <div class="mui-input-row">
+                <label>预约时段:</label>
+                <span class="time" style="line-height: 40px;"></span>
+            </div>
+            <div class="mui-input-row">
+                <label>状态:</label>
+                <span class="status" style="line-height: 40px;"></span>
+            </div>
+            <div class="mui-input-row operation">
+                <label>操作:</label>
+                <span class="hold" style="line-height: 40px;"></span>
+            </div>
+        </div>
+    </div>
+    <div id="paging" class="pagination" style="position:absolute;left:50%;transform: translateX(-50%);">
+        <a href="#" class="first" data-action="first">&laquo;</a>
+        <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+        <input style="width:40%;line-height:30px;height:30px;" type="text" readonly="readonly"/>
+        <a href="#" class="next" data-action="next">&rsaquo;</a>
+        <a href="#" class="last" data-action="last">&raquo;</a>
+    </div>
+
+</div>
+<script>
+    if (GetQueryString("isback") != 1) {
+        $("#back").hide();
+    }
+
+    var idCard = "";
+    if (isLogin()) {
+        if (!isAuth()) {
+            if (isPerson()) {
+                location.href = 'auth_person.html';
+            } else if (isEnterprise()) {
+                location.href = 'auth_enterprise.html';
+            }
+        } else {
+            if (isPerson()) {
+                idCard = getUser().idCard;
+            } else {
+                idCard = getUser().creditCode;
+            }
+        }
+    } else {
+        location.href = 'login.html';
+    }
+
+    var item = $("#item"); //事项名称
+    var department = $("#department") //预约部门
+    var day = $("#day"); //预约日期
+    var time = $("#time"); //预约时间
+    var state = $("#state"); //状态
+    var handle = $("#handle"); //操作
+
+    var appointment_list = $("#appointment_list");
+    var appointment_item = $(".appointment_item").clone();
+    $(".appointment_item").remove();
+
+    getMyAppointment(1);
+
+    function getMyAppointment(pageNo) {
+        $.ajax({
+            url: API_HOST + '/appointment/myself.json',
+            method: 'get',
+            data: {
+                idCard: idCard,
+                PageNo: pageNo,
+                PageSize:10
+            },
+            success: function (response, textStatus, jqXHR) {
+
+                console.log(response);
+                var size = Math.ceil(response.data.total / 10)
+                $('.pagination').jqPagination({
+                    link_string: '/?page={page_number}',
+                    current_page: pageNo, //设置当前页 默认为1
+                    max_page: size, //设置最大页 默认为1
+                    page_string: '第{current_page}页,共{max_page}页',
+                    paged: function (page) {
+                        getMyAppointment(page);
+                    }
+                });
+
+                var lists = response.data.list;
+                appointment_list.html("");
+                if (lists.length == 0) {
+                    appointment_list.html("<h2 style='margin-top:100px;text-align: center;'>没有数据</h2>");
+                    $("#paging").css("display", "none");
+                }
+                for (var i = 0; i < lists.length; i++) {
+
+                    appointment_item.find(".trans_name").text(lists[i].transName);
+                    appointment_item.find(".group").text(lists[i].officeName);
+                    appointment_item.find(".date").text(lists[i].appointmentDate);
+                    appointment_item.find(".time").text(lists[i].appointmentTime);
+
+
+                    if (lists[i].status == '1') {
+                        appointment_item.find(".status").html('预约成功');
+
+                    } else if (lists[i].status == '2') {
+                        appointment_item.find(".status").html('已取消');
+
+                    } else if (lists[i].status == '3') {
+                        appointment_item.find(".status").html('已激活');
+
+                    } else if (lists[i].status == '4') {
+                        appointment_item.find(".status").html('已办理');
+
+                    } else if (lists[i].status == '5') {
+                        appointment_item.find(".status").html('已过期');
+                    }
+
+                    appointment_item.find(".hold").html(lists[i].status == '1' ? '<button onclick="cancelById(' + lists[i].id + ')">取消</button>' : '无');
+                    appointment_list.prepend('<div class="appointment_item" style="padding: 20px 0;border-bottom: 1px solid #CCCCCC;">');
+                    appointment_list.prepend(appointment_item.html());
+                    appointment_list.prepend('</div>');
+                }
+            }
+
+        });
+    }
+
+    function cancelById(id) {
+        $.ajax({
+            url: API_HOST + '/appointment/cancelById.json',
+            method: 'post',
+            data: {
+                id: id
+            },
+            success: function (response, textStatus, jqXHR) {
+                console.log(response);
+                mui.toast(response.msg);
+                if (response.success) {
+                    alert(response.msg);
+                    location.reload();
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+
+</html>

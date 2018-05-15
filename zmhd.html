@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>政民互动</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link href="css/style.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" href="css/jqpagination.css" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/public.js"></script>
+		<script src="js/jquery.jqpagination.min.js"></script>
+	</head>
+
+	<body style="background-color: #fff;">
+		<style>
+			.mui-control-content {
+				min-height: 258px;
+			}
+			
+			.mui-table .oa-icon {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+			}
+			
+			.mui-table .oa-icon-star-filled {
+				color: #f14e41;
+			}
+			
+			.mui-slider .mui-slider-group .mui-slider-item,
+			.mui-table {
+				font-size: 16px;
+			}
+			
+			.mui-table-view:after {
+				height: 0;
+			}
+			
+			.mui-segmented-control-inverted .mui-control-item {
+				line-height: 1.5;
+			}
+			
+			.mui-slider-indicator .mui-icon {
+				font-size: 28px;
+			}
+			
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+				border-bottom: none;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				line-height: 26px;
+				border: none;
+				color: #333;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				color: #007aff;
+				border-bottom: 2px solid #007aff;
+				background: none;
+			}
+			
+			.mui-input-row label {
+				text-align: right;
+				width: 30%;
+				line-height: 1.5;
+			}
+			
+			.appointment_item .mui-input-row span {
+				width: 70%;
+				padding: 11px 15px;
+				display: inline-block;
+			}
+			
+			.look {
+				font-size: 14px;
+				border-radius: 3px;
+				color: #fff !important;
+				padding: 5px 12px;
+				background-color: #ff6600;
+				display: inline-block;
+				text-align: center;
+				margin: 4px 0;
+			}
+			/*.mui-pagination > li > a, .mui-pagination > li > span {
+				float: none;
+			}*/			
+			.mui-segmented-control {
+				border: none;
+			}
+				.pagination {
+				margin: 10px 0;
+				width: 300px !important;
+			}
+			
+			.pagination a {
+				display: inline-block;
+				width: 15%;
+				height: 30px;
+				line-height: 30px;
+				color: #007AFF;
+			}
+		</style>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-action-back mui-icon-left-nav mui-pull-left" href="#offCanvasSide"></a>
+			<!--<h1 class="bg mui-title"></h1>-->
+		</header>
+
+		<div class="mui-content">
+			<!--四个我要开始-->
+
+			<div class="mui-segmented-control">
+				<div style="background-color: #f2f2f2;border: none;border-radius: 0;" class="mui-slider-indicator mui-segmented-control ">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+						<div><i style="border: none;" class="mui-icon mui-icon-phone"></i> </div>咨询列表</a>
+					<a class="mui-control-item" href="#item2mobile">
+						<div><i style="border: none;" class="mui-icon mui-icon-email"></i> </div>建议列表</a>
+					<!--<a class="mui-control-item" href="#item3mobile">
+						<div><i style="border: none;" class="mui-icon mui-icon-extra mui-icon-extra-custom"></i> </div>我要投诉</a>-->
+					<a class="mui-control-item" href="#item3mobile">
+						<div><i style="border: none;font-size: 24px;" class="mui-icon mui-icon-extra mui-icon-extra-like"></i> </div>表扬列表</a>
+				</div>
+				<div class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div class="mui-slider-group">
+					<!--我要咨询开始-->
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+
+						<div class="displayN1">
+
+						</div>
+
+						<div class="pagination displayB1 pag_consult" style="display:none;position:relative;left:50%;transform: translateX(-50%);">
+				<a href="#" class="first" data-action="first">&laquo;</a>
+				<a href="#" class="previous" data-action="previous">&lsaquo;</a>
+				<input style="width:40%;line-height:30px;height:30px;" type="text" readonly="readonly" />
+				<a href="#" class="next" data-action="next">&rsaquo;</a>
+				<a href="#" class="last" data-action="last">&raquo;</a>
+			</div>
+
+					</div>
+
+					<!--我要咨询结束-->
+					<!--我要建议开始-->
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="displayN2">
+							<!--<h2 style="text-align: center;margin-top:50px">没有数据</h2>-->
+						</div>
+
+		<div class="pagination displayB2 pag_suggest" style="display:none;position:relative;left:50%;transform: translateX(-50%);">
+				<a href="#" class="first" data-action="first">&laquo;</a>
+				<a href="#" class="previous" data-action="previous">&lsaquo;</a>
+				<input style="width:40%;line-height:30px;height:30px;" type="text" readonly="readonly" />
+				<a href="#" class="next" data-action="next">&rsaquo;</a>
+				<a href="#" class="last" data-action="last">&raquo;</a>
+			</div>
+					</div>
+					<!--我要建议结束-->
+					<!--我要表扬开始-->
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="displayN3">
+							<!--<h2 style="text-align: center;margin-top:50px">没有数据</h2>-->
+						</div>
+
+							<div class="pagination displayB3 pag_praise" style="display:none;position:relative;left:50%;transform: translateX(-50%);">
+				<a href="#" class="first" data-action="first">&laquo;</a>
+				<a href="#" class="previous" data-action="previous">&lsaquo;</a>
+				<input style="width:40%;line-height:30px;height:30px;" type="text" readonly="readonly" />
+				<a href="#" class="next" data-action="next">&rsaquo;</a>
+				<a href="#" class="last" data-action="last">&raquo;</a>
+			</div>
+
+					</div>
+					<!--我要表扬结束-->
+				</div>
+			</div>
+			<!--四个我要结束-->
+
+		</div>
+
+		<script>
+			// 	item3mobile
+			getConsult(1);
+			getSuggest(1);
+			getPraise(1);
+
+			function getConsult(page) {
+				$.get(API_HOST + "/consult/lists.json", {
+					rows: 10,
+					page: page
+				}, function(response) {
+					console.log(response)
+					if(response.success) {
+						var size = Math.ceil(response.data.total / 10);
+					$('.pag_consult').jqPagination({
+							current_page: page, //设置当前页 默认为1
+							max_page: size, //设置最大页 默认为1
+							page_string: '第{current_page}页,共{max_page}页',
+							paged: function(page) {
+								getConsult(page);
+								console.log(tt(page))
+							}
+						});
+
+						var data = response.data.list;
+						if(data.length != 0) {
+							$(".displayB1").css("display", "block");
+						} else {
+							$(".displayN1").html("<h3 style='text-align: center;margin-top:50px'>没有数据</h3>")
+						}
+						var item1mobile = $("#item1mobile");
+						$(".displayN1").html("");
+						//								item1mobile.html("");
+						for(var i = 0; i < data.length; i++) {
+							var str = "";
+							str += '<div class="appointment_item" style="padding: 10px 0;background-color:#fff;border-bottom:10px solid #f2f2f2;">';
+							str += '<div class="mui-input-row">';
+							str += '<label>流水号:</label>';
+							str += '<span id="no" class="trans_name">' + data[i].no + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>信件标题:</label>';
+							str += '<span id="title" class="group">' + data[i].title + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>受理部门:</label>';
+//							if(data[i].gid == 5000) {
+//								str += '<span id="gid" class="date">行政审批服务局</span>';
+//							} else {
+								str += '<span id="gid" class="date">' + data[i].name + '</span>';
+
+//							}
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>写信日期:</label>';
+							str += '<span id="create_time" class="time">' + data[i].create_time + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>回复日期:</label>';
+							str += '<span class="update_time status">' + data[i].update_time + '</span>';
+							str += '</div>';
+							str += '<div class="statu mui-input-row">';
+//							str += '<label>状态:</label>';
+//							if(data[i].status == 0) {
+//								str += '<span style="margin-left:15px;display:inline-block;width:23%;text-align:center;color:#fff;border-radius:5px;background:orange;height:30px;line-height:10px;margin-top:8px;">未回复</span>';
+//							}
+//							if(data[i].status == 1) {
+//								str += '<span style="margin-left:15px;display:inline-block;width:23%;text-align:center;color:#fff;border-radius:5px;background:#4aa6ff;height:30px;line-height:10px;margin-top:8px;">已回复</span>';
+//							}
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>操作:</label>';
+							str += '<a style="display:inline-block;width:23%;background-color:red;margin-top:11px;margin-left:15px;text-align:center;border-radius:5px;height:30px;line-height:30px;color:#fff" href="consult_details.html?no=' + data[i].no + '">查看</a>';
+							str += '</div>';
+							str += '</div>';
+							$(".displayN1").append(str);
+						}
+
+					}
+				});
+
+			}
+
+			function getSuggest(page) {
+				$.get(API_HOST + "/suggest/lists.json", {
+					rows: 10,
+					page: page
+				}, function(response) {
+					console.log(response)
+					if(response.success) {
+						var size = Math.ceil(response.data.total / 10);
+						//var size=1
+						$('.pag_suggest').jqPagination({
+							current_page: page, //设置当前页 默认为1
+							max_page: size, //设置最大页 默认为1
+							page_string: '第{current_page}页,共{max_page}页',
+							paged: function(page) {
+								getSuggest(page);
+								console.log(tt(page))
+							}
+						});
+						
+						var data = response.data.list;
+						if(data.length != 0) {
+							$(".displayB2").css("display", "block");
+						} else {
+							$(".displayN2").html("<h3 style='text-align: center;margin-top:50px'>没有数据</h3>")
+						}
+						var item2mobile = $("#item2mobile");
+						$(".displayN2").html("");
+						//								item1mobile.html("");
+						for(var i = 0; i < data.length; i++) {
+							var str = "";
+							str += '<div class="appointment_item" style="padding: 10px 0;background-color:#fff;border-bottom:10px solid #f2f2f2;">';
+							str += '<div class="mui-input-row">';
+							str += '<label>流水号:</label>';
+							str += '<span class="trans_name">' + data[i].no + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>信件标题:</label>';
+							str += '<span  class="group">' + data[i].title + '</span>';
+							str += '</div>';
+							//								str += '<div class="mui-input-row">';
+							//								str += '<label>受理部门:</label>';
+							//								if(data[i].gid == 5000) {
+							//									str += '<span  class="date">行政审批服务局</span>';
+							//								} else {
+							//									str += '<span id="gid" class="date">' + GetQueryString("id") + '</span>';
+							//
+							//								}
+							//								str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>写信日期:</label>';
+							str += '<span  class="time">' + data[i].create_time + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>回复日期:</label>';
+							str += '<span class="update_time status">' + data[i].update_time + '</span>';
+							str += '</div>';
+							str += '<div class="statu mui-input-row">';
+//							str += '<label>状态:</label>';
+//							if(data[i].status == 0) {
+//								str += '<span style="margin-left:15px;display:inline-block;width:23%;text-align:center;color:#fff;border-radius:5px;background:orange;height:30px;line-height:10px;margin-top:8px;">未回复</span>';
+//							}
+//							if(data[i].status == 1) {
+//								str += '<span style="margin-left:15px;display:inline-block;width:23%;text-align:center;color:#fff;border-radius:5px;background:#4aa6ff;height:30px;line-height:10px;margin-top:8px;">已回复</span>';
+//							}
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>操作:</label>';
+							str += '<a style="display:inline-block;width:23%;background-color:red;margin-top:11px;margin-left:15px;text-align:center;border-radius:5px;height:30px;line-height:30px;color:#fff" href="suggest_details.html?no=' + data[i].no + '">查看</a>';
+							str += '</div>';
+							str += '</div>';
+							$(".displayN2").append(str);
+						}
+
+					}
+				});
+
+			}
+
+			function getPraise(page) {
+				$.get(API_HOST + "/praise/lists.json", {
+					rows: 10,
+					page: page
+				}, function(response) {
+					console.log(response)
+					if(response.success) {
+						var size = Math.ceil(response.data.total / 10);
+						//var size=1
+					$('.pag_praise').jqPagination({
+							current_page: page, //设置当前页 默认为1
+							max_page: size, //设置最大页 默认为1
+							page_string: '第{current_page}页,共{max_page}页',
+							paged: function(page) {
+								getPraise(page);
+								console.log(tt(page))
+							}
+						});
+						var data = response.data.list;
+						if(data.length != 0) {
+							//						$(".displayN1").css("display", "none");
+							$(".displayB3").css("display", "block");
+						} else {
+							$(".displayN3").html("<h3 style='text-align: center;margin-top:50px'>没有数据</h3>")
+						}
+						var item3mobile = $("#item3mobile");
+						//								$(".displayN3").html("");
+						//								item1mobile.html("");
+						for(var i = 0; i < data.length; i++) {
+							var str = "";
+							str += '<div class="appointment_item" style="padding: 10px 0;background-color:#fff;border-bottom:10px solid #f2f2f2;">';
+							str += '<div class="mui-input-row">';
+							str += '<label>流水号:</label>';
+							str += '<span class="trans_name">' + data[i].no + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>信件标题:</label>';
+							str += '<span  class="group">' + data[i].title + '</span>';
+							str += '</div>';
+							//								str += '<div class="mui-input-row">';
+							//								str += '<label>受理部门:</label>';
+							//								if(data[i].gid == 5000) {
+							//									str += '<span  class="date">行政审批服务局</span>';
+							//								} else {
+							//									str += '<span id="gid" class="date">' + GetQueryString("id") + '</span>';
+							//
+							//								}
+							//								str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>写信日期:</label>';
+							str += '<span  class="time">' + data[i].create_time + '</span>';
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>回复日期:</label>';
+							str += '<span class="update_time status">' + data[i].update_time + '</span>';
+							str += '</div>';
+							str += '<div class="statu mui-input-row">';
+//							str += '<label>状态:</label>';
+//							if(data[i].status == 0) {
+//								str += '<span style="margin-left:15px;display:inline-block;width:23%;text-align:center;color:#fff;border-radius:5px;background:orange;height:30px;line-height:10px;margin-top:8px;">未回复</span>';
+//							}
+//							if(data[i].status == 1) {
+//								str += '<span style="margin-left:15px;display:inline-block;width:23%;text-align:center;color:#fff;border-radius:5px;background:#4aa6ff;height:30px;line-height:10px;margin-top:8px;">已回复</span>';
+//							}
+							str += '</div>';
+							str += '<div class="mui-input-row">';
+							str += '<label>操作:</label>';
+							str += '<a style="display:inline-block;width:23%;background-color:red;margin-top:11px;margin-left:15px;text-align:center;border-radius:5px;height:30px;line-height:30px;color:#fff" href="praise_details.html?no=' + data[i].no + '">查看</a>';
+							str += '</div>';
+							str += '</div>';
+							$(".displayN3").append(str);
+						}
+
+					}
+				});
+
+			}
+		</script>
+	</body>
+
+</html>

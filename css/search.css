@@ -1,0 +1,156 @@
+/*搜索*/
+.mui-search input[type=search] {
+	height: 40px;
+	vertical-align: middle;
+}
+
+.mui-search .mui-placeholder {
+	height: 40px;
+}
+
+.mui-search .mui-placeholder .mui-icon {
+	color: #ff521e;
+}
+
+.mui-input-row.mui-search.mui-active:before,
+.mui-icon-clear {
+	display: none;
+}
+
+.mui-search input[type=search] {
+	padding-left: 15px;
+}
+
+.mui-search input[type=button] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
+	width: 58px;
+	height: 40px;
+	border: none;
+	color: #fff;
+	font-size: 16px;
+	background-color: #ff521e;
+}
+.search_ttl {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+}
+.search_ttl span {
+	vertical-align: middle;
+	margin-right: 10px;
+	color: #FF0000;
+}
+
+.search-ul li {
+	margin: 0 15px 15px 0;
+	padding: 10px 15px;
+	color: #666;
+	float: left;
+	background-color: #f6f6f6;
+}
+.order_box {
+	margin-bottom: 10px;
+	background-color: #fff;
+}
+.order_box .mui-grid-view.mui-grid-9 {
+	border: none;
+	background-color: #fff;
+}
+.order_box .mui-icon .mui-badge {
+	background: #ff521e;
+	color: #fff;
+}
+.order_box .mui-grid-view.mui-grid-9 .mui-media .mui-icon {
+	font-size: 24px;
+	color: #333;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell:nth-child(3n) {
+	border-right: none;
+}
+.i_water {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_water.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_power {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_power.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_gasfee {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_gasfee.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_bill {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_bill.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_flow {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_flow.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_broadband {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_broadband.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_food {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_food.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_movie {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_movie.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_train {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_train.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_fly {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_fly.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_hotel {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_hotel.png) no-repeat left center;
+	background-size: 34px;
+}
+.i_around {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	background: url(../images/i_around.png) no-repeat left center;
+	background-size: 34px;
+}
+

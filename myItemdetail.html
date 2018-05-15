@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>已申报事项详情</title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="css/slf.css" rel="stylesheet"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/mui.min.js"></script>
+    <style type="text/css">
+        .index-tc {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 500px;
+            display: none;
+            z-index: 9999;
+            margin: -250px 0 0 -40%;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(0, 0, 0, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .popup_ttl {
+            padding: 20px;
+            border-radius: 5px 5px 0 0;
+            line-height: 12px;
+            font-size: 18px;
+            color: #fff;
+            text-align: left;
+            background-color: #e60012;
+        }
+
+        .popup_txt {
+            background-color: #fff;
+            text-align: left;
+            padding: 25px;
+            font-size: 16px;
+            height: 448px;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+        }
+
+        .index-close {
+            position: absolute;
+            right: 5px;
+            top: -5px;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 35px;
+        }
+
+        .index-close a {
+            color: #fff !important;
+        }
+
+        .mask-index {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            opacity: .7;
+            z-index: 9998;
+            display: none;
+        }
+
+        .td_txt {
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<header class="bg mui-bar mui-bar-nav">
+    <a class="bg mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <!--<h1 class="bg mui-title">注册</h1>-->
+</header>
+<div class="mui-content">
+    <div class="row" style="margin-top: 0;">
+        <div class="clearfix h2_ttl"><span id="checkStatus"></span>
+            <h2 class="itemName"></h2></div>
+        <table cellpadding="0" cellspacing="0" class="table-horizontal">
+            <col width="15%">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <tbody class="tb_wrap">
+            <tr>
+                <th>申请人:</th>
+                <td id="applicantName"></td>
+
+            </tr>
+            <tr>
+                <th>证件类型:</th>
+                <td id="userType"></td>
+            </tr>
+            <tr>
+                <th>联系电话:</th>
+                <td id="phone"></td>
+
+            </tr>
+            <tr>
+                <th>邮编:</th>
+                <td id="postcode"></td>
+            </tr>
+            <tr>
+                <th>证件号码:</th>
+                <td id="applicantDocumentNumber"></td>
+
+            </tr>
+            <tr>
+                <th>通信地址:</th>
+                <td id="address"></td>
+            </tr>
+            <tr>
+                <th>代理人姓名:</th>
+                <td id="agentName"></td>
+
+            </tr>
+            <tr>
+                <th>法定代表人:</th>
+                <td id="applyPerson"></td>
+            </tr>
+            <tr>
+                <th>代理人证件类型:</th>
+                <td id="agentDocumentType"></td>
+
+            </tr>
+            <tr>
+                <th>申请来源:</th>
+                <td id="applySource"></td>
+            </tr>
+            <tr>
+                <th>代理人证件号:</th>
+                <td id="agentDocumentNumber"></td>
+
+            </tr>
+            <tr>
+                <th>申请时间:</th>
+                <td id="applyTime"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table cellpadding="0" cellspacing="0" class="details">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <thead>
+            <tr>
+                <th colspan="4"><span style="float: right;" id="officeNumber"></span><span
+                        style="float: right;">事项编号：</span>事项详情
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>事项名称</th>
+                <td id="transName"></td>
+                <th>事项编码</th>
+                <td id="transBaseCode"></td>
+            </tr>
+            <tr>
+                <th>办理部门</th>
+                <td id="officeName"></td>
+                <th>办件类型</th>
+                <td id="transactionTypeStr"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table cellpadding="0" cellspacing="0" class="details">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <thead>
+            <tr>
+                <th colspan="4">办理进度</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>接件时间</th>
+                <td id="acceptTime"></td>
+                <th>接件人</th>
+                <td id="acceptPerson"></td>
+            </tr>
+            <tr>
+                <th>受理时间</th>
+                <td id="shouliTime"></td>
+                <th>受理人</th>
+                <td id="shouliPerson"></td>
+            </tr>
+            <tr>
+                <th>办结时间</th>
+                <td colspan="3" id="finishTime">尚未办结</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table cellpadding="0" cellspacing="0" class="details">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <thead>
+            <tr>
+                <th>材料名称</th>
+                <th>材料板式</th>
+                <!--<th>材料表格</th>-->
+                <th>我的上传</th>
+            </tr>
+            </thead>
+            <tbody id="material">
+            <!--	<tr>
+                <td id=""></td>
+                <td>A4</td>
+                <td>
+                    <a href="#">空表下载</a>
+                </td>
+                <td>
+                    <a href="#">查看</a>
+                </td>
+            </tr>-->
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- 弹窗 -->
+<div class="index-tc" id="popule" style="display: none;;">
+    <div class="index-close">
+        <a href="javascript:void(0)"
+           onclick="document.getElementById('popule').style.display='none';document.getElementById('fade').style.display='none'">×</a>
+    </div>
+    <div class="popup_ttl">已上传材料列表</div>
+    <div class="popup_txt">
+        <table cellpadding="0" cellspacing="0" class="details">
+            <thead>
+            <tr>
+                <th width="60%" style="text-align: center;">附件名称</th>
+                <th width="40%" style="text-align: center;">操作</th>
+            </tr>
+            </thead>
+            <tbody id="fujian">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mask-index" id="fade"></div>
+<!-- 弹窗 -->
+<script type="text/javascript">
+    if (isLogin()) {
+        if (!isAuth()) {
+            if (isPerson()) {
+                location.href = 'auth_person.html';
+            } else if (isEnterprise()) {
+                location.href = 'auth_enterprise.html';
+            }
+        }
+    } else {
+        location.href = 'login.html';
+    }
+
+    var userType = "企业账户";
+    if (isPerson()) {
+        userType = "个人账户";
+    }
+
+    $.get(API_HOST + "/trans/apply_detail.json", {
+        id: GetQueryString("id")
+    }, function (response) {
+        console.log(response);
+        if (response.success) {
+            var data = response.data;
+            $("#applicantName").text(data.applicantName);
+            $("#phone").text(data.phone);
+            $("#checkStatus").text(data.checkStatus);
+            $("#userType").text(userType);
+            $("#postcode").text(data.postcode);
+            $("#applicantDocumentNumber").text(data.applicantDocumentNumber);
+            $("#address").text(data.address);
+            $(".itemName").text(data.trans.transName);
+            //代理人姓名
+            if (data.agentName == "" || data.agentName == null) {
+                $("#agentName").parent().hide();
+            } else {
+                $("#agentName").text(data.agentName);
+            }
+
+            //法定代表人
+            if (data.applyPerson == "" || data.applyPerson == null) {
+                $("#applyPerson").parent().hide();
+            } else {
+                $("#applyPerson").text(data.applyPerson);
+            }
+
+            //代理人证件类型
+            if (data.agentDocumentType == "" || data.agentDocumentType == null) {
+                $("#agentDocumentType").parent().hide();
+            } else {
+                $("#agentDocumentType").text(data.agentDocumentType);
+            }
+            $("#applySource").text(data.applySource);
+
+
+            //代理人身份证
+            if (data.agentDocumentNumber == "" || data.agentDocumentNumber == null) {
+                $("#agentDocumentNumber").parent().hide();
+            } else {
+                $("#agentDocumentNumber").text(data.agentDocumentNumber);
+            }
+            $("#applyTime").text(data.applyTime);
+            $("#acceptTime").text(data.acceptTime);
+            $("#officeNumber").text(data.officeNumber);
+            $("#transName").text(data.trans.transName);
+            $("#transBaseCode").text(data.trans.transBaseCode);
+            $("#officeName").text(data.trans.office.name);
+            $("#transactionTypeStr").text(data.trans.transactionTypeStr);
+            if(data.acceptPerson==""||data.acceptPerson==null){
+                $("#acceptPerson").text("无");
+            }else{
+                $("#acceptPerson").text(data.acceptPerson);
+            }
+            if(data.shouliPerson==""||data.shouliPerson==null){
+                $("#shouliPerson").text("无");
+            }else{
+                $("#shouliPerson").text(data.acceptPerson);
+            }
+
+            $("#shouliTime").text(data.shouliTime);
+            $("#finishTime").text(data.finishTime);
+            var materialList = data.materialList;
+            for (var i = 0; i < materialList.length; i++) {
+                /*if(materialList[i].material.emptyFileName) {
+                    materialList[i].material.emptyFileName = '<a href="http://www.ycsmdt.gov.cn/download.php?type=emptyFileDown&id=' + materialList[i].material.id + '">空表下载</a>'
+                } else {
+                    materialList[i].material.emptyFileName = "无";
+                }*/
+                if (materialList[i].materialGetId) {
+                    materialList[i].materialGetId = '<a  role="button"  class="btn btn-primary btn-xs" style="display: inline-block;background-color: #e60012;color:#fff;border-radius:3px;padding:1px 10px;" onclick = "show_material_list(\'' + materialList[i].materialGetId + '\')">查看</a>';
+                } else {
+                    materialList[i].materialGetId = "暂无上传";
+                }
+                $("#material").append('<tr><td>' + materialList[i].material.materialName + '</td><td>A4</td>' +
+                    '<td>' + materialList[i].materialGetId + '</td></tr>')
+            }
+        }
+    });
+
+    //已上传列表
+    function show_material_list(mid) {
+        $("#fujian").html('');
+        document.getElementById('popule').style.display = 'block';
+        document.getElementById('fade').style.display = 'block';
+        $.post(API_HOST + "/trans/lists_user_materials.json", {
+            id: mid
+        }, function (response) {
+            console.log(response);
+            if (response.success) {
+                var data = response.data;
+                for (var i = 0; i < data.length; i++) {
+                    $("#fujian").append('<tr id="' + data[i].id + '"><td align="center" class="td_txt">' + data[i].fileName + '</td><td align="center"><a style="display: inline-block;background-color: red;color:#fff;border-radius:3px;padding:1px 10px;margin-bottom: 5px;"  onclick="del(\'' + data[i].id + '\')">删除</a></td></tr>')
+                }
+            }
+        });
+    }
+
+    //删除已上传材料
+    function del(id) {
+        $.post(API_HOST + "/trans/delete_user_material.json", {
+            id: id
+        }, function (response) {
+            if (response.success) {
+                mui.alert("删除成功！");
+                $("#" + id).remove();
+            } else {
+                mui.alert("删除失败！");
+            }
+        });
+    }
+</script>
+</body>
+
+</html>

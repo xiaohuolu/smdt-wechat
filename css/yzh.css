@@ -1,0 +1,183 @@
+/*新闻*/
+.mui-news{
+	background: #F7F7F7;
+}
+
+.mui-news-time{
+	width: 60%;
+	height: 100%;
+	text-align: left;
+	padding: 12px;
+	float: left;
+}
+.mui-news-office{
+	width: 40%;
+	height: 100%;
+	text-align: right;
+	padding: 12px;
+	float: left;
+}
+.mui-news-content p{
+	margin: 20px 10px 0 10px;
+	text-indent: 2em;
+	line-height: 26px;
+	font-size: 16px;
+}
+.mui-news-person{
+	padding: 20px 0;
+	text-align: right;
+}
+/*微博*/
+.mui-weibo{
+	width: 25%;
+	padding: 0;
+	height: 60px;
+	text-align: center;
+	float: left;
+}
+.mui-weibo span{
+	font-size: 14px;
+}
+#img1{
+	height: 50px; 
+	width:50px;
+}
+.mui-badge {
+	font-size: 15px;
+}
+/*事项类别*/
+.mui-office{
+	width: 33%;
+	padding:10px;
+	/*height: 122px;*/
+	text-align: center;
+	float: left;
+}
+.
+#img2{
+	height: 64px; 
+	width: 64px;
+}
+.mui-font-size{
+	font-size:15px;
+}
+/*事项*/
+div#items{
+	width:100%;
+	margin: auto;
+}
+.mui-items{
+	width: 100%;
+	padding: 5px;
+	border-bottom: 5px solid #fff;
+}
+.mui-items-name{
+	width: 100%;
+	padding: 5px;
+}
+.mui-items-xing{
+	margin-top: 2px;
+	padding: 5px;
+	width:100%;
+	height: 30px;
+}
+.mui-items-itemType{
+	width: 100%;
+	padding: 5px;
+}
+a.mui-items-blfs{
+    display: inline-block;
+    text-align: center;
+    height: 30px;
+    line-height:30px;
+    margin: 9px 10px 9px 0;
+    padding: 0 15px;
+    border-radius: 100px;
+    background: #ff521e;
+    color: #fff;
+}
+a.wsbs_bg {
+    background: #de0202;
+}
+.disabled_itemslist{
+    display: inline-block;
+    text-align: center;
+    height: 30px;
+    line-height:30px;
+    margin: 9px 10px 9px 0;
+    padding: 0 15px;
+    border-radius: 100px;
+	background:#ccc;
+	color:#606060;
+}
+.mui-items-web{
+	width: 100%;
+	padding: 5px;
+	border-bottom: 1px solid #ccc;
+}
+/*不见面马上办*/
+.mui-items-online{
+	width: 100%;
+	padding: 4px;
+	margin-top: 4px;
+	font-size: 18px;
+}
+.mui-online-basic{
+	width: 100%;
+	border: 1px solid  #DDDDDD;
+	margin-top: 10px;
+}
+.mui-online-basic td{
+	font-size: 16px;
+}
+.mui-items-xinxi{
+	height:220px;
+	padding: 4px;
+	border-bottom: 1px solid #9A9A9A;
+}
+.items-apply{
+	width: 100%;
+	text-align: center;
+	margin-top: 10px;
+	font-size:18px ;
+	font-weight: bold;
+	border-bottom: 1px solid #9A9A9A;
+}
+.items-apply p{
+	text-align: left;
+	padding: 4px;
+	color: #000000;
+	margin: 1px 0 0 2px;
+	font-weight: normal;
+}
+/*事项预约*/
+.mui-yuyue{
+	width: 100%;
+	min-height: 30px;
+	overflow-y: scroll;
+}
+.mui-yuyue-items{
+	font-size: 18px;
+	width: 35%;
+	margin-top: 5px;
+	padding: 1px;
+	float: left;
+	text-align: right;
+}
+.mui-yuyue-itemName{
+	font-size: 18px;
+	width: 60%;
+	margin: 5px 0 0 3px;
+	padding: 0;
+	float: left;
+}
+.submit{
+	width: 100%;
+	text-align: center;
+	padding: 4px;
+}
+.btn{
+	width: 120px;
+	height: 50px;
+	font-size: 20px;
+}

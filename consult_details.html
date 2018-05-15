@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的咨询详情</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/public.js"></script>
+    <style>
+        .mui-input-group .mui-input-row {
+            height: 50px;
+            padding-top: 5px;
+        }
+
+        #btn {
+            display: block;
+            width: 30%;
+            background: parent;
+            color: #000;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+        }
+
+        body {
+            background-color: #fff;
+        }
+
+        .mui-input-row label {
+            background-color: #F2F2F2;
+        }
+
+        .mui-input-row {
+            border-bottom: 1px solid #fff;
+            padding: 0 10px;
+        }
+
+        .mui-input-row span {
+            padding: 0 5px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            mui.plusReady(function () {
+                var self = plus.webview.currentWebview();
+                document.getElementById("realNameTitle").innerHTML = self.title;
+
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+    mui.init()
+</script>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我的咨询详情</h1>
+</header>
+<div class="mui-content">
+    <div class="banner"><img src="images/banner.jpg"></div>
+    <div id="appointment_list">
+        <div class="consults_item" style="padding: 20px 0;border-bottom: 10px solid #f2f2f2;">
+            <div class="mui-input-row">
+                <label>咨询人:</label>
+                <span id="username" class="trans_name" style="line-height: 40px;"></span>
+            </div>
+            <div class="mui-input-row">
+                <label>咨询标题:</label>
+                <span id="title" class="group" style="line-height: 40px;"></span>
+            </div>
+            <div class="mui-input-row">
+                <label>咨询内容:</label>
+                <span id="content" class="date" style="line-height: 40px;"></span>
+            </div>
+            <!--<div class="mui-input-row">
+                <label>被咨询部门:</label>
+                <span id="conpany" class="time" style="line-height: 40px;"></span>
+            </div>-->
+            <div class="mui-input-row">
+                <label>咨询日期:</label>
+                <span id="time" class="status" style="line-height: 40px;"></span>
+            </div>
+
+            <div style="display:none" class="mui-input-row">
+                <label>回复时间:</label>
+                <span id="reply_time" class="status" style="line-height: 40px;"></span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    if (isLogin()) {
+        if (!isAuth()) {
+            if (isPerson()) {
+                location.href = 'auth_person.html';
+            } else if (isEnterprise()) {
+                location.href = 'auth_enterprise.html';
+            }
+        }
+    } else {
+        location.href = 'login.html';
+    }
+    var appointment_list = $("#appointment_list");
+    var user = getUser();
+    var username = $("#username");
+    var title = $("#title");
+    var content = $("#content");
+    //var conpany = $("#conpany");
+    var time = $("#time");
+    var reply_con = $("#reply_con");
+    var reply_time = $("#reply_time");
+    $.ajax({
+        url: API_HOST + '/consult/detail.json',
+        type: 'get',
+        data: {
+            no: GetQueryString("no")
+        },
+        success: function (response) {
+            console.log(response);
+            var data = response.data;
+            username.text(user.username);
+            title.text(data.object.title);
+            content.text(data.object.content);
+            time.text(data.object.create_time);
+            if (data.object.status !=0) {
+                appointment_list.append('<div class="mui-input-row" style="margin-top: 20px;"><label>回复内容:</label><span id="reply_con" class="time" style="line-height: 40px;">' + data.reply.content + '</span></div>')
+                appointment_list.append('<div class="mui-input-row" style="margin: 20px 0;"><label>回复时间:</label><span id="reply_con" class="time" style="line-height: 40px;">' + data.object.update_time + '</span></div>')
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

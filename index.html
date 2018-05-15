@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="telephone=yes" />
+		<meta name="format-detection" content="email=yes" />
+		<meta name="format-detection" content="adress=yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的银川</title>
+		<link type="text/css" rel="stylesheet" href="css/mui.min.css" />
+
+
+		<link type="text/css" rel="stylesheet" href="css/slf.css" />
+
+		<link type="text/css" rel="stylesheet" href="css/style.css" />
+		
+		
+		<!--<link rel="stylesheet" href="css/search.css" />-->
+		<!--<link rel="stylesheet" href="css/personal.css" />-->
+		<link rel="stylesheet" href="css/icons-extra.css">
+
+		<link type="text/css" rel="stylesheet" href="css/index.css" />
+
+		
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.js"></script>
+		<!--<script src="js/jquery-3.2.1.min.js"></script>-->
+		<script src="js/common.js"></script>
+		<script src="js/mui.view.js "></script>
+		<script src="js/public.js"></script>
+		<style>
+			a{
+			color:#555;
+			cursor:pointer;
+		}
+		</style>
+	</head>
+
+	<body>
+
+		<!--<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class=" mui-btn mui-btn-link mui-pull-right" onclick="clicked('barcode_scan.html',true,true)"><i class="i_code"></i>扫一扫</div>
+			<h1 class="mui-title">我的银川</h1>
+		</header>-->
+
+
+		<!--底部导航-->
+		<!--<footer>
+			<nav class="mui-bar mui-bar-tab">
+				<a class="mui-tab-item mui-active">
+					<span class="mui-icon mui-icon-home"></span>
+					<span class="mui-tab-label">首页</span>
+				</a>
+				<a class="mui-tab-item" href="bjmmsb.html">
+					<span class="mui-icon mui-icon mui-icon-person"></span>
+					<span class="mui-tab-label">不见面马上办</span>
+				</a>
+				<a class="mui-tab-item" href="search.html">
+					<span class="mui-icon mui-icon-search"></span>
+					<span class="mui-tab-label">发现</span>
+				</a>
+				<a class="mui-tab-item" href="personal.html">
+					<span class="mui-icon mui-icon-contact"></span>
+					<span class="mui-tab-label">个人中心</span>
+				</a>
+			</nav>
+		</footer>-->
+
+		
+		<!--中间三个切换部分-->
+		<section class="mui-content" id="container" style="color:rgb(38,174,247);margin-bottom: 40px;">
+			
+          
+           
+           
+           
+			<!--首页-->
+			<div id="tabbar" class="mui-control-content mui-active">
+
+				<!--轮播图-->
+				<ul style="display: none;" class="mui-table-view mui-table-view-chevron">
+					<li id="switch" class="mui-table-view-cell">
+						定时轮播
+						<div class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+				<div id="slider" class="mui-slider" style="margin-bottom: 10px;">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="images/title_4.jpg">
+								<p style="display: none;" class="mui-slider-title">静静看这世界</p>
+							</a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="images/title_1.jpg">
+								<p style="display: none;" class="mui-slider-title">幸福就是可以一起睡觉</p>
+							</a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="images/title_2.jpg">
+								<p style="display: none;" class="mui-slider-title">想要一间这样的木屋，静静的喝咖啡</p>
+							</a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="images/title_3.jpg">
+								<p style="display: none;" class="mui-slider-title">Color of SIP CBD</p>
+							</a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="images/title_4.jpg">
+								<p style="display: none;" class="mui-slider-title">静静看这世界</p>
+							</a>
+						</div>
+						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="images/title_1.jpg">
+								<p style="display: none;" class="mui-slider-title">幸福就是可以一起睡觉</p>
+							</a>
+						</div>
+					</div>
+					<div class="mui-slider-indicator mui-text-right">
+						<div class="mui-indicator mui-active"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+					</div>
+				</div>
+
+				<!--轮播图  finish-->
+
+
+<section style="line-height:2;background:#fff;font-size:14px;display: flex;justify-content: space-around;align-items: center;">
+          	<span style="font-size:16px;font-weight:bold;width:28%">今日天气：</span>
+          	
+          	<marquee   scrollamount="5" style="width:72%;">
+
+          	 <span style="margin:0 5px" class="wendu">温度</span>
+          	 <span style="margin:0 5px"  class="type">阴晴</span>
+          	 <span style="margin:0 5px"  class="fengxiang">风向</span>
+          	 <span  style="margin:0 5px" class="aqi">空气指数</span>
+          	 <span style="margin:0 5px"  class="ganmao">提示</span>
+          	 
+          	 </marquee>
+          </section>
+           
+				<div class="index_inner clear">
+					<div class="box_ttl clearfix">
+						<h2><i></i>政务服务   </h2>
+
+						<!--<a href="government_detail.html" class="more">更多<span class="mui-icon mui-icon-more"></span></a>-->
+					</div>
+					<ul class="clear clearfix ind_list">
+						<li>
+							<a style="color: #000;" url="wsbs.html"><i class="i_zw_01"></i><span>网上办事<span></span></span>
+							</a>
+						</li>
+						<li>
+							<a style="color: #000;" url="zwgk.html"><i class="i_zw_02"></i><span>政务公开<span></span></span>
+							</a>
+						</li>
+						<li>
+							<a style="color: #000;" url="zjcs.html"><i class="i_zw_03"></i><span>中介超市<span></span></span>
+							</a>
+						</li>
+						<li>
+							<a style="color: #000;" url="zmhd.html"><i class="i_zw_04"></i><span>政民互动<span></span></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+					<div class="index_inner index_inner_jt clear">
+				<div class="box_ttl jt_ttl clearfix">
+					<h2><i></i>交通服务  </h2>
+					<!--<a href="#" class="more">更多<span class="mui-icon mui-icon-more"></span></a>-->
+				</div>
+				<ul class="clear clearfix ind_list">
+					<li>
+						<a url="http://m.xpcha.com/lukuang"><i class="i_jt_01"></i><span>指挥交通<span></span></span>
+						</a>
+					</li>
+					<li>
+						<a url="http://m.ofo.so"><i class="i_jt_02"></i><span>共享单车<span></span></span>
+						</a>
+					</li>
+					<li>
+						<a url="http://m.weizhangwang.com/"><i class="i_jt_03"></i><span>违章查询<span></span></span>
+						</a>
+					</li>
+					<li>
+						<a url="http://lu.ditu6.com/m/"><i class="i_jt_04"></i><span>实时地图<span></span></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="index_inner index_inner_jr clear">
+				<div class="box_ttl jr_ttl clearfix">
+					<h2><i></i>金融服务</h2>
+					<!--<a href="#" class="more">更多<span class="mui-icon mui-icon-more"></span></a>-->
+				</div>
+				<ul class="clear clearfix ind_list">
+					<li>
+						<a class="info" url="https://m.itouzi.com" onclick="disp_confirm(this)" style="cursor: pointer;color: black;"><i class="i_jr_01"></i><span>投资理财<span></span></span>
+						</a>
+					</li>
+					<li>
+						<a class="info" url="http://campaign.rong360.com/applanding/rongapp/landing_22.html?android=rong360-c_ucsemapp9-tongyong601-jq-release.apk&utm_source=uc&utm_medium=semdaapp&utm_campaign=ucsemapp9-tongyong601-jq&rtm_ke=13039722070&rtm_cr=2599416737" onclick="disp_confirm(this)" style="cursor: pointer;color: black;"><i class="i_jr_02"></i><span>信用借贷<span></span></span>
+						</a>
+					</li>
+					<li>
+						<a class="info" url="https://www.yirendai.com/lp/140/2/?siteId=2277&utm_source=sm-mb-ss&utm_medium=SEM_borrow&utm_cparameters=yixin&utm_campaign=%E5%80%9F%E6%AC%BE-%E5%80%9F%E9%92%B1%E5%80%9F%E8%B4%B7&utm_content=%E5%80%9F%E8%B4%B7&utm_term=%E5%80%9F%E8%B4%B7" onclick="disp_confirm(this)" style="cursor: pointer;color: black;"><i class="i_jr_03"></i><span>一卡消费<span></span></span>
+						</a>
+					</li>
+					<li>
+						<a class="info" url="http://qy.compass.cn/a/20151230/?from=sm_wap_301_100956580_455234685_11935210380_2444218792" onclick="disp_confirm(this)" style="cursor: pointer;color: black;"><i class="i_jr_04"></i><span>股票走势<span></span></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="index_inner index_inner_ly clear">
+				<div class="box_ttl ly_ttl clearfix">
+					<h2><i></i>文化服务</h2>
+					<!--<a href="#" class="more">更多<span class="mui-icon mui-icon-more"></span></a>-->
+				</div>
+				<ul class="clear clearfix ind_list">
+					<li>
+						<a url="http://720yun.com/t/49e26qOfan6?pano_id=1010336&winzoom=1"><i class="i_ly_01"></i><span>全景银川<span></span></span>
+						</a>
+					</li>
+					<li>
+						<a url="https://m.ly.com/sem/appgguc.html?refid=174042875&qdid=54579|1|174042875|6735f4"><i class="i_ly_02"></i><span>同程旅游<span></span></span>
+						</a>
+					</li>
+					<li>
+						<a class="info" url="http://m.yhd.com/hotq/1-11008/" onclick="disp_confirm(this)" style="cursor: pointer;color: black;"><i class="i_ly_03"></i><span>特产购物<span></span></span>
+						</a>
+					</li>
+					<li>
+						<a class="info" url="http://i.meituan.com/?cevent=imt%2Fguide%2Fi%2FAndroid" onclick="disp_confirm(this)" style="cursor: pointer;color: black;"><i class="i_ly_04"></i><span>休闲娱乐<span></span></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+	
+					
+
+				<!--便民服务-->
+				<div class="index_inner index_inner_code clear" style="display: none;">
+					<div class="box_ttl clearfix">
+						<h2><i></i>便民服务</h2>
+					</div>
+					<div id="Gallery" class="mui-slider">
+						<div class="mui-slider-group" id="services">
+							<!--第一屏-->
+							<div class="mui-slider-item" id="services_1">
+
+
+							</div>
+							<!--第二屏-->
+
+							<div class="mui-slider-item">
+								<div class="mui-slider-item" id="services_2">
+
+
+								</div>
+							</div>
+							<!--第三屏-->
+							<div class="mui-slider-item" id="services_3">
+
+
+							</div>
+							<!--第四屏-->
+							<div class="mui-slider-item" id="services_4">
+
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!--二维码矩阵开始-->
+				<div class="index_inner index_inner_code clear" style="display: none;">
+					<div class="box_ttl clearfix">
+						<h2>二维码矩阵</h2>
+					</div>
+					<div id="Gallery" class="mui-slider">
+						<div class="mui-slider-group" id="weibo">
+							<!--第一屏-->
+							<div class="mui-slider-item">
+								<div class="mui-weibo">
+									<img src="images/905f7a1120c0ff02c32605b40628b508.png">
+									<span>银川市不动产登记事务中心</span>
+								</div>
+								<div class="mui-weibo">
+									<img src="images/a0ec982a9be0c612aeb5aa5d699be32a.png">
+									<span>银川市房屋产权交易管理中心</span>
+								</div>
+								<div class="mui-weibo">
+									<img src="images/175d0d21d255261b5a580dba288ff727.png">
+									<span>银川市社会保险事业管理局</span>
+								</div>
+								<div class="mui-weibo">
+									<img src="images/651e9dd8b6c54150c8359acde78fec0d.png">
+									<span>银川市公安局出入境市公安局</span>
+								</div>
+								<div class="mui-weibo">
+									<img src="images/2425e3fd992dd2fff619dfe5902a18aa.png">
+									<span>银川市医疗保险事务管理中心</span>
+								</div>
+								<div class="mui-weibo">
+									<img src="images/9154e7f187c1c1e99c7c513d25535859.png">
+									<span>银川智慧城市管理指挥中心</span>
+								</div>
+							</div>
+							<!--第二屏-->
+							<div class="mui-slider-item">
+								<div class="mui-slider-item">
+									<div class="mui-weibo">
+										<img src="images/539b559403149924511a9d42bfbec443.png">
+										<span>银川市住房公积金管理中心</span>
+									</div>
+									<div class="mui-weibo">
+										<img src="images/010c7384c4ac41c8a00073b83301c538.png">
+										<span>银川市规划管理局</span>
+									</div>
+									<div class="mui-weibo">
+										<img src="images/2417e2d31a4435c4195d2dcec02c09e7.png">
+										<span>银川市公安局</span>
+									</div>
+									<div class="mui-weibo">
+										<img src="images/fd73e537043ae0282784c3f66515b6fe.png">
+										<span>银川市公交公司</span>
+									</div>
+									<div class="mui-weibo">
+										<img src="images/28f592cbc703770c4685cc5677eac9e1.png">
+										<span>银川市气象局</span>
+									</div>
+									<div class="mui-weibo">
+										<img src="images/12b3f4bca0ccda30a4e7e84cd4ab9493.png">
+										<span>宁夏有线电视公司</span>
+									</div>
+								</div>
+							</div>
+							<!--第三屏-->
+
+						</div>
+					</div>
+				</div>
+
+				<!--二维码矩阵结束-->
+			</div>
+
+		</section>
+
+		<script>
+			mui.init();
+
+
+			var slider = mui("#slider");
+			slider.slider({
+				interval: 2000
+			});
+
+			mui("#weibo").on('tap', 'a', function() {
+				var href = this.getAttribute("url");
+				var title = this.getAttribute("title");
+
+				mui.openWindow({
+					url: "webview_embed.html",
+					id: "weibo",
+					extras: {
+						url: href,
+						title: title
+					}
+				});
+			});
+
+			mui("#services").on('tap', 'a', function() {
+				var href = this.getAttribute("url");
+				var title = this.getAttribute("title");
+
+				mui.openWindow({
+					url: "webview_embed.html",
+					id: "services",
+					extras: {
+						url: href,
+						title: title
+					}
+				});
+			});
+
+			var aniShow = "pop-in";
+			mui(".ind_list").on('tap', 'a', function() {
+				var href = this.getAttribute("url");
+				var title = this.getAttribute("title");
+
+				mui.openWindow({
+					url: href,
+					id: "weibo",
+
+					show: {
+						autoShow: true,
+						aniShow: aniShow //aniShow=slide-in-right
+					},
+					waiting: {
+						autoShow: true
+					}
+				});
+			});
+
+			mui('footer').on('tap', 'a', function() {
+				window.location.href = this.href;
+			});
+
+			/*webView*/
+			// 动画窗口
+			function animateWindow(type) {
+				wp || (wp = plus.webview.create('webview_new.html', 'webview_new.html', {
+					scrollIndicator: 'none',
+					scalable: false,
+					popGesture: 'none'
+				}, {
+					preate: true
+				}));
+				wp.show(type);
+			}
+
+
+			$.ajax({
+				url: API_HOST + "/weibo.json",
+				//url: 'http://172.25.36.237/api/weibo.json',
+				data: {},
+				dataType: 'json',
+				type: 'get',
+				success: function(jsonData) {
+					 
+
+					for(var i = 0; i < 8; i++) {
+						 
+						$("#weibo_1").append(
+							'<div class="mui-weibo"><a title="' + jsonData.data[i].name + '" url="' + jsonData.data[i].link +
+							'" target="_blank" style="color: #000000;"><img src="' + SERVER_HOST + jsonData.data[i].image +
+							'"><span style="margin-top: 10px; ">' + jsonData.data[i].name +
+							'</span></a></div>'
+						);
+					}
+					for(var i = 8; i < 16; i++) {
+						 
+						$("#weibo_2").append(
+							'<div class="mui-weibo"><a title="' + jsonData.data[i].name + '" url="' + jsonData.data[i].link +
+							'" target="_blank" style="color: #000000;"><img src="' + SERVER_HOST + jsonData.data[i].image +
+							'"><span style="margin-top: 10px; ">' + jsonData.data[i].name +
+							'</span></a></div>' 
+						);
+					}
+					for(var i = 16; i < jsonData.data.length; i++) {
+						 
+						$("#weibo_3").append(
+							'<div class="mui-weibo"><a title="' + jsonData.data[i].name + '" url="' + jsonData.data[i].link +
+							'" target="_blank" style="color: #000000;"><img src="' + SERVER_HOST + jsonData.data[i].image +
+							'"><span style="margin-top: 10px; ">' + jsonData.data[i].name +
+							'</span></a></div>'
+						);
+					}
+
+				}
+			});
+
+			$.ajax({
+				url: API_HOST + "/services.json",
+				//url: 'http://172.25.36.237/api/services.json',
+				data: {},
+				dataType: 'json',
+				type: 'get',
+				success: function(jsonData) {
+					 
+
+					for(var i = 0; i < 6; i++) {
+						 
+						$("#services_1").append(
+							'<div class="mui-weibo"><a title="' + jsonData.data[i].name + '" url="' + jsonData.data[i].link +
+							'" target="_blank" style="color: #000000;"><img style="width:80%" src="' + SERVER_HOST+ jsonData.data[i].image +
+
+							'"></a></div>'
+						);
+					}
+					for(var i = 6; i < 12; i++) {
+						 
+						$("#services_2").append(
+							'<div class="mui-weibo"><a title="' + jsonData.data[i].name + '" url="' + jsonData.data[i].link +
+							'" target="_blank" style="color: #000000;"><img style="width:80%" src="' + SERVER_HOST + jsonData.data[i].image +
+							'"></a></div>'
+						);
+					}
+					for(var i = 12; i < 18; i++) {
+						 
+						$("#services_3").append(
+							'<div class="mui-weibo"><a title="' + jsonData.data[i].name + '" url="' + jsonData.data[i].link +
+							'" target="_blank" style="color: #000000;"><img style="width:80%" src="' + SERVER_HOST + jsonData.data[i].image +
+							'"></a></div>'
+						);
+					}
+
+				 	for(var i = 18; i < jsonData.data.length; i++) {
+						 
+						$("#services_4").append(
+							'<div class="mui-weibo"><a title="' + jsonData.data[i].name + '" url="' + jsonData.data[i].link +
+							'" target="_blank" style="color: #000000;"><img style="width:80%" src="' + SERVER_HOST + jsonData.data[i].image +
+							'"></a></div>'
+						);
+					} 
+
+				}
+			});
+			
+			$.get("http://wthrcdn.etouch.cn/weather_mini?citykey=101170101",function(response){
+
+
+				var res=JSON.parse(response);
+				var fengli=res.data.forecast[0].fengli.replace("<![CDATA[", "").replace("]]>", "");
+			 
+                 $(".wendu").text(res.data.wendu+"℃");
+                 $(".type").text(res.data.forecast[0].type);
+                 $(".aqi").text("空气质量："+res.data.aqi);
+                 $(".fengxiang").text(res.data.forecast[0].fengxiang+fengli);
+                 $(".ganmao").text(res.data.ganmao)
+       
+			})
+		</script>
+	</body>
+
+</html>

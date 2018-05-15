@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>搜索详情</title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="css/icons-extra.css" rel="stylesheet"/>
+    <link href="css/search.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <style>
+        .mui-segmented-control {
+            border: none;
+            border-radius: inherit;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .mui-segmented-control .mui-control-item {
+            border: none;
+            color: #666;
+            line-height: 26px;
+            padding: 10px 0;
+        }
+
+        .mui-segmented-control .mui-control-item.mui-active {
+            background-color: inherit;
+            border: none;
+            border-bottom: 3px solid #007aff;
+            color: #007aff;
+        }
+
+        .mui-search {
+            margin: 15px 10px 0;
+        }
+
+        .item_ul li {
+            border-bottom: 1px solid #F3F3F3;
+            padding: 10px;
+        }
+
+        .item_ul li span {
+            margin-right: 15px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .Cxn {
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cxn {
+            background: #007aff;
+            color: #fff !important;
+        }
+    </style>
+</head>
+
+<body style="background-color: #fff;">
+<header class="mui-bar mui-bar-nav zxsb-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <!--<h1 class="mui-title">
+        <div class="mui-input-row mui-search">
+            <input type="search" class="mui-input-clear" placeholder="I'm search for...">
+            <input class="bg" type="button" value="搜索" />
+        </div>
+    </h1>-->
+</header>
+<div class="mui-content">
+    <div class="mui-input-row mui-search">
+        <input type="search" class="mui-input-clear" placeholder="我要搜索..." id="keyword">
+        <input class="bg" type="button" value="提交" onclick="submit();"/>
+    </div>
+    <div id="transitem" style="background-color: #f2f2f2;" id="segmentedControl" class="mui-segmented-control">
+    </div>
+    <div id="list">
+        <div id="item0" class="mui-control-content mui-active">
+            <ul class="item_ul">
+
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var l = 0;
+    $("#keyword").val(GetQueryString("keyword"));
+    $.get(API_HOST + "/search/type.json", {
+        rows: 10,
+        page: 1
+    }, function (response) {
+//				console.log(response)
+        if (response.success) {
+            var data = response.data;
+            l = data.length;
+            for (var i = 0; i < l; i++) {
+                var cls = "";
+                if (i == 0) {
+                    cls = "cxn";
+                }
+                if (i == 1 || i == 3) {
+
+                } else {
+                    $("#transitem").append('<a class="Cxn ' + cls + '"   item="' + data[i].id + '" id="' + i + '"    onclick="searchDetail(' + data[i].id + ',' + i + ')">' + data[i].name + '</a>');
+                }
+            }
+        }
+    });
+    searchDetail('', 0);
+
+    function searchDetail(type, index) {
+        $(".cxn").removeClass("cxn");
+        $("#" + index).addClass("cxn");
+        $("#item0").empty();
+        if (type == "") {
+            type = 1;
+        }
+        $.getJSON(API_HOST + "/search.json", {
+                "type": type,
+                "keyword": $("#keyword").val()
+            },
+            function (response) {
+//						console.log(response);
+                if (response.success) {
+                    data = response.data.list;
+                    if (data.length) {
+                        $("#item" + index).empty();
+                        if (index == 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                var gid = data[i].handleSubject;
+                                var href = "";
+                                if (data[i].remote == 1) {
+                                    href = 'transInfo.html?id=' + data[i].id + '&gid=' + gid + '&isWebAppointment=' + data[i].isWebAppointment + '&isWebAccept=' + data[i].isWebAccept;
+                                } else {
+                                    href = 'transDetail.html?id=' + data[i].id + '&gid=' + gid + '&isWebAppointment=' + data[i].isWebAppointment + '&isWebAccept=' + data[i].isWebAccept
+                                }
+                                var str = "";
+                                str += '<ul class="item_ul">';
+                                str += '<li><a href="' + href + '">' + data[i].itemName + '</a>';
+                                str += '<p><span>办理主体：' + data[i].handleDepartmentId + '</span>      <span>法定期限：' + data[i].legalLimit + '</span>      <span>承诺期限：' + data[i].promiseLimit + '</span>';
+                                if (data[i].isFee == 0) {
+                                    str += '<span>是否收费：否</span>';
+                                } else {
+                                    str += '<span>是否收费：是</span>';
+                                }
+                                str += '</p>';
+                                str += '</li>';
+                                str += '</ul>';
+                                $("#item0").append(str);
+                            }
+                        }
+//						else if(index == 1) {
+//
+//							for(var i = 0; i < data.length; i++) {
+//								var href = "zwgk_detail.html?id=" + data[i].id;
+//
+//								var str = "";
+//								str += '<ul class="item_ul">';
+//								str += '<li><a href="' + href + '">' + data[i].title + '</a>';
+//								str += '</li>';
+//								str += '</ul>';
+//								$("#item0").append(str);
+//							}
+//						}
+                        else if (index == 2) {
+
+                            for (var i = 0; i < data.length; i++) {
+
+                                var href = "company.html?id=" + data[i].id;
+
+                                var str = "";
+                                str += '<ul class="item_ul">';
+                                str += '<li><a href="' + href + '">' + data[i].company + '</a>';
+                                str += '<p><span>公司地址：' + data[i].companyAddress + '</span>';
+                                str += '</p>';
+                                str += '</li>';
+                                str += '</ul>';
+                                $("#item0").append(str);
+                            }
+                        }
+//						else if(index == 3) {
+//						for(var i = 0; i < data.length; i++) {
+//								var str = "";
+//								str += '<ul class="item_ul">';
+//								str += '<li><a onclick="linkUrl(\'' + data[i].link + '\',\'' + data[i].name + '\')" >' + data[i].name + '</a>';
+//								str += '</li>';
+//								str += '</ul>';
+//								$("#item0").append(str);
+//							}
+//						}
+                    } else {
+
+                        $("#item0").append("<h1 style='text-align: center;margin-top:40%'>暂无数据</h1>")
+
+                    }
+
+                } else {
+                    alert(response.msg)
+                }
+
+            });
+    }
+
+    //提交
+    function submit() {
+        var keyword = $("#keyword").val();
+        if ($.trim(keyword) == "") {
+            mui.alert("请输入搜索内容！");
+            return;
+        }
+        var type = $("#transitem .cxn").attr("item");
+        var index = $("#transitem .cxn").attr("id");
+        searchDetail(type, index);
+
+    }
+</script>
+</body>
+
+</html>

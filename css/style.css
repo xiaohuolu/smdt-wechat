@@ -1,0 +1,152 @@
+@charset "utf-8";
+
+/*------------------------------------------------------------
+	all
+------------------------------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	outline: 0;
+
+	font-size: 1em;
+}
+
+body,
+table,
+input, textarea, select, option {
+	font-family: HiraKakuProN-W3;
+	font-size: 1em;
+}
+
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary {
+	display: block;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+:focus {
+	outline: 0;
+}
+
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+img {
+	vertical-align: top;
+}
+
+dl img,
+ul img {
+	display: block;
+}
+
+a:link {
+	color: #333;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #333;
+}
+
+a:hover {
+	color: #333;
+}
+
+a:active {
+	color: #333;
+}
+
+/*------------------------------------------------------------
+	body
+------------------------------------------------------------*/
+body {
+	color: #333;
+	text-align: center;
+	font-size: 16px;
+	line-height: 1.5;
+	background-color: #F2F2F2;
+	-webkit-text-size-adjust: none;   /*苹果移动设备上会识别，用于保证文字大小。*/
+}
+
+#container{
+	margin: 0 auto;
+	width: 100%;
+	overflow: hidden;
+	text-align: left;
+}
+.mui-content {
+	text-align: left;
+	overflow: hidden;
+}
+
+/*------------------------------------------------------------
+	clearfix
+------------------------------------------------------------*/
+.clearfix:after,
+.mui-clearfix:after {
+	height: 0;
+	visibility: hidden;
+	content: ".";
+	display: block;
+	clear: both;
+}
+.floatL {
+	float: left !important;
+}
+.floatR {
+	float: right !important;
+}
+.clear {
+	clear: both;
+}
+.mb0 {
+	margin-bottom: 0 !important;
+}
+.banner img {
+	width: 100%;
+}
+.warning {
+	color: #AAAAAA;
+	display: block;
+	padding: 15px;
+	background-color: #fff;
+}
+			
+.login-logo {
+	text-align: center;
+	padding: 20px 0;
+}
+
+.login-logo img {
+	width: 60%;
+}
+.displayB {
+	color: #fff !important;
+	float: right;
+	line-height: 44px;
+}
+
+

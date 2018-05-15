@@ -1,0 +1,340 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>不见面马上办</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/yzh.css"/>
+    <link rel="stylesheet" href="css/jqpagination.css"/>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/jquery.jqpagination.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            mui('.mui-scroll-wrapper').scroll({
+                deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+            });
+            mui.plusReady(function () {
+                var self = plus.webview.currentWebview();
+                console.log(self.title);
+                document.getElementById("itemsTitle").textContent = self.title;
+                //关闭等待框
+                plus.nativeUI.closeWaiting();
+                //显示当前页面
+                mui.currentWebview.show();
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+<style>
+    .pagination {
+        margin: 10px 0 !important;
+        width: 300px !important;
+    }
+
+    .pagination a {
+        display: inline-block !important;
+        width: 15% !important;
+        height: 30px !important;
+        line-height: 30px !important;
+        color: #007AFF;
+    }
+
+    #search_icon {
+        position: relative;
+    }
+
+    .search_input {
+        position: absolute;
+        left: 90%;
+        top: 2px;
+        transition: .5s;
+        opacity: 0;
+    }
+</style>
+<header id="showtitle" class="bg mui-bar mui-bar-nav">
+    <a class="bg mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="bg mui-title" id="itemsTitle"></h1>
+    <i class="mui-icon mui-icon-search" style="float:right" id="search_icon"></i>
+    <input type="text" style="width:1px" placeholder="输入搜索内容" class="search_input"/>
+</header>
+<div class="mui-content">
+    <div id="itemsList">
+
+    </div>
+    <div class="pagination displayB pag_list"
+         style="display:none;position:absolute;left:50%;transform: translateX(-50%);">
+        <a href="#" class="first" data-action="first">&laquo;</a>
+        <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+        <input style="width:40%;line-height:30px;height:30px;color:#555" type="text" readonly="readonly"/>
+        <a href="#" class="next" data-action="next">&rsaquo;</a>
+        <a href="#" class="last" data-action="last">&raquo;</a>
+    </div>
+</div>
+
+<script>
+
+
+    $.get(API_HOST + "/government/find.json", {id: 5000}, function (response) {
+        console.log(response)
+        if (response.success) {
+            government = response.data;
+            $("#itemsTitle").text(government.name);
+            getItemlist(1, government);
+
+        } else {
+            alert(response.msg);
+        }
+    });
+
+    var itemsList = $("#itemsList");
+    //搜索
+
+    $(".search_input").bind("input", function () {
+        if ($(".search_input").val() == "") {
+            getItemlist(1, government);
+
+        }
+    });
+    $("#search_icon").click(function () {
+        $(".search_input").css({
+            "opacity": "1",
+            "left": "15%",
+            "width": "70%"
+        });
+
+        var keyword = $(".search_input").val();
+        if ($.trim($(".search_input").val()) != "") {
+            $.getJSON(API_HOST + "/search.json", {
+                "type": 1,
+                "keyword": keyword
+            }, function (response) {
+                console.log(response)
+                if (response.success) {
+                    var data = response.data.list;
+                    itemsList.empty();
+
+                    if (data.length == 0) {
+                        itemsList.append("<h2 style='margin-top:30%;text-align: center;'>没有数据</h2>");
+                        $(".displayB").hide();
+                    } else {
+                        $(".displayB").hide();
+                        for (var i = 0; i < data.length; i++) {
+
+                            var str = "";
+                            str += '<div class="mui-items"><div class="mui-items-name">';
+                            str += data[i].itemName;
+                            str += '</div>';
+                            str += '<div class="mui-items-itemType">';
+                            str += '<span style="margin-right:20px">法定期限：' + data[i].legalLimit + '</span>';
+                            str += '<span>承诺期限：' + data[i].promiseLimit + '</span>';
+                            str += '</div>';
+                            str += '<div class="mui-items-itemType">';
+                            if (data[i].isFee == 0) {
+                                str += '<span>是否收费：否</span>&nbsp;&nbsp;&nbsp;';
+                            } else {
+                                str += '<span>是否收费：是</span>&nbsp;&nbsp;&nbsp;';
+                            }
+
+                            if (data[i].transNature == 1) {
+                                str += '<span>行政许可</span>';
+                            } else {
+                                str += '<span>行政审批</span>';
+                            }
+                            str += '</div>';
+                            str += '<div>';
+                            var gid = data[i].handleSubject;
+
+                            if (data[i].remote == 1) {
+                                str += '<a href="transInfo.html?id=' + data[i].id + '&gid=' + gid + '" class="mui-items-blfs">';
+                                //									str += '<a href="transInfo.html?id=' + data[i].no+ '&gid=' + gid + '&openAppointment=' +openAppointment+ '&transAccept=' +transAccept+ '" class="mui-items-blfs">';
+                            } else {
+                                str += '<a href="transDetail.html?id=' + data[i].id + '&gid=' + gid + '" class="mui-items-blfs">';
+                            }
+
+                            str += '<span>办理指南</span>';
+                            str += '</a>';
+                            //							if(gid==5000||gid==5033) {
+
+                            if (government.openAppointment == 1 && data[i].isWebAppointment == 1) {
+
+                                str += '<a href="my_appointment.html?gid=' + government.id + '&id=' + data[i].id + '"   class="mui-items-blfs">';
+
+                                str += '<span id="" >在线预约</span>';
+
+                                str += '</a>';
+                            } else {
+                                str += '<span  class="disabled_itemslist">在线预约</span>';
+                            }
+
+
+                            if (government.transAccept == 1) {
+                                //审批系统申报
+                                if (data[i].isWebAccept == 1) {
+                                    str += '<a href="sbxz.html?id=' + data[i].id + '&gid=' + gid + '&itemName=' + data[i].itemName + '" class="mui-items-blfs"><span>网上申报</span></a>';
+                                } else {
+                                    //     该部门开启了事项申报，本事项不可在线申报
+                                    str += '<span  class="mui-items-blfs disabled_itemslist" >窗口申报</span>';
+
+                                }
+
+                            } else if (government.transAccept == 2) {
+                                // 统一申报地址
+                                str += ' <a href="' + government.transAcceptAddress + '" target="_blank" class="mui-items-blfs"><span>网上申报</span></a>';
+                            } else if (government.transAccept == 3) {
+                                //事项单独申报地址
+                                str += ' <a href="' + data[i].transAcceptAddress + '" target="_blank" class="mui-items-blfs"><span>网上申报</span></a>';
+
+                            } else {
+                                //     该部门未开启事项申报
+                                str += '<span  class="mui-items-blfs disabled_itemslist" >窗口申报</span>';
+                            }
+                            str += '</div>';
+                            str += '</div>';
+
+                            itemsList.append(str);
+
+                        }
+
+                    }
+
+                } else {
+                    alert("没有查询结果")
+                }
+
+            })
+        }
+    });
+
+    var showtitle = GetQueryString("showtitle");
+    if (!showtitle) {
+        $("#showtitle a").hide();
+        $("#showtitle h1").hide();
+    }
+
+
+    // var openAppointment = parseInt(GetQueryString("openAppointment"));
+
+
+    function getItemlist(page, government) {
+        $.get(API_HOST + "/trans/bjmmsb.json", {
+            gid: government.id,
+            rows: 10,
+            page: page
+        }, function (response) {
+            console.log(response);
+            //				mui.toast(response.msg);
+            if (response.success) {
+
+                var size = Math.ceil(response.data.total / 10)
+                $('.pagination').jqPagination({
+                    link_string: '/?page={page_number}',
+                    current_page: page, //设置当前页 默认为1
+                    max_page: size, //设置最大页 默认为1
+                    page_string: '第{current_page}页,共{max_page}页',
+                    paged: function (page) {
+                        getItemlist(page, government);
+                        console.log(tt(page))
+                    }
+                });
+
+                $("#itemsList").html("");
+                //						$("#article_list").empty();
+                var data = response.data.list;
+
+                if (data.length == 0) {
+                    $("#itemsList").append('<h2 style="text-align: center;margin:30px 0">没有数据</h2>')
+
+                } else {
+                    $(".displayB").css("display", "block");
+                }
+
+                //					var data = response.data.list;
+                for (var i = 0; i < data.length; i++) {
+
+                    var str = "";
+                    str += '<div class="mui-items"><div class="mui-items-name "><b>';
+                    str += data[i].itemName;
+                    str += '</b></div>';
+                    str += '<div class="mui-items-itemType">';
+                    str += '<span style="margin-right:20px">法定期限：' + data[i].legalLimit + '</span>';
+                    str += '<span>承诺期限：' + data[i].promiseLimit + '</span>';
+                    str += '</div>';
+                    str += '<div class="mui-items-itemType">';
+                    if (data[i].isFee == 0) {
+                        str += '<span>是否收费：否</span>&nbsp;&nbsp;&nbsp;';
+                    } else {
+                        str += '<span>是否收费：是</span>&nbsp;&nbsp;&nbsp;';
+                    }
+
+                    if (data[i].transNature == 1) {
+                        str += '<span>行政许可</span>';
+                    } else {
+                        str += '<span>行政审批</span>';
+                    }
+                    str += '</div>';
+                    str += '<div>';
+                    var gid = data[i].handleSubject;
+
+                    if (data[i].remote == 1) {
+                        str += '<a href="transInfo.html?id=' + data[i].id + '&gid=' + gid + '" class="mui-items-blfs">';
+                    } else {
+                        str += '<a href="transDetail.html?id=' + data[i].id + '&gid=' + gid + '" class="mui-items-blfs">';
+                    }
+
+                    str += '<span>办理指南</span>';
+                    str += '</a>';
+                    //							if(gid==5000||gid==5033) {
+                    if (government.openAppointment == 1 && data[i].isWebAppointment == 1) {
+
+                        str += '<a href="my_appointment.html?gid=' + gid + '&id=' + data[i].id + ' "   class="mui-items-blfs">';
+
+
+                        str += '<span id="">在线预约</span>';
+                        str += '</a>';
+                    } else {
+                        str += '<span  class="disabled_itemslist">在线预约</span>';
+                    }
+                    if (government.transAccept == 1) {
+                        //审批系统申报
+                        if (data[i].isWebAccept == 1) {
+                            str += '<a href="sbxz.html?id=' + data[i].id + '&gid=' + gid + '&itemName=' + data[i].itemName + '" class="mui-items-blfs"><span>网上申报</span></a>';
+                        } else {
+                            //     该部门开启了事项申报，本事项不可在线申报
+                            str += '<span  class="mui-items-blfs disabled_itemslist" >窗口申报</span>';
+
+                        }
+
+                    } else if (government.transAccept == 2) {
+                        // 统一申报地址
+                        str += ' <a href="' + government.transAcceptAddress + '" target="_blank" class="mui-items-blfs"><span>网上申报</span></a>';
+                    } else if (government.transAccept == 3) {
+                        //事项单独申报地址
+                        str += ' <a href="' + data[i].transAcceptAddress + '" target="_blank" class="mui-items-blfs"><span>网上申报</span></a>';
+
+                    } else {
+                        //     该部门未开启事项申报
+                        str += '<span  class="mui-items-blfs disabled_itemslist" >窗口申报</span>';
+                    }
+                    str += '</div>';
+                    str += '</div>';
+
+                    itemsList.append(str);
+
+                }
+            }
+        })
+    }
+</script>
+
+</body>
+
+</html>

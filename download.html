@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <title>下载引导页</title>
+    <style>
+        /*body{*/
+        /*background:rgba(0,0,0,0.9);*/
+        /*}*/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #weixin-tip {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            filter: alpha(opacity=80);
+            height: 100%;
+            width: 100%;
+            z-index: 100;
+        }
+
+        #weixin-tip p {
+            text-align: center;
+            margin-top: 10%;
+            padding: 0 5%;
+        }
+
+        #btn {
+            border: 1px solid #00baf6;
+            padding: 20px 40px;
+            font-size: 18px;
+            color: #fff;
+            background: #00baf6;
+            margin: auto;
+        }
+
+        .wrap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+
+        .wrap h2 {
+            text-align: center;
+            transform: translateY(-180%);
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+
+
+<!--<a id="J_weixin" class="android-btn" href="#"><img src="images/android-btn.png" alt="安卓版下载"/></a>-->
+
+<div id="weixin-tip">
+    <p>
+        <img class="ios" src="images/live_weixin.png" alt="微信打开"/><span id="close" title="关闭" class="close">×</span>
+        <img class="android" src="images/android-btn.png" alt="安卓打开"><span title="关闭" class="close">×</span>
+    </p>
+
+</div>
+<div class="wrap">
+    <h2 id="title"></h2>
+    <button id="btn" style="display: none">立即下载</button>
+</div>
+
+<script>
+    var uuid = GetQueryString("uuid");
+    var title = GetQueryString("title");
+    $("#title").text(title);
+    var is_weixin = (function () {
+        return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1
+    })();
+
+    window.onload = function () {
+        var winHeight = typeof window.innerHeight != 'undefined' ? window.innerHeight : document.documentElement.clientHeight; //兼容IOS，不需要的可以去掉
+        var btn = document.getElementById('J_weixin');
+        var tip = document.getElementById('weixin-tip');
+        var close = document.getElementById('close');
+        var downBtn = document.getElementById("btn");
+        if (is_weixin) {
+            // btn.onclick = function (e) {
+
+            tip.style.height = winHeight + 'px'; //兼容IOS弹窗整屏
+            tip.style.display = 'block';
+            return false;
+            // }
+            close.onclick = function () {
+                tip.style.display = 'none';
+            }
+        } else {
+            downBtn.style.display = "block";
+        }
+    }
+
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isAndroid){
+        $(".android").show();
+        $(".ios").hide();
+    }else{
+        $(".android").hide();
+        $(".ios").show();
+    }
+    // alert('是否是Android：'+isAndroid);
+    // alert('是否是iOS：'+isiOS);
+
+
+    $("#btn").click(function () {
+        if (GetQueryString("source") == 1) {
+            window.location.href = "http://www.ycsmdt.gov.cn/download.php?type=" + GetQueryString("type") + "&id=" + GetQueryString("id");
+        } else {
+            window.location.href = "http://www.ycsmdt.gov.cn/files/a/hash/" + uuid;
+        }
+    })
+
+
+</script>
+</body>
+</html>
